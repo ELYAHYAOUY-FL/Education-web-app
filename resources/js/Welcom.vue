@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      message: 'Hello from Vue!'
+      message: 'hi every one in vu laravel'
     };
   }
 }
