@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      message: 'hi sara'
+      message: 'last teste'
     };
   }
 }
