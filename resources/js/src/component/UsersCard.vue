@@ -5,52 +5,85 @@
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX(' + currentOffset + 'px)' }">
             <div class="card-carousel--card" v-for="item in items" :key="item.name">
+               <a  :href="item.url">
               <img :src="item.image" />
               <div class="card-carousel--card--footer">
-                <p>{{ item.name }}</p>
+                <p class="para">{{ item.name }}</p> 
                 <!-- <div class="tag" v-for="(tag, index) in item.tag" :key="index" :class="{ 'secondary': index > 0 }">{{ tag }}</div> -->
-              </div>
+               </div> 
+           </a> 
             </div>
           </div>
         </div>
       </div>
       <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
-    </div>
+    </div> 
   </template>
   
   <script>
+  import studentImag from '../assest/images/student.png'
+  import parentImg  from '../assest/images/student.png'
+  import profImg from '../assest/images/professeur.jpg'
+  import administrationImg from '../assest/images/administration.png'
+
+  import AdministrationPage from '../pages/AdministrationPage.vue'
+  import studentPage from '../pages/ElevePage.vue'
+  import professeurPage from '../pages/ParentsPage.vue'
+  import parentPage from '../pages/ProfesserPage.vue'
+
+  
+
+const routes = {
+  '/Administration': AdministrationPage,
+  '/Student':studentPage ,
+  '/professeur':  professeurPage,
+  '/parent':  parentPage
+}
+
+
   export default {
     data() {
       return {
+        currentPath: window.location.hash,
+        
+
         name : "CardUser",
         currentOffset: 0,
-        windowSize: 2,
+        windowSize:3,
         paginationFactor: 220,
         items: [
           { name: 'espaces eleve',
-          image: '../assest/images/student.png'
+          url:'/Student',
+          image: studentImag
            },
           { name: 'parent',
-           image: '../assest/images/student.png'
+          url:'/parent',
+           image: parentImg
             },
           { name: 'ensegnent ',
-           image: '../assest/images/student.png'
+          url:'/professeur',
+           image: profImg
             },
           { name: 'administration ',
-           image: '../assest/images/student.png' 
+          url:'/Administration',
+           image: administrationImg
            },
          
       
         ]
       }
-    },
+    }, 
     computed: {
       atEndOfList() {
         return this.currentOffset <= (this.paginationFactor * -1) * (this.items.length - this.windowSize)
       },
+      
       atHeadOfList() {
         return this.currentOffset === 0
-      }
+      },
+      currentView() {
+      return routes[this.currentPath.slice(1) || '/'] || NotFound
+    }
     },
     methods: {
       moveCarousel(direction) {
@@ -60,7 +93,11 @@
           this.currentOffset += this.paginationFactor
         }
       }
+    },
+     currentView() {
+      return routes[this.currentPath.slice(1) || '/'] || NotFound
     }
+
   }
   </script>
   

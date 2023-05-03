@@ -135,7 +135,7 @@ header.hero {
   .card-carousel {
     display: flex;
     justify-content: center;
-    width: 640px;
+    width: 750px;
   }
   
   /* Apply styles to card carousel overflow container */
@@ -222,5 +222,17 @@ header.hero {
     user-select: none;
   }
   
-  /* Apply styles to card image on hover state */
-  
+  /* Apply styles to card name  */
+  .card-carousel--card--footer{
+    border-top: 0;
+    padding: 7px 15px;
+  }
+  .para{
+    padding: 12px 12px;
+    margin: 0;
+    margin-bottom: 2px;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--vue-teal);
+    user-select: none;
+  }
