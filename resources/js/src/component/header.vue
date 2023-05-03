@@ -8,9 +8,9 @@
               
               <!-- <a href="#" class="menu"><img src="assets/menu.png"></a> -->
               <div class="hero-text">
-                <h1><span>Hi, I am</span><br>Maria Ferrero.</h1>
-                <h3>Freelance designer from Melbourne</h3>
-                <a href="#" class="btn btn-lg btn-primary">Know More</a>
+                <h1><span>Bienvenu a</span><br>Notre platform </h1>
+                <h3>Nous sommes heureux de vous offrir un accès facile et pratique .</h3>
+               
               
           </div>
         </div>
