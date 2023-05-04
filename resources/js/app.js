@@ -1,28 +1,8 @@
 
 import { createApp } from "vue";
 import Welcom from "./src/App.vue";
+import router from "./router.js";
 
 
-createApp(Welcom).mount("#app");
+createApp(Welcom).use(router).mount("#app");
 
-
-
-
-// import VueRouter from 'vue-router'
-
-// const routes = [
-//   { path: '/Administration', component: Admin },
-//   { path: '/Student', component: Eleve },
-//   { path: '/professeur', component:Prof },
-//   { path: '/parent', component: parent }
-// ]
-
-// // const router = new VueRouter({
-// //   routes
-// // })
-
-
-// Vue.use(VueRouter)
-
-// const router = new VueRouter({
-//     routes })

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <AcuillePage />
+    <router-view></router-view>
+
+    
     
   </div>
 </template>
