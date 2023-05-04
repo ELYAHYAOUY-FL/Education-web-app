@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
  import Hero from '../component/header.vue'
  import Navbar from '../component/nav.vue'
  import UsersCard from '../component/UsersCard.vue'
