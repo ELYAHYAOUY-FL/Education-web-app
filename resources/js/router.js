@@ -5,7 +5,7 @@ import studentPage from './src/pages/ElevePage.vue'
 import parentPage from './src/pages/ParentsPage.vue'
 import   professeurPage from './src/pages/ProfesserPage.vue'
 import   AcuillePage from './src/pages/AcuillePage.vue'
-
+import EtudiantListAdmin from './Page/NiveauScolaire/index.vue'
 
 const routes =[ 
 
@@ -27,6 +27,11 @@ const routes =[
     path : '/Student',
    name :'Eleve',
    component : studentPage
+},
+{
+    path : '/StudentPageadmin',
+   name :'ElevePageadmin',
+   component : EtudiantListAdmin
 },
 {
     path : '/professeur',
