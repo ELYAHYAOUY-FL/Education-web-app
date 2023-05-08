@@ -1,11 +1,11 @@
 <template>
     
-<li class="nav-item d-none d-sm-inline-block">
+<!-- <li class="nav-item d-none d-sm-inline-block">
 <a href="index3.html" class="nav-link">Home</a>
 </li>
 <li class="nav-item d-none d-sm-inline-block">
 <a href="#" class="nav-link">Contact</a>
-</li>
+</li> -->
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
@@ -44,7 +44,7 @@ Starter Pages
 <i class="right fas fa-angle-left"></i>
 </p>
 </a>
-<!-- <ul class="nav nav-treeview">
+<ul class="nav nav-treeview">
 <li class="nav-item">
 <a href="#" class="nav-link active">
 <i class="far fa-circle nav-icon"></i>
@@ -57,7 +57,7 @@ Starter Pages
 <p>Inactive Page</p>
 </a>
 </li>
-</ul> -->
+</ul>
 </li>
 </ul>
 </nav>
