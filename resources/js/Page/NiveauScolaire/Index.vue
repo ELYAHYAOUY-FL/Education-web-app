@@ -29,7 +29,7 @@
     
        export default{
         
-        name: "AdminListeScolaire",
+        // name: "AdminListeScolaire",
         components: { MainLayout }
     }
         

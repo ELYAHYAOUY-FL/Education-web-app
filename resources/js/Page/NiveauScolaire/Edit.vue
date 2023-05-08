@@ -1,6 +1,6 @@
 <template>
   
-  
+  <MainLayout>
     <div class="content-header">
     <div class="container-fluid">
     <div class="row mb-2">
@@ -21,5 +21,13 @@
     </div>
     
   
+  </MainLayout>
       </template>
-      
+      <script>
+      import MainLayout from "../../Layouts/MainLayout.vue";
+   
+      export default{
+       
+      // name: "AdminListeScolaire",
+       components: { MainLayout }
+   }

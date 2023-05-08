@@ -5,7 +5,11 @@ import studentPage from './src/pages/ElevePage.vue'
 import parentPage from './src/pages/ParentsPage.vue'
 import   professeurPage from './src/pages/ProfesserPage.vue'
 import   AcuillePage from './src/pages/AcuillePage.vue'
-import EtudiantListAdmin from './Page/NiveauScolaire/index.vue'
+// import EtudiantListAdmin from './Page/NiveauScolaire/index.vue'
+// admin import
+import  NiveauListAdmin from './Page/NiveauScolaire/index.vue';
+import EtudiantListAdmin from './Page/Etudiant/index.vue';
+import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
 
 const routes =[ 
 
@@ -22,28 +26,41 @@ const routes =[
    name :'Admin',
    component : AdministrationPage
 },
+{
+  path : '/professeur',
+ name :'Prof',
+ component : professeurPage
+},
+{
+
+  path :'/parent',
+  name :'parent',
+ component :parentPage
+},
 
 {
     path : '/Student',
    name :'Eleve',
    component : studentPage
 },
+// admin router 
 {
-    path : '/StudentPageadmin',
-   name :'ElevePageadmin',
-   component : EtudiantListAdmin
+  path : '/StudentPageadmin',
+  name :'ElevePageadmin',
+  component : EtudiantListAdmin
 },
 {
-    path : '/professeur',
-   name :'Prof',
-   component : professeurPage
+path : '/NiveauPageadmin',
+name : 'NiveauListAdmin',
+component : NiveauListAdmin
 },
-{
 
-    path :'/parent',
-    name :'parent',
-   component :parentPage
+{
+path : '/StudentCreatadmin',
+name :'EtudiantCreatAdmin',
+component : EtudiantCreatAdmin
 }
+
 ];
 
 const router  =createRouter({
@@ -52,4 +69,3 @@ const router  =createRouter({
 });
 
 export default router;
-
