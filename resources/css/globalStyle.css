@@ -1,0 +1,27 @@
+
+/* globaale style  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    
+    body {
+    font-family: cursive;
+    }
+    
+    a {
+    text-decoration: none;
+    }
+    
+    li {
+    list-style: none!important;
+    }
+
+
+    .container {
+       margin-right: auto;
+       margin-left: auto;
+       padding-right: 15px;
+      padding-left: 15px;
+        }
