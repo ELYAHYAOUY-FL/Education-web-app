@@ -28,7 +28,20 @@
                     <li class="page-item"><a class="page-link" href="#">»</a></li>
                   </ul>
                 </div>
+                <button class="btn btn-success" @click="showForm = !showForm">
+  <i :class="showForm ? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
+  {{ showForm ? 'Cancel' : 'Add NiveauScolaire' }}
+</button>
+<form v-if="showForm">
+  <div class="form-group">
+    <label for="nom">Nom</label>
+    <input type="text" class="form-control" id="nom" v-model="nom">
+  </div>
+  <button class="btn btn-primary" @click="addNiveauScolaire">Save</button>
+</form>
+
               </div>
+
               <div class="card-body p-0">
                 <table class="table">
                   <thead>
@@ -43,7 +56,7 @@
                       <td>
                         <div class="d-flex justify-items-center">
                           <button class="btn btn-info mr-2"><i class="fas fa-pen fa-beat"></i></button>
-                          <button class="btn btn-danger"><i class="fas fa-solid fa-trash fa-beat fa-xl"></i></button>
+                          <button class="btn btn-danger"><i class="fas fa-solid fa-trash fa-beat fa-xl" @click="deleteNiveauScolaire(niveauScolaire.id)"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -51,6 +64,7 @@
                 </table>
               </div>
             </div>
+               
           </div>
         </div>
       </div>
@@ -65,16 +79,9 @@ export default {
   components : { MainLayout},
   data() {
     return {
-      niveauScolaires: [{
-
-        'nom':'1émé'
-      },
-      {
-
-        'nom':'1émé'
-      }
-      
-      ]
+      showForm: false,
+      nom: '', 
+      niveauScolaires: []
     };
   },
   mounted(){
@@ -88,7 +95,23 @@ export default {
     console.error(error);
   }
   
+},
+methods: {
+  async addNiveauScolaire() {
+    const newNiveauScolaire = {
+       nom: this.nom };
+    try {
+      const response = await axios.post('adminn/nivScolaircreate', newNiveauScolaire);
+      // handle the response as needed
+      this.showForm = false;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+ 
 }
+
+
 };
 </script>
 
