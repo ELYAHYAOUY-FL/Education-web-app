@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::post('adminn/nivScolaircreate',[NiveauScolaireController::class,'store']);
+Route::get('adminn/nivScolairListe',[NiveauScolaireController::class,'index']);
 
 Route::get('/{any}', function () {
     return inertia('welcome');
