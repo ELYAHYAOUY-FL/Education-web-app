@@ -12,6 +12,7 @@ class NiveauScolaireController extends Controller
   //  return inertia("NiveauScolaire/Index");
    return NiveauScolaire::all();
  }
+ 
  public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -27,6 +28,8 @@ class NiveauScolaireController extends Controller
         // Optionally, you can return a response or redirect to a different page
         return response()->json(['message' => 'NiveauScolaire added successfully']);
     }
+
+
     public function destroy($id)
     {
         $niveauScolaire = NiveauScolaire::findOrFail($id);
@@ -35,6 +38,8 @@ class NiveauScolaireController extends Controller
         // Optionally, you can return a response or redirect to a different page
         return response()->json(['message' => 'NiveauScolaire deleted successfully']);
     }
+
+
     public function update(Request $request, $id)
     {
         // Find the niveau scolaire with the specified id

@@ -11,6 +11,11 @@ import  NiveauListAdmin from './Page/NiveauScolaire/index.vue';
 import EtudiantListAdmin from './Page/Etudiant/index.vue';
 import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
 
+ //import ProfesseurListAdmin from './Page/Professeur/index';
+ import ProfesseurListAdmin from './Page/Professeur/index.vue';
+ import ProfesseurcreateAdmin from './Page/Professeur/Create.vue';
+//  import ProfesseurEditAdmin from './Page/Professeur/Edit.vue';
+
 const routes =[ 
 
     {
@@ -43,23 +48,61 @@ const routes =[
    name :'Eleve',
    component : studentPage
 },
-// admin router 
+// **********************admin router *********************
+// student path 
 {
   path : '/StudentPageadmin',
   name :'ElevePageadmin',
   component : EtudiantListAdmin
 },
 {
+  path : '/StudentCreatadmin',
+  name :'EtudiantCreatAdmin',
+  component : EtudiantCreatAdmin
+  },
+
+
+  // niveau Scolaire Path 
+{
 path : '/NiveauPageadmin',
 name : 'NiveauListAdmin',
 component : NiveauListAdmin
 },
 
+
+//  prof path 
 {
-path : '/StudentCreatadmin',
-name :'EtudiantCreatAdmin',
-component : EtudiantCreatAdmin
-}
+  path : '/ProfesseurPageadmin',
+  name :'ProfPageadmin',
+  component : ProfesseurListAdmin
+},
+{
+  path : '/ProfesseurCreatePageadmin',
+  name :'ProfcretePageadmin',
+  component : ProfesseurcreateAdmin
+},
+// {
+//   path : '/ProfesseurEditPageadmin',
+//   name :'ProfEditPageadmin',
+//   component : ProfesseurEditAdmin
+// },
+//  parent  path 
+{
+  path : '/ProfesseurPageadmin',
+  name :'ProfPageadmin',
+  component : ProfesseurListAdmin
+},
+{
+  path : '/ProfesseurCreatePageadmin',
+  name :'ProfcretePageadmin',
+  component : ProfesseurcreateAdmin
+},
+// {
+//   path : '/ProfesseurEditPageadmin',
+//   name :'ProfEditPageadmin',
+//   component : ProfesseurEditAdmin
+// },
+
 
 ];
 

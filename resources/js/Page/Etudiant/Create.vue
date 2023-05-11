@@ -15,7 +15,7 @@
     
     <div class="content">
     <div class="container-fluid">
-    <h1>mon Contenu</h1>
+    <h1> create etud</h1>
     
     </div>
     </div>

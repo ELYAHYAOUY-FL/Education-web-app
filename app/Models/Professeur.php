@@ -29,4 +29,8 @@ class Professeur extends Model
     {
         return $this->hasMany(Etudiant::class);
     }
+    public function niveau_scolaire()
+    {
+        return $this->belongsTo(NiveauScolaire::class);
+    }
 }

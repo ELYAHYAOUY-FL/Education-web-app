@@ -8,7 +8,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title"></h3>
-                <div class="card-tools">
+                <!-- <div class="card-tools">
                   <ul class="pagination pagination-sm float-right">
                     <li class="page-item"><a class="page-link" href="#">«</a></li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -16,7 +16,7 @@
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">»</a></li>
                   </ul>
-                </div>
+                </div> -->
                 <button class="btn btn-success" @click="showForm = !showForm">
                   <i :class="showForm ? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
                   {{ showForm ? 'Cancel' : 'Add NiveauScolaire' }}

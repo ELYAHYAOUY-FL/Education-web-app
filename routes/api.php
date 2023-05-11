@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 	
 use App\Http\Controllers\NiveauScolaireController;
+use App\Http\Controllers\ProfessuerController ;
 
+Route::get('/professuers', [ProfessuerController ::class, 'index']);
 Route::delete('adminn/nivScolairdelete/{id}', [NiveauScolaireController::class, 'destroy']);
 Route::put('/adminn/nivScolairupdate/{id}', 'NiveauScolaireController@update');
 
