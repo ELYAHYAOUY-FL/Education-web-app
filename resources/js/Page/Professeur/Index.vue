@@ -63,7 +63,7 @@
                       <td>
                         <div class="d-flex justify-items-center">
                           <button class="btn btn-info mr-2"><i class="fas fa-pen fa-beat"></i></button>
-                          <button class="btn btn-danger"><i class="fas fa-solid fa-trash fa-beat fa-xl" @click="deleteNiveauScolaire(niveauScolaire.id)"></i></button>
+                          <button class="btn btn-danger"><i class="fas fa-solid fa-trash fa-beat fa-xl" @click="deleteProfesseur(professuer.id)"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -103,15 +103,6 @@
           };
         },
      
-//       created() {
-//     axios.get('api/professuers')
-//         .then(response => {
-//             this.professuers = response.data;
-//         })
-//         .catch(error => {
-//             console.log(error);
-//         });
-// },  
 mounted() {
     try {
       console.log('on mounted');
@@ -122,6 +113,17 @@ mounted() {
     } catch (error) {
       console.error(error);
     }
-  },  
+  }, 
+  methods: {
+    async deleteProfesseur(id) {
+  try {
+    const response = await axios.delete(`/api/admin/profdelete/${id}`);
+    this.professuers = this.professuers.filter(professuer => professuer.id !== id);
+  } catch (error) {
+    console.log(error);
+  }
+},
+
+  } 
       };
       </script>
