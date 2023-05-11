@@ -35,5 +35,21 @@ class NiveauScolaireController extends Controller
         // Optionally, you can return a response or redirect to a different page
         return response()->json(['message' => 'NiveauScolaire deleted successfully']);
     }
+    public function update(Request $request, $id)
+    {
+        // Find the niveau scolaire with the specified id
+        $niveauScolaire = NiveauScolaire::findOrFail($id);
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        // Update the niveau scolaire with the validated data
+        $niveauScolaire->update($validatedData);
+
+        // Return a response indicating success
+        return response()->json(['message' => 'Niveau scolaire updated successfully']);
+    }
 
 }

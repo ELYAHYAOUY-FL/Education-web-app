@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NiveauScolaireController;
 
 Route::delete('adminn/nivScolairdelete/{id}', [NiveauScolaireController::class, 'destroy']);
-
+Route::put('/adminn/nivScolairupdate/{id}', 'NiveauScolaireController@update');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
