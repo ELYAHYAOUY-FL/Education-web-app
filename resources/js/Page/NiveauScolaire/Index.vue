@@ -51,7 +51,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="niveauScolaire in niveauScolaires" :key="niveauScolaire.id">
+                    <!-- <tr  v-for="(niveauScolaire,index) in niveauScolaires" :id="'div'+niveauScolaire.id"></tr> -->
+                    <tr v-for="(niveauScolaire ) in niveauScolaires" :key="niveauScolaire.id" :id="'div'+niveauScolaire.id">
                       <td>{{ niveauScolaire.nom }}</td>
                       <td>
                         <div class="d-flex justify-items-center">
@@ -80,7 +81,8 @@ export default {
   data() {
     return {
       showForm: false,
-      nom: '', 
+      nom: '',
+      id :'',
       niveauScolaires: []
     };
   },
@@ -108,7 +110,24 @@ methods: {
       console.error(error);
     }
   },
+  async deleteNiveauScolaire(id){
+  
+    let instance = this;
+    axios.delete('/api/adminn/nivScolairdelete/' + id)
+                .then (resp => {
+                  this.niveauScolaires = this.niveauScolaires.filter(niveauScolaire => niveauScolaire.id !== id);
+
+    })
+                    // .then(function (response) {
+                    //    $('#div'+this.id).fadeOut(300, function() {
+                    //         console.log("deleted");
+                    //     })
  
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+ 
+}
 }
 
 

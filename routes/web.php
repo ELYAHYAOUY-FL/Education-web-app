@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('adminn/nivScolaircreate',[NiveauScolaireController::class,'store']);
 Route::get('adminn/nivScolairListe',[NiveauScolaireController::class,'index']);
 // Route::get('admin/nivScolairDelete', [NiveauScolaireController::class, 'destroy']);
-// Route::delete('/admin/nivScolair/{id}', [NiveauScolaireController::class, 'destroy']);
+Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class, 'destroy']);
 
 // Route::get('adminn/nivScolairupdate',[NiveauScolaireController::class,'update']);
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);
