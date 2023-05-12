@@ -69,7 +69,7 @@
     </router-link>
     </li>
     <li class="nav-item">
-    <router-link to="ProfesseurCreatePageadmin" class="nav-link" :class="{ 'active': $route.path === '/StudentCreatadmin' }">
+    <router-link to="/ProfesseurCreatePageadmin" class="nav-link" :class="{ 'active': $route.path === '/ProfesseurCreatePageadmin' }">
     <i class="far fa-circle nav-icon"></i>
     <p> Inscription </p>
     </router-link>
