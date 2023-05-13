@@ -3,7 +3,6 @@
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\NiveauScolaireController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +13,20 @@ use App\Http\Controllers\DashboardController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
-//Route::get('admin/etudiantListe',[EtudiantController::class,'index']);
+*/ 
+
+// admin prof 
+Route::get('/professuers', [ProfessuerController::class, 'index']);
+
+
+
+//*************************************************** */
+
+// admin niveau scolaire 
 Route::post('adminn/nivScolaircreate',[NiveauScolaireController::class,'store']);
 Route::get('adminn/nivScolairListe',[NiveauScolaireController::class,'index']);
-Route::get('/etudiants', [EtudiantController::class, 'index']);
-Route::post('admin/etudiantcreate', [EtudiantController::class, 'store'])->name('etudiant.store');
-Route::get('/dashboard', [DashboardController::class, 'getDashboardData']);
-
-
 // Route::get('admin/nivScolairDelete', [NiveauScolaireController::class, 'destroy']);
-// Route::delete('/admin/nivScolair/{id}', [NiveauScolaireController::class, 'destroy']);
+Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class, 'destroy']);
 
 // Route::get('adminn/nivScolairupdate',[NiveauScolaireController::class,'update']);
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);

@@ -5,7 +5,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
     <div class="col-sm-6">
-    <h1 class="m-0">Formulaire de Creation d'un niveau scolaire</h1>
+    <h1 class="m-0">Formulaire d'édition d'un niveau scolaire</h1>
     </div>
     
     </div>
@@ -15,7 +15,7 @@
     
     <div class="content">
     <div class="container-fluid">
-    <h1> create nv</h1>
+    <h1>mon Contenu</h1>
     
     </div>
     </div>
@@ -31,5 +31,3 @@
       // name: "AdminListeScolaire",
        components: { MainLayout }
    }
-   
-   </script>

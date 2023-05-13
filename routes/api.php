@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+	
+use App\Http\Controllers\NiveauScolaireController;
+use App\Http\Controllers\ProfessuerController ;
+
+Route::get('/professuers', [ProfessuerController ::class, 'index']);
+Route::delete('adminn/nivScolairdelete/{id}', [NiveauScolaireController::class, 'destroy']);
+Route::delete('/admin/profdelete/{id}', [ProfessuerController::class, 'destroy']);
+Route::put('/adminn/nivScolairupdate/{id}', 'NiveauScolaireController@update');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
