@@ -23,6 +23,7 @@ class Professeur extends Model
         'note_id',
         // Add other attributes here
     ];
+    
 
     // Relationship with children (students)
     public function enfants()
