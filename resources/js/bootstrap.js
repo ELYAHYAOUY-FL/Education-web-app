@@ -12,6 +12,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import "admin-lte/plugins/jquery/jquery"
 import "admin-lte/plugins/bootstrap/js/bootstrap.bundle"
 import "admin-lte/dist/js/adminlte"
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

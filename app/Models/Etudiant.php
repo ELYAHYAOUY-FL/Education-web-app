@@ -9,9 +9,10 @@ class Etudiant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["nom", "prenom","photo", "sex", "age", "niveau_scolaire_id"];
+    protected $fillable = ["nom", "prenom","photo", "sex", "age", "niveau_scolaire_id","datenaissance"];
 
     public function niveau_scolaire(){
-        return $this->belongsTo(NiveauScolaire::class);
+        // return $this->belongsTo(NiveauScolaire::class);
+        return $this->belongsTo(NiveauScolaire::class, 'niveau_scolaire_id');
     }
 }

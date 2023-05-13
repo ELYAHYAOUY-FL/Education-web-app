@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("photo")->nullable();
             $table->char("sexe");
             $table->integer("age");
+            $table->date("date_naissance");
             $table->foreignId("niveau_scolaire_id")->constrained();
             $table->timestamps();
         });
