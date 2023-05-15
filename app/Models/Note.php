@@ -7,7 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'id'];
+    protected $fillable = ['valeur', 'date'];
+
+    public function professeur()
+    {
+        return $this->belongsTo(Professeur::class);
+    }
+
+    public function eleves()
+    {
+        return $this->belongsToMany(Eleve::class, 'eleve_note');
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
 }
+
