@@ -42,13 +42,13 @@
     <li class="nav-item">
     <router-link to="/StudentPageadmin" class="nav-link " exact active-class="active">
     <i class="far fa-circle nav-icon"></i>
-    <p> Tous </p>
+    <p> Liste des Etudiants </p>
     </router-link>
     </li>
     <li class="nav-item">
     <router-link to="/StudentCreatadmin" class="nav-link" exact active-class="active">
     <i class="far fa-circle nav-icon"></i>
-    <p> Nouveau</p>
+    <p> Inscription</p>
     </router-link>
     </li>
     </ul> 
@@ -99,7 +99,30 @@
     </li>
     </ul> 
     </li>
-    </ul>
+    <li class="nav-item menu-close "> 
+    <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Etudiant') }">
+        <i class="nav-icon fas fa-utensils"></i>
+    <p>
+    Cantine
+    <i class="right fas fa-angle-left"></i>
+    </p>
+    </a>
+     <ul class="nav nav-treeview">
+    <li class="nav-item">
+    <router-link to="/CantinePageadmin" class="nav-link " :class="{ 'active': $route.path === '/CantinePageadmin' }">
+    <i class="far fa-circle nav-icon"></i>
+    <p> Programme du semaine </p>
+    </router-link>
+    </li>
+    <li class="nav-item">
+    <router-link to="/CantineCretePageadmin" class="nav-link" :class="{ 'active': $route.path === '/CantineCretePageadmin' }">
+    <i class="far fa-circle nav-icon"></i>
+    <p> Ajouter programme </p>
+    </router-link>
+    </li>
+    </ul> 
+    </li>    
+</ul>
     </nav>
     
     </div>

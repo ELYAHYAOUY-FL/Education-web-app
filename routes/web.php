@@ -1,7 +1,8 @@
 <?php
-
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\NiveauScolaireController;
+use App\Http\Controllers\CantineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/professuers', [ProfessuerController::class, 'index']);
 
 
+Route::get('/dashboard', [DashboardController::class, 'getDashboardData']);
 
 //*************************************************** */
 
@@ -30,7 +32,18 @@ Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class
 
 // Route::get('adminn/nivScolairupdate',[NiveauScolaireController::class,'update']);
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);
+//admin etudaint
+Route::get('/etudiants', [EtudiantController::class, 'index']);
+Route::post('admin/etudiantcreate', [EtudiantController::class, 'store'])->name('etudiant.store');
 
+//cantine 
+Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
+Route::get('/menu-jour/{nom}', [CantineController::class, 'getMenuJour']);
+Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
+
+// Route::delete('/menu-jour/{jour}', [CantineController::class, 'destroyMenuJour']);
+Route::delete('/menu-jour/{nom}', [CantineController::class, 'supprimerJour']);
+Route::post('/ajouter-menu', [CantineController::class, 'ajouterMenu']);
 
 Route::get('/{any}', function () {
     return inertia('welcome');

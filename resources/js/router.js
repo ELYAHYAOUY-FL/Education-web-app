@@ -16,6 +16,9 @@ import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
  import ProfesseurcreateAdmin from './Page/Professeur/Create.vue';
 //  import ProfesseurEditAdmin from './Page/Professeur/Edit.vue';
 
+import CantinePageadmin from './Page/Cantine/index.vue'
+import CantineCretePageadmin from './Page/Cantine/CreateCantine.vue'
+
 const routes =[ 
 
     {
@@ -97,6 +100,18 @@ component : NiveauListAdmin
   name :'ProfcretePageadmin',
   component : ProfesseurcreateAdmin
 },
+{
+  path : '/CantinePageadmin',
+  name :'CantPageadmin',
+  component : CantinePageadmin
+},
+{
+  path : '/CantineCretePageadmin',
+  name :'CantCretePageadmin',
+  component :CantineCretePageadmin
+},
+
+
 // {
 //   path : '/ProfesseurEditPageadmin',
 //   name :'ProfEditPageadmin',
