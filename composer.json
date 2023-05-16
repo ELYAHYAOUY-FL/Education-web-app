@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "axn/laravel-models-generator": "^6.6",
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.9",
@@ -23,6 +24,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
+        "reliese/laravel": "^1.2",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
