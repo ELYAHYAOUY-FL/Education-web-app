@@ -15,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 	
 use App\Http\Controllers\NiveauScolaireController;
-use App\Http\Controllers\ProfessuerController ;
+use App\Http\Controllers\ProfesseurController ;
+// niveua scolaire api 
+Route::get('/niveau_scolires', [NiveauScolaireController ::class, 'index']);
+Route::post('/niveau_scolires', [NiveauScolaireController ::class, 'store']);
+Route::delete('/niveau_scolires/{id}', [NiveauScolaireController ::class, 'destroy']);
+Route::put('/niveau_scolires/{id}', [NiveauScolaireController ::class,'update']);
 
-Route::get('/professuers', [ProfessuerController ::class, 'index']);
-Route::delete('/admin/profdelete/{id}', [ProfessuerController::class, 'destroy']);
-Route::post('/admin/professeur', [ProfessuerController ::class, 'store']);
-Route::delete('adminn/nivScolairdelete/{id}', [NiveauScolaireController::class, 'destroy']);
-Route::put('/adminn/nivScolairupdate/{id}', 'NiveauScolaireController@update');
+// professuers 
+Route::get('/professuers', [ProfesseurController ::class, 'index']);
+Route::post('/professuers', [ProfesseurController ::class, 'store']);
+Route::delete('/professuers/{id}', [ProfesseurController::class, 'destroy']);
+Route::delete('professuers/{id}', [ProfesseurController::class, 'update']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

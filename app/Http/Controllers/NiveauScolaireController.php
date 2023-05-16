@@ -2,34 +2,80 @@
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Http\Request;
 use App\Models\NiveauScolaire;
+use Illuminate\Http\Request;
 
+/**
+ * Class NiveauScolaireController
+ * @package App\Http\Controllers
+ */
 class NiveauScolaireController extends Controller
 {
- public function index(){
-  //  return inertia("NiveauScolaire/Index");
-   return NiveauScolaire::all();
- }
- 
- public function store(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $validatedData = $request->validate([
-            'nom' => 'required',
-        ]);
+        $niveauScolaires = NiveauScolaire::all();
 
-        $niveauScolaire = new NiveauScolaire;
-        $niveauScolaire->nom = $validatedData['nom'];
-        // Set other properties of NiveauScolaire if needed
-
-        $niveauScolaire->save();
-
-        // Optionally, you can return a response or redirect to a different page
-        return response()->json(['message' => 'NiveauScolaire added successfully']);
+        return response()->json($niveauScolaires);
+            
     }
 
+   
 
+    public function create()
+    {
+        $niveauScolaire = new NiveauScolaire();
+        
+    }
+
+   
+   
+    public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'nom' => 'required',
+        'description' => 'required',
+    ]);
+
+    $niveau_scolaire = new NiveauScolaire;
+    $niveau_scolaire->nom = $validatedData['nom'];
+    $niveau_scolaire->description = $validatedData['description'];
+
+    $niveau_scolaire->save();
+
+    return response()->json(['message' => 'Le niveau a été ajouté avec succès']);
+}
+
+   
+    public function update(Request $request, $id)
+    {
+       
+    // Find the niveau scolaire with the specified id
+    $niveauScolaire = NiveauScolaire::findOrFail($id);
+
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'nom' => 'required|string|max:255',
+        'description' => 'required',
+    ]);
+
+    // Update the specific fields of niveau scolaire with the validated data
+    $niveauScolaire->nom = $validatedData['nom'];
+    $niveauScolaire->description = $validatedData['description'];
+    $niveauScolaire->save();
+
+    // Return a response indicating success
+    return response()->json(['message' => 'Niveau scolaire updated successfully']);
+
+
+    } 
+    
+
+   
     public function destroy($id)
     {
         $niveauScolaire = NiveauScolaire::findOrFail($id);
@@ -38,23 +84,4 @@ class NiveauScolaireController extends Controller
         // Optionally, you can return a response or redirect to a different page
         return response()->json(['message' => 'NiveauScolaire deleted successfully']);
     }
-
-
-    public function update(Request $request, $id)
-    {
-        // Find the niveau scolaire with the specified id
-        $niveauScolaire = NiveauScolaire::findOrFail($id);
-
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'nom' => 'required|string|max:255',
-        ]);
-
-        // Update the niveau scolaire with the validated data
-        $niveauScolaire->update($validatedData);
-
-        // Return a response indicating success
-        return response()->json(['message' => 'Niveau scolaire updated successfully']);
-    }
-
 }

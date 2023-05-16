@@ -44,6 +44,6 @@ class Payementsdemoi extends Model
 
 	public function parents()
 	{
-		return $this->hasMany(Parent::class, 'payement_id');
+		return $this->hasMany(Parente::class, 'payement_id');
 	}
 }

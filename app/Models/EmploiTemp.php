@@ -34,25 +34,22 @@ class EmploiTemp extends Model
 
 	protected $casts = [
 		'heure_debut' => 'datetime',
-		'heure_fin' => 'datetime',
-		'classe_id' => 'int'
+		'heure_fin' => 'datetime'
+		
 	];
 
 	protected $fillable = [
 		'heure_debut',
 		'heure_fin',
 		'jour',
-		'classe_id'
+		
 	];
 
-	public function classe()
-	{
-		return $this->belongsTo(Classe::class, 'classe_id');
-	}
+	
 
 	public function classes()
 	{
-		return $this->hasMany(Classe::class, 'emploi_id');
+		return $this->hasOne(Classe::class, 'emploi_id');
 	}
 
 	public function matiere_emploi()

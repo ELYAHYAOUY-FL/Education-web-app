@@ -60,10 +60,11 @@ class Professeur extends Model
 		'matier_id'
 	];
 
+	
 	public function virement()
-	{
-		return $this->belongsTo(Virement::class);
-	}
+    {
+        return $this->belongsTo(Virement::class);
+    }
 
 	public function absences()
 	{
