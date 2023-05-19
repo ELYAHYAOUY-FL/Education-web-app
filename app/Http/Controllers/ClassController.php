@@ -11,13 +11,19 @@ use Illuminate\Http\Request;
  */
 class ClassController extends Controller
 {
-    public function index()
-    {
-        $classes = Classe::with("niveau_scolaire_id","emploi_id")->get();
-        return response()->json($classes);
+    // public function index()
+    // {
+    //     $classes = Classe::with("niveau_scolaire_id","emploi_id")->get();
+    //     return response()->json($classes);
 
         
+    // }
+    public function index()
+    {
+        $classes = Classe::with("niveau_scolaire", "emploi_temp")->get();
+        return response()->json($classes);
     }
+    
 
     
     public function create()

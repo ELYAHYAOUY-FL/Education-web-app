@@ -47,10 +47,23 @@ class Matiere extends Model
 		return $this->belongsTo(Professeur::class);
 	}
 
-	public function classes()
-	{
-		return $this->belongsToMany(Classe::class, 'classe_matiere', 'matiere_id', 'classe_id');
-	}
+	
+	// public function classes()
+	// {
+	// 	return $this->belongsToMany(Classe::class, 'classe_matiere', 'matiere_id', 'classe_id');
+	// }
+	public function professeurs()
+    {
+        return $this->belongsToMany(Professeur::class);
+    }
+
+    public function classes()
+    {
+        return $this->belongsToMany(Classe::class);
+    }
+
+	
+
 
 	public function devoirs()
 	{

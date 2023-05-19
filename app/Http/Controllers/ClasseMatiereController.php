@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClasseMatiere;
+  use App\Models\ClasseMatiere;
 use Illuminate\Http\Request;
 
 /**
@@ -11,13 +11,28 @@ use Illuminate\Http\Request;
  */
 class ClasseMatiereController extends Controller
 {
-    
-    public function index()
-    {
-        $classeMatieres = ClasseMatiere::with("matiere_id","classe_id")->get();
-        return response()->json($classeMatieres);
+//     public function index()
+// {
+//     $classeMatiere = ClasseMatiere::find(1);
+//     $classe = $classeMatiere->classe; // Access the related Classe model
+//     $matiere = $classeMatiere->matiere; // Access the related Matiere model
+//     $classeMatieres = ClasseMatiere::with("matiere", "classe")->get(); 
+//     // Rest of your code
 
-    }
+//     return response()->json($classeMatieres);
+// }
+public function index()
+{
+    $classeMatieres = ClasseMatiere::with("matiere", "classe")->get();
+    return response()->json($classeMatieres);
+}
+  
+
+    // public function index()
+    // {
+    //     $classeMatieres = ClasseMatiere::with("matiere", "classe")->get();
+    //     return response()->json($classeMatieres);
+    // }
 
     /**
      * Show the form for creating a new resource.

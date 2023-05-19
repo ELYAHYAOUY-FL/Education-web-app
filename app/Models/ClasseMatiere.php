@@ -14,29 +14,36 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $classe_id
  * @property int $matiere_id
  * 
- * @property Class $class
+ * @property Classe $class
  * @property Matiere $matiere
  *
  * @package App\Models
  */
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+
 class ClasseMatiere extends Model
 {
-	protected $table = 'classe_matiere';
-	public $incrementing = false;
-	public $timestamps = false;
+    protected $table = 'classe_matiere';
+    public $incrementing = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'classe_id' => 'int',
-		'matiere_id' => 'int'
-	];
+    protected $casts = [
+        'classe_id' => 'int',
+        'matiere_id' => 'int'
+    ];
 
-	public function class()
-	{
-		return $this->belongsTo(Classe::class, 'classe_id');
-	}
-
-	public function matiere()
-	{
-		return $this->belongsTo(Matiere::class);
-	}
+    public function classe()
+{
+    return $this->belongsTo(Classe::class);
 }
+
+
+    public function matiere()
+    {
+        return $this->belongsTo(Matiere::class, 'matiere_id');
+    }
+}
+

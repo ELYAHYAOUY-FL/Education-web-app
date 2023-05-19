@@ -45,11 +45,20 @@ class Classe extends Model
 		'niveau_scolaire_id',
 		'emploi_id'
 	];
-
 	public function niveau_scolaire()
 	{
 		return $this->belongsTo(NiveauScolaire::class);
 	}
+	
+	// public function emploi()
+	// {
+	// 	return $this->belongsTo(Emploi::class);
+	// }
+	
+	// public function niveau_scolaire()
+	// {
+	// 	return $this->belongsTo(NiveauScolaire::class);
+	// }
 
 	public function emploi_temp()
 	{
@@ -60,6 +69,7 @@ class Classe extends Model
 	{
 		return $this->belongsToMany(Matiere::class, 'classe_matiere', 'classe_id');
 	}
+	
 
 	public function eleves()
 	{

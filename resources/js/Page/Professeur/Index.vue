@@ -57,19 +57,43 @@
                       <td>{{ professuer.diplom }}</td>
                       <td>{{ professuer.virement.salaire }}</td>
                       <td>
+  <ul>
+    <li v-for="matiere in professuer.matieres" :key="matiere.id">
+      {{ matiere.titre }}
+      
+    </li>
+  </ul>
+</td>
+<td>
+  <ul>
+    <li v-for="matiere in professuer.matieres" :key="matiere.id">
+     
+      <ul>
+        <li v-for="classe in matiere.classes" :key="classe.id">
+          {{ classe.nom }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</td>
+
+                      <!-- <td>
                        <ul>
-                          <li v-for="matiere in professuer.matieres" :key="matiere.id">
-                         {{ matiere.titre }}
-                     </li>
+    <li v-for="matiere in professuer.matieres" :key="matiere.id">
+      {{ matiere.titre }}
+      <ul>
                          </ul>
                       </td>
                   
                       <td>
-                        <ul  v-for="(classe, index1) in classes" :key="index1">
-                          <li >
-                            {{professuer.matiere.classe_matiere.classes.nom}}
-                          </li>
-                          </ul></td>
+                         <ul>
+        <li v-for="classe in matiere.classes" :key="classe.id">
+          {{ classe.nom }}
+        </li>
+      </ul> -->
+                      
+
+                          <!-- </td> -->
 
                       <td>
                         <div class="d-flex justify-items-center">
@@ -111,6 +135,7 @@
         classes: [],
         classe_matiere :'',
         salaire : '',
+        classe_id : '',
         titre : ''
             };
         },

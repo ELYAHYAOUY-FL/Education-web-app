@@ -9,11 +9,17 @@ use Illuminate\Http\Request;
 class MatiereController extends Controller
 {
     //
-    public function index()
-    {
-        $matiers = Matiere::with("professeur")->get();
+    // public function index()
+    // {
+    //     $matiers = Matiere::with("professeur")->get();
 
-        return response()->json($matiers);
+    //     return response()->json($matiers);
             
-    }
+    // }
+    public function index()
+{
+    $matieres = Matiere::with('professeur', 'professeur.classes')->get();
+
+    return response()->json($matieres);
+}
 }
