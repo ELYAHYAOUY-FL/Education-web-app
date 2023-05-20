@@ -144,6 +144,14 @@ return [
         // 'store'  => 'redis',
     ],
 
+
+    // ***************
+
+    'providers' => [
+        // ...
+        Axn\ModelsGenerator\ServiceProvider::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

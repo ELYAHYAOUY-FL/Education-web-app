@@ -2,62 +2,87 @@
   <MainLayout>
     <div class="content-header">
       <div class="container-fluid">
-        <form @submit.prevent="addProfessor">
+        <h2>les fromation de virement  : </h2> <div v-if="successMessage" class="alert alert-success text-center">
+      <i class="fa fa-check-circle"></i>
+      {{ successMessage }}
+    </div>
+
+        <form  @submit.prevent="addViremnt" enctype="multipart/form-data">
           <div class="form-group">
-    <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" v-model="modelValue.first_name" required>
+    <label for="salaire">Salire</label>
+    <input type="text" class="form-control" id="salaire" v-model="modelValue.salaire" required>
+         </div>
+          <!-- <div class="form-group">
+    <label for="date">Date de virement </label>
+    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
+  </div> -->
+          <div class="form-group">
+    <label for="rib">RIB</label>
+    <input type="text" class="form-control" id="rib" v-model="modelValue.rib" required>
+  </div>
+  <!-- <div class="form-group">
+            <label for="est_paye">Est payee  :</label>
+            <select  class="form-control" id="est_paye" v-model="modelValue.est_paye" required>
+              <option value=""></option>
+              <option value="1">Oui</option>
+              <option value="0">Non</option>
+            </select>
+            
+           </div>-->
+        
+          <div class="form-group">
+    <label for="prenom">Prénom</label>
+    <input type="text" class="form-control" id="prenom" v-model="modelValue.prenom" required>
   </div>
   <div class="form-group">
-    <label for="prenom">Prénom</label>
-    <input type="text" class="form-control" id="prenom" v-model="modelValue.last_name" required>
+    <label for="nom">Nom</label>
+    <input type="text" class="form-control" id="nom" v-model="modelValue.nom" required>
   </div>
           <div class="form-group">
-            <label for="age">Âge</label>
-            <input type="number" class="form-control" id="age" v-model="modelValue.age" required>
+            <label for="date_naissance">Date nissance</label>
+            <input type="date" class="form-control" id="date_naissance" v-model="modelValue.date_naissance" required>
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" v-model="modelValue.email" required>
+            <label for="lieu_naissance">Lieu nissance</label>
+            <input type="text" class="form-control" id="lieu_naissance" v-model="modelValue.lieu_naissance" required>
           </div>
           <div class="form-group">
-            <label for="diplome">Diplôme</label>
-            <input type="text" class="form-control" id="diplome" v-model="modelValue.diplome" required>
+            <label for="tel">Tel</label>
+            <input type="number" class="form-control" id="tel" v-model="modelValue.tel" required>
           </div>
           <div class="form-group">
+            <label for="diplom">Diplôme</label>
+            <input type="text" class="form-control" id="diplom" v-model="modelValue.diplom" required>
+          </div>
+          <!-- <div class="form-group">
             <label for="salaire">Salaire</label>
             <input type="number" class="form-control" id="salaire" v-model="modelValue.salaire" required>
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="address">Adress</label>
             <input type="text" class="form-control" id="address" v-model="modelValue.address" required>
           </div>
           <div class="form-group">
-  <label for="niveau_scolaire">Niveau Scolaire :</label>
-  <select :class="{'is-invalid': !selectedNiveauScolaire}" class="form-control" id="niveau_scolaire" v-model="selectedNiveauScolaire">
-    <option value=""></option>
-    <option :value="niveau_scolaire" v-for="niveau_scolaire in niveau_scolaires" :key="niveau_scolaire.id">{{ niveau_scolaire.nom }}</option>
-  </select>
-  <span v-if="!selectedNiveauScolaire" class="invalid-feedback error">Please select a niveau scolaire</span>
-</div>
+            <label for="sex">Sex :</label>
+            <select  class="form-control" id="sex" v-model="modelValue.sex" required>
+              <option value=""></option>
+              <option value="F">F</option>
+              <option value="M">M</option>
+            </select>
+            
+          </div>
+          <div class="form-group">
+        <label for="photo">Photo</label>
+        <input type="file" accept="image/*" class="form-control" id="photo" @change="handlePhotoChange" required>
+        <div>
+          <img src="" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
+        </div>
+      </div>
+           <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="save">
+          </div> 
 
-          <div class="form-group">
-            <label for="photo">Photo</label>
-            <input type="file" class="form-control" id="photo" @change="handlePhotoChange" required>
-            <img :src="modelValue.photoPreview" alt="Selected Image" class="img-thumbnail" style="max-width: 100px; max-height: 50px">
-          </div>
-          <div class="form-group">
-    <label for="phone_number">Numéro de téléphone</label>
-    <input type="tel" class="form-control" id="phone_number" v-model="modelValue.phone_number" required>
-  </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Ajouter">
-          </div>
         </form>
-        <div v-if="errors.length > 0" class="alert alert-danger">
-      <ul>
-        <li v-for="error in errors" :key="error">{{ error }}</li>
-      </ul>
-    </div>
 
       </div>
     </div>
@@ -72,101 +97,110 @@ import axios from "axios";
 export default {
   components: { MainLayout },
   data() {
-    return {
-      modelValue: {
-        first_name: "",
-        last_name: "",
-        age: "",
-        email: "",
-        diplome: "",
-        salaire: "",
-        address: "",
-        photo: "",
-        photoPreview: "",
-        phone_number: "",
-      },
-      niveau_scolaires: [],
-      errors: [],
-      selectedNiveauScolaire: null
-    };
-  },
-  mounted() {
-    this.fetchNiveauScolaires();
-  },
-  methods: {
-    fetchNiveauScolaires() {
-      try {
-        console.log('on mounted');
-        axios.get('adminn/nivScolairListe').then((response) => {
-          console.log(response.data);
-          this.selectedNiveauScolaire = response.data[0]; // Set a default value if needed
-          this.niveau_scolaires = response.data;
-        });
-      } catch (error) {
-        console.error(error);
-      }
+  return {
+    modelValue: {
+      salaire: '',
+      est_paye: '',
+      rib: '',
+      // date: '',
+      prenom: '',
+      nom: '',
+      date_naissance: '',
+      lieu_naissance: '',
+      tel: '',
+      diplom: '',
+      address: '',
+      sex: '',
+      photo: null, // Change this line to null  
+         
     },
-    addProfessor() {
-  // Create a FormData object
-  const formData = new FormData();
+    errors: {},
+    successMessage: ""
+   
+  };
+},
 
-  // Append the modelValue data to the FormData object
- 
-  formData.append('nom', this.modelValue.first_name);
-      formData.append('prenom', this.modelValue.last_name);
-      // Remaining form fields
-  formData.append('age', this.modelValue.age);
-  formData.append('email', this.modelValue.email);
-  formData.append('diplome', this.modelValue.diplome);
+ methods: {
+    addViremnt() {
+  axios.post('/api/virements', this.modelValue)
+    .then(response => {
+      const virementId = response.data.virement_id;
+
+      // Associate virement with the professor
+      this.modelValue.virement_id = virementId;
+
+      // Call the addProfessor method to create the professor
+      this.addProfessor();
+      this.successMessage = "Form submitted successfully";
+    })
+    .catch(error => {
+      console.log(error.response.data);
+      this.errors = error.response.data.errors;
+    });
+},
+
+addProfessor() {
+  const formData = new FormData();
+  formData.append('photo', this.modelValue.photo); // Append the photo file to the form data
+
+  // Append other fields to the form data
+  formData.append('prenom', this.modelValue.prenom);
+  formData.append('nom', this.modelValue.nom);
+  formData.append('date_naissance', this.modelValue.date_naissance);
+  formData.append('lieu_naissance', this.modelValue.lieu_naissance);
+  formData.append('tel', this.modelValue.tel);
+  formData.append('diplom', this.modelValue.diplom);
   formData.append('salaire', this.modelValue.salaire);
   formData.append('address', this.modelValue.address);
-  formData.append('niveau_scolaire', this.selectedNiveauScolaire.id); // Use selectedNiveauScolaire
-  formData.append('photo', this.modelValue.photo);
-  formData.append('phone_number', this.modelValue.phone_number);
-      // Remaining form fields
+  formData.append('sex', this.modelValue.sex);
+  formData.append('virement_id', this.modelValue.virement_id); // Include the virement_id
 
   axios
-    .post('/api/admin/professeur', formData)
-    .then((response) => {
-      this.modelValue = {
-        first_name: "",
-        last_name: "",
-        age: "",
-        email: "",
-        diplome: "",
-        salaire: "",
-        address: "",
-        photo: "",
-        photoPreview: "",
-        phone_number: "",
-      };
-      this.errors = []; // Clear the errors array
-      console.log(response.data);
-      // Display a success message or perform any other necessary actions
+    .post('/api/professuers', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+      },
     })
-    .catch((error) => {
-      if (error.response && error.response.data && error.response.data.errors) {
-        this.errors = Object.values(error.response.data.errors).flat();
-      } else {
-        console.log(error);
-      }
+    .then(response => {
+      const professorId = response.data.professuer_id;
+
+      // Handle the response
+    })
+    .catch(error => {
+      console.log(error.response.data);
+      this.errors = error.response.data.errors;
     });
 },
 
 
+   
+
     handlePhotoChange(event) {
-      const file = event.target.files[0];
-      this.modelValue.photo = file;
+      this.modelValue.photo = event.target.files[0];
       this.previewImage(event);
     },
+
     previewImage(event) {
-      if (event.target.files.length > 0) {
-        const file = event.target.files[0];
-        const src = URL.createObjectURL(file);
-        this.modelValue.photoPreview = src;
-      }
-    },
+  const file = event.target.files[0];
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    const img = document.getElementById('image-preview');
+    if (img) {
+      img.src = event.target.result;
+      img.style.display = 'block';
+    }
+  };
+
+  reader.readAsDataURL(file);
+}
+
   },
-};
+}
+;
 </script>
 

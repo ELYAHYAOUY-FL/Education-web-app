@@ -1,26 +1,47 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Devoir
+ * 
+ * @property int $id
+ * @property Carbon $date_limite
+ * @property string $description
+ * @property string $fichier
+ * @property int $matiere_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ * @property Matiere $matiere
+ *
+ * @package App\Models
+ */
 class Devoir extends Model
 {
-    protected $fillable = ['date_limite', 'description', 'fichier'];
+	protected $table = 'devoirs';
 
-    public function classe()
-    {
-        return $this->belongsTo(Classe::class);
-    }
+	protected $casts = [
+		'date_limite' => 'datetime',
+		'matiere_id' => 'int'
+	];
 
-    public function matiere()
-    {
-        return $this->belongsTo(Matiere::class);
-    }
+	protected $fillable = [
+		'date_limite',
+		'description',
+		'fichier',
+		'matiere_id'
+	];
 
-    public function professeur()
-    {
-        return $this->belongsTo(Professeur::class);
-    }
+	public function matiere()
+	{
+		return $this->belongsTo(Matiere::class);
+	}
 }

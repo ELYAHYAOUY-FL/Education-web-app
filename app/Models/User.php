@@ -1,75 +1,63 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-
-class User extends Authenticatable
+/**
+ * Class User
+ * 
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property string $username
+ * @property int|null $role_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ * @property Role|null $role
+ * @property Elefe $elefe
+ * @property Collection|Parent[] $parents
+ *
+ * @package App\Models
+ */
+class User extends Model
 {
-    protected $fillable = ['email', 'password', 'username'];
+	protected $table = 'users';
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
+	protected $casts = [
+		'role_id' => 'int'
+	];
 
-    public function eleve()
-    {
-        return $this->hasOne(Eleve::class);
-    }
+	protected $hidden = [
+		'password'
+	];
 
-    public function parent()
-    {
-        return $this->hasOne(Parents::class);
-    }
+	protected $fillable = [
+		'email',
+		'password',
+		'username',
+		'role_id'
+	];
 
-    public function professeur()
-    {
-        return $this->hasOne(Professeur::class);
-    }
+	public function role()
+	{
+		return $this->belongsTo(Role::class);
+	}
+
+	public function eleve()
+	{
+		return $this->hasOne(Eleve::class);
+	}
+
+	public function parents()
+	{
+		return $this->hasMany(Parent::class);
+	}
 }
-
-
-
-
-
-
-// class User extends Authenticatable
-// {
-//     use HasApiTokens, HasFactory, Notifiable;
-
-//     /**
-//      * The attributes that are mass assignable.
-//      *
-//      * @var array<int, string>
-//      */
-//     protected $fillable = [
-//         'name',
-//         'email',
-//         'password',
-//     ];
-
-//     /**
-//      * The attributes that should be hidden for serialization.
-//      *
-//      * @var array<int, string>
-//      */
-//     protected $hidden = [
-//         'password',
-//         'remember_token',
-//     ];
-
-//     /**
-//      * The attributes that should be cast.
-//      *
-//      * @var array<string, string>
-//      */
-//     protected $casts = [
-//         'email_verified_at' => 'datetime',
-//     ];
-// }

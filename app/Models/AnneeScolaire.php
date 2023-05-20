@@ -1,22 +1,40 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class AnneeScolaire
+ * 
+ * @property int $id
+ * @property Carbon $date
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ * @property AnneNiveau $anne_niveau
+ *
+ * @package App\Models
+ */
 class AnneeScolaire extends Model
 {
-    protected $fillable = ['date'];
+	protected $table = 'annee_scolaire';
 
-    public function eleves()
-    {
-        return $this->belongsToMany(Eleve::class, 'annee_scolaire_eleve');
-    }
+	protected $casts = [
+		'date' => 'datetime'
+	];
 
-    public function classes()
-    {
-        return $this->belongsToMany(Classe::class, 'annee_scolaire_classe');
-    }
+	protected $fillable = [
+		'date'
+	];
+
+	public function anne_niveau()
+	{
+		return $this->hasOne(AnneNiveau::class, 'anneScolaire_id');
+	}
 }
-

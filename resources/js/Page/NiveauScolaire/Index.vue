@@ -26,13 +26,22 @@
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="nom">
                   </div>
+                  <div class="form-group">
+                    <label for="description">Discription</label>
+                    <input type="text" class="form-control" id="description" v-model="description">
+                  </div>
                   <button class="btn btn-primary" @click="addNiveauScolaire">Save</button>
                 </form>
                 <form v-if="showForm1">
                   <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" class="form-control" id="nom" v-model="niveauScolaire.nom">
+                    <input type="text" class="form-control" id="nom" v-model="niveau_scolaire.nom">
                   </div>
+                  <div class="form-group">
+                    <label for="description">Discription</label>
+                    <input type="text" class="form-control" id="description" v-model="niveau_scolaire.description">
+                  </div>
+                  
                   <button class="btn btn-primary" @click="saveUpdatedNiveauScolaire">Save</button>
                 </form>
               </div>
@@ -46,14 +55,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(niveauScolaire) in niveauScolaires" :key="niveauScolaire.id" :id="'div' + niveauScolaire.id">
-                      <td>{{ niveauScolaire.nom }}</td>
+                    <tr v-for="(niveau_scolaire) in niveau_scolaires" :key="niveau_scolaire.id" :id="'div' + niveau_scolaire.id">
+                      <td>{{ niveau_scolaire.nom }}</td>
+                      <td>{{ niveau_scolaire.description }}</td>
                       <td>
                         <div class="d-flex justify-items-center">
-                          <button class="btn btn-info mr-2" @click="updateNiveauScolaire(niveauScolaire)">
+                          <button class="btn btn-info mr-2" @click="updateNiveauScolaire(niveau_scolaire)">
                             <i class="fas fa-pen fa-beat"></i>
                           </button>
-                          <button class="btn btn-danger" @click="deleteNiveauScolaire(niveauScolaire.id)">
+                          <button class="btn btn-danger" @click="deleteNiveauScolaire(niveau_scolaire.id)">
                             <i class="fas fa-solid fa-trash fa-beat fa-xl"></i>
                           </button>
                         </div>
@@ -84,16 +94,17 @@ export default {
       showForm1: false,
       nom: '',
       id: '',
-      niveauScolaires: [],
-      niveauScolaire: {}
+      description: '',
+      niveau_scolaires: [],
+      niveau_scolaire: {}
     };
   },
   mounted() {
     try {
       console.log('on mounted');
-      axios.get('adminn/nivScolairListe').then((response) => {
+      axios.get('/api/niveau_scolires').then((response) => {
         console.log(response.data);
-        this.niveauScolaires = response.data;
+        this.niveau_scolaires = response.data;
       });
     } catch (error) {
       console.error(error);
@@ -102,42 +113,49 @@ export default {
   methods: {
     async addNiveauScolaire() {
       const newNiveauScolaire = {
-        nom: this.nom
+        nom: this.nom,
+        description: this.description,
       };
       try {
-        const response = await axios.post('adminn/nivScolaircreate', newNiveauScolaire);
+        const response = await axios.post('/api/niveau_scolires', newNiveauScolaire);
         // handle the response as needed
+        this.nom = '';
+    this.description = ''; 
+    this.niveau_scolaires = response.data;
         this.showForm = false;
       } catch (error) {
         console.error(error);
       }
     },
+    
+
 
     async deleteNiveauScolaire(id) {
       try {
-        const response = await axios.delete(`/api/adminn/nivScolairdelete/${id}`);
-        this.niveauScolaires = this.niveauScolaires.filter(niveauScolaire => niveauScolaire.id !== id);
+        const response = await axios.delete(`/api/niveau_scolires/${id}`);
+        this.niveau_scolaires = this.niveau_scolaires.filter(niveau_scolaire => niveau_scolaire.id !== id);
       } catch (error) {
         console.log(error);
       }
     },
 
-    async updateNiveauScolaire(niveauScolaire) {
+    async updateNiveauScolaire(niveau_scolaire) {
       // Set the selected niveauScolaire in the data
-      this.niveauScolaire = { ...niveauScolaire };
+      this.niveau_scolaire = { ...niveau_scolaire };
       this.showForm1 = true; // Show the form for updating
     },
 
     async saveUpdatedNiveauScolaire() {
       try {
-        const response = await axios.put(`/adminn/nivScolairupdate/${this.niveauScolaire.id}`, {
-          nom: this.niveauScolaire.nom
-        });
-        console.log(response.data.message);
-        this.showForm1 = false; // Hide the form after successful update
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
+    const response = await axios.put(`/api/niveau_scolires/${this.niveau_scolaire.id}`, {
+      nom: this.niveau_scolaire.nom,
+      description: this.niveau_scolaire.description
+    });
+    console.log(response.data.message);
+    this.showForm1 = false; // Hide the form after successful update
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
     }
   }
 };

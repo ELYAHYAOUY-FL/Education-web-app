@@ -38,12 +38,11 @@
                       <th>Photo</th>
                       <th>Nom</th>
                       <th>Prénom</th>
-                      <th>Email</th>
-                      <th>Age</th>
                       <th>Phone</th>
-                      <th>Salaire</th>
                       <th>Diplome </th>
-                      <th>Niveau Scolaire</th>
+                      <th>Salaire</th>
+                      <th>matier </th>
+                      <th>classes</th>
                       <th> Actions</th>
                     </tr>
                   </thead>
@@ -52,14 +51,32 @@
                       <tr v-for="(professuer, index) in professuers" :key="index">
                       
                       <td>{{ professuer. photo}}</td>
-                      <td>{{ professuer.first_name }}</td>
-                      <td>{{ professuer.last_name }}</td>
-                      <td>{{ professuer.email }}</td>
-                      <td>{{ professuer.age}}</td>
-                      <td>{{professuer.phone_number}}</td>
-                      <td>{{professuer.salaire}}</td>
-                      <td>{{ professuer.diplome}}</td>
-                      <td>{{ professuer.niveau_scolaire ? professuer.niveau_scolaire.nom : 'N/A' }}</td>
+                      <td>{{ professuer.nom }}</td>
+                      <td>{{ professuer.prenom }}</td>
+                      <td>{{ professuer.tel }}</td>
+                      <td>{{ professuer.diplom }}</td>
+                      <td>{{ professuer.virement.salaire }}</td>
+                      <td>
+  <ul>
+    <li v-for="matiere in professuer.matieres" :key="matiere.id">
+      {{ matiere.titre }}
+      
+    </li>
+  </ul>
+</td>
+<td>
+  <ul>
+    <li v-for="matiere in professuer.matieres" :key="matiere.id">
+     
+      <ul>
+        <li v-for="classe in matiere.classes" :key="classe.id">
+          {{ classe.nom }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</td>
+
 
                       <td>
                         <div class="d-flex justify-items-center">
@@ -89,26 +106,27 @@
           return {
             professuers: [],
             showForm: false,
-            first_name : '',
-        last_name : '',
-        email : '',
-        age : '',
-        phone_number : '',
-       address : '',
-       photo : '',
+            photo : '',
+            nom : '',
+            prenom : '',
+            tel : '',
+            diplom : '',
         salaire : '',
         diplome : '',
-        niveau_scolaires: ''
-        
-           
-            
-          };
+        virement: '',
+        matiere: '',
+        classes: [],
+        classe_matiere :'',
+        salaire : '',
+        classe_id : '',
+        titre : ''
+            };
         },
      
 mounted() {
     try {
       console.log('on mounted');
-      axios.get('api/professuers').then((response) => {
+      axios.get('/api/professuers').then((response) => {
         console.log(response.data);
         this.professuers = response.data;
       });
@@ -119,7 +137,7 @@ mounted() {
   methods: {
     async deleteProfesseur(id) {
   try {
-    const response = await axios.delete(`/api/admin/profdelete/${id}`);
+    const response = await axios.delete(`/api/professuers/${id}`);
     this.professuers = this.professuers.filter(professuer => professuer.id !== id);
   } catch (error) {
     console.log(error);
