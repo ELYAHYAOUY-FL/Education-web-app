@@ -11,27 +11,6 @@ use Illuminate\Http\Request;
 class ProfesseurController extends Controller
 {
  
-    
-    // public function index()
-    // {
-    //     $professeurs = Professeur::with('virement', 'matieres')->get();
-
-    //     return response()->json($professeurs);
-    // }
-//     public function index()
-// {
-//     $professeurs = Professeur::with('virement', 'matieres.classe')->get();
-
-//     // $professeurs = Professeur::with('virement', 'matieres')->get();
-//     // $professeurs = Professeur::with('virement', 'matieres.classe_matiere.classe')->get();
-
-//     return response()->json($professeurs);
-// }
-// public function index()
-// {
-//     $professeurs = Professeur::with('virement', 'matieres','matieres.classe_matiere')->get();
-//     return response()->json($professeurs);
-// }
 public function index()
 {
     $professors = Professeur::with('virement', 'matieres', 'matieres.classes')->get();
@@ -53,6 +32,35 @@ public function destroy($id)
     return response()->json(['message' => 'prof deleted successfully']);
 }
 
+
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'prenom' => 'required',
+        'nom' => 'required',
+        'date_naissance' => 'required',
+        'lieu_naissance' => 'required',
+        'tel' => 'required',
+        'diplom' => 'required',
+        'address' => 'required',
+        'sex' => 'required',
+        'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'virement_id' => 'required',
+    ]);
+    if ($request->hasFile('photo')) {
+        $photo = $request->file('photo');
+        $photoName = time() . '.' . $photo->getClientOriginalExtension();
+        $photo->move(public_path('photos'), $photoName);
+
+        $validatedData['photo'] = $photoName;
+    }
+
+    $professuer = Professeur::create($validatedData);
+
+    // $professuer = Professuer::create($validatedData);
+
+    return response()->json(['professuer_id' => $professuer->id]);
+}
 
 
 

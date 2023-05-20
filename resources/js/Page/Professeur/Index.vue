@@ -77,23 +77,6 @@
   </ul>
 </td>
 
-                      <!-- <td>
-                       <ul>
-    <li v-for="matiere in professuer.matieres" :key="matiere.id">
-      {{ matiere.titre }}
-      <ul>
-                         </ul>
-                      </td>
-                  
-                      <td>
-                         <ul>
-        <li v-for="classe in matiere.classes" :key="classe.id">
-          {{ classe.nom }}
-        </li>
-      </ul> -->
-                      
-
-                          <!-- </td> -->
 
                       <td>
                         <div class="d-flex justify-items-center">
