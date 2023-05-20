@@ -82,16 +82,12 @@ class Professeur extends Model
     {
         return $this->matieres()->with('classes');
     }
-	public function matiere()
-    {
-        return $this->belongsTo(Matiere::class, 'matier_id');
-    }
 	
-
-    public function matieres()
-    {
-        return $this->hasMany(Matiere::class, 'professeur_id');
-    }
+	public function matieres()
+	{
+		return $this->hasMany(Matiere::class);
+	}
+	
 
 
 

@@ -29,7 +29,7 @@ Route::put('/niveau_scolires/{id}', [NiveauScolaireController ::class,'update'])
 Route::get('/professuers', [ProfesseurController ::class, 'index']);
 Route::post('/professuers', [ProfesseurController ::class, 'store']);
 Route::delete('/professuers/{id}', [ProfesseurController::class, 'destroy']);
-Route::delete('professuers/{id}', [ProfesseurController::class, 'update']);
+Route::put('professuers/{id}', [ProfesseurController::class, 'update']);
 
 Route::get('/matieres', [MatiereController  ::class, 'index']);
 

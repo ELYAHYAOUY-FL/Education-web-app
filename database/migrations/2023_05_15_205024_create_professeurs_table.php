@@ -1,10 +1,9 @@
-<?php
-
+<?php 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProfesseursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,8 +24,11 @@ return new class extends Migration
             $table->string('tel');
             $table->string('address');
             $table->string('diplom');
-            $table->unsignedBigInteger('matier_id')->nullable()->index('matier_prof_id_foreign');
             $table->timestamps();
+        });
+
+        Schema::table('professeurs', function (Blueprint $table) {
+            $table->foreign('virement_id')->references('id')->on('virements')->onDelete('cascade');
         });
     }
 
@@ -39,4 +41,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('professeurs');
     }
-};
+}

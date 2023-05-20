@@ -17,7 +17,10 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('titre');
             $table->integer('coefficient');
-            $table->unsignedBigInteger('professeur_id')->index('matieres_professeur_id_foreign');
+            $table->unsignedBigInteger('professeur_id')->nullable();
+            $table->foreign('professeur_id')->references('id')->on('professeurs');
+
+            // $table->unsignedBigInteger('professeur_id')->index('matieres_professeur_id_foreign');
             $table->timestamps();
         });
     }

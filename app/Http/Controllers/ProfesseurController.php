@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Matiere;
+
+
 use App\Models\Professeur;
 
 use Illuminate\Http\Request;
@@ -35,6 +38,23 @@ public function index()
 
     return response()->json($professors);
 }
+
+
+public function destroy($id)
+{
+    $professeur = Professeur::findOrFail($id);
+
+    // Remove the professor's association with subjects
+    $professeur->matieres()->update(['professeur_id' => null]);
+
+    // Delete the professor
+    $professeur->delete();
+
+    return response()->json(['message' => 'prof deleted successfully']);
+}
+
+
+
 
 
 

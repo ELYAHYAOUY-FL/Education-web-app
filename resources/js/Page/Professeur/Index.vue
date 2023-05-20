@@ -154,7 +154,7 @@ mounted() {
   methods: {
     async deleteProfesseur(id) {
   try {
-    const response = await axios.delete(`/api/admin/profdelete/${id}`);
+    const response = await axios.delete(`/api/professuers/${id}`);
     this.professuers = this.professuers.filter(professuer => professuer.id !== id);
   } catch (error) {
     console.log(error);
