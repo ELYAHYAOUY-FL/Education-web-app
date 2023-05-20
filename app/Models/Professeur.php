@@ -5,32 +5,48 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Professeur extends Model
+class Professeur extends User
 {
-    use HasFactory;
-    protected $fillable = [
-        'user_id',
-        'first_name',
-        'last_name',
-        'email',
-        'age',
-        'phone_number',
-        'address',
-        'photo',
-        'salaire',
-        'diplome',
-        'niveau_scolaire_id',
-        'note_id',
-        // Add other attributes here
-    ];
+    protected $fillable = ['photo', 'nom', 'prenom', 'sex', 'date_naissance', 'lieu_naissance', 'tel', 'address', 'diplom'];
 
-    // Relationship with children (students)
-    public function enfants()
+    public function absences()
     {
-        return $this->hasMany(Etudiant::class);
+        return $this->hasMany(Absence::class);
     }
-    public function niveau_scolaire()
+
+    public function retards()
     {
-        return $this->belongsTo(NiveauScolaire::class);
+        return $this->hasMany(Retard::class);
+    }
+
+    public function emploisTemps()
+    {
+        return $this->belongsToMany(EmploiTemps::class);
+    }
+
+    public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class);
+    }
+
+    public function virements()
+    {
+        return $this->hasMany(Virement::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function devoirs()
+    {
+        return $this->hasMany(Devoir::class);
+    }
+    public function eleves()
+    {
+        return $this->hasMany(Eleve::class);
     }
 }
+
+

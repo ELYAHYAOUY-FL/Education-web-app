@@ -59,7 +59,8 @@
                       <td>{{professuer.phone_number}}</td>
                       <td>{{professuer.salaire}}</td>
                       <td>{{ professuer.diplome}}</td>
-                      <td>{{ professuer.niveau_scolaire.nom}}</td>
+                      <td>{{ professuer.niveau_scolaire ? professuer.niveau_scolaire.nom : 'N/A' }}</td>
+
                       <td>
                         <div class="d-flex justify-items-center">
                           <button class="btn btn-info mr-2"><i class="fas fa-pen fa-beat"></i></button>
@@ -97,7 +98,8 @@
        photo : '',
         salaire : '',
         diplome : '',
-        niveau_scolaire : ''
+        niveau_scolaires: ''
+        
            
             
           };

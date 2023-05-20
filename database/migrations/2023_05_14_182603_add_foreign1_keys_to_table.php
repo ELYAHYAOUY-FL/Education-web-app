@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('niveau_scolaires', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->timestamps();
+        Schema::table('table', function (Blueprint $table) {
+            //
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('niveau_scolaires');
+        Schema::table('table', function (Blueprint $table) {
+            //
+        });
     }
 };
