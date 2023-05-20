@@ -20,13 +20,7 @@
                 <form @submit.prevent="submitForm" id="formulaire"> 
                   <div class="form-group">
                     <label for="">Nom :</label>
-                    <input
-                      required
-                      type="text"
-                      :class="{'is-invalid': form.errors.nom}"
-                      class="form-control"
-                      v-model="form.nom"
-                    />
+                    <input required type="text" :class="{'is-invalid': form.errors.nom}" class="form-control" v-model="form.nom" />
                     <span v-if="form.errors.nom" class="invalid-feedback error">{{ form.errors.nom }}</span>
                   </div>
                   <div class="form-group">

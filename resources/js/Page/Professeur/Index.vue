@@ -80,6 +80,7 @@
 </template>
       
       <script>
+      
       import MainLayout from '../../Layouts/MainLayout.vue';
       import axios from 'axios';
       export default {

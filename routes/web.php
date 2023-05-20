@@ -3,6 +3,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\CantineController;
+use App\Http\Controllers\TextbookController;
+use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,12 +40,37 @@ Route::post('admin/etudiantcreate', [EtudiantController::class, 'store'])->name(
 
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
-Route::get('/menu-jour/{nom}', [CantineController::class, 'getMenuJour']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
-
-// Route::delete('/menu-jour/{jour}', [CantineController::class, 'destroyMenuJour']);
-Route::delete('/menu-jour/{nom}', [CantineController::class, 'supprimerJour']);
+Route::delete('/menu-jour/{id}', [CantineController::class, 'supprimerJour']);
+Route::get('/menu-jour/{nom}', [CantineController::class, 'getMenuJour']);
 Route::post('/ajouter-menu', [CantineController::class, 'ajouterMenu']);
+
+//activity
+Route::get('/activities', [ActivityController::class, 'index']);
+Route::post('/activities', [ActivityController::class, 'store']);
+Route::get('/activities/{id}', [ActivityController::class, 'show']);
+
+Route::put('/activities/{id}', [ActivityController::class, 'update']);
+
+
+// Route::put('/activities/{id}', [ActivityController::class, 'update']);
+
+// Route::put('/activities/{id}', [ActivityController::class, 'update']);
+// Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
+
+
+//textBook
+// Route::post('/textbooks', [TextbookController::class, 'store']);
+// Route::get('/textbooks', [TextbookController::class, 'index']);
+// Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
+// Route::post('/textbooks', [TextbookController::class, 'store']) ;
+
+// Route::delete('/activities/{id}', 'ActivityController@destroy');
+// Route::delete('/activities/{nom}', [ActivityController::class, 'destory']);
+
+// Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy');
+
+
 
 Route::get('/{any}', function () {
     return inertia('welcome');
@@ -61,3 +88,5 @@ Route::get('/{any}', function () {
 
 // Route::get('/nivreauscolaire',[NiveauScolaireController::class, "index"])->name("nivreauscolaire.index");
 // Route::get('/nivreauscolaire/create',[NiveauScolaireController::class, "create"])->name("nivreauscolaire.create");
+
+ 

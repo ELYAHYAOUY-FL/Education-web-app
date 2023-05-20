@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('etudiants', function (Blueprint $table) {
-            $table->date('date_naissance')->nullable();
+        Schema::create('textbooks', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->date('date');
+            $table->time('heure');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('etudiants', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('textbooks');
     }
 };

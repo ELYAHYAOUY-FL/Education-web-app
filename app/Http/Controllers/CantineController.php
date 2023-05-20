@@ -73,9 +73,9 @@ public function updateMenuJour($nom)
     return response()->json(['menu' => $nouveauMenu]);
 }
 
-public function supprimerJour($nom)
+public function supprimerJour($id)
 {
-    $jourSupprime = ProgrammeCantine::where('nom', $nom)->first();
+    $jourSupprime = ProgrammeCantine::findOrFail($id);
 
     if ($jourSupprime) {
         $jourSupprime->delete();

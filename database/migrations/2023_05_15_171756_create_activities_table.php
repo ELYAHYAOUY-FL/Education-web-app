@@ -14,12 +14,15 @@ class CreateActivitiesTable extends Migration
             $table->text('description');
             $table->date('date');
             $table->time('heure');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::table('activities', function (Blueprint $table) {
+            $table->dropColumn('photo');
+        });
     }
 }

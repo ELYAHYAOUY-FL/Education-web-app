@@ -7,7 +7,7 @@
         <div class="grid2">
         <div class="ajouterprogramme">
       <!-- Formulaire d'ajout -->
-      <form  @submit.prevent="ajouterProgramme()" class="add-form">
+      <form  @submit.prevent="ajouterProgramme()" class="add-form"> 
         <div class="form-content">
           <input type="text" v-model="nouveauNom" class="form-input" placeholder="Nom du jour">
           <input type="text" v-model="nouveauMenu" class="form-input" placeholder="Menu du jour">
@@ -24,7 +24,7 @@
           <p v-show="jour.afficherMenu">{{ jour.menu }}</p>
           <div class="actions">
             <i class="fas fa-regular fa-edit fa-sm" style="color: #44a28f;" @click="modifierMenu(jour)"></i>
-            <i class="fas fa-regular fa-trash fa-sm" style="color: #44a28f;" @click="supprimerJour(jour.nom)"></i>
+            <i class="fas fa-regular fa-trash fa-sm" style="color: #44a28f;" @click="supprimerJour(jour.id)"></i>
           </div>
           <!-- Formulaire de modification -->
           <form v-if="jour.modificationActive" @submit.prevent="sauvegarderMenu(jour)">
@@ -164,12 +164,12 @@ export default {
       // Annuler les modifications et masquer le formulaire
       jour.modificationActive = false;
     },
-    supprimerJour(jour) {
+    supprimerJour(idJour) {
   if (confirm("Êtes-vous sûr de vouloir supprimer ce jour et son menu ?")) {
-    axios.delete(`/menu-jour/${jour}`)
+    axios.delete(`/menu-jour/${idJour}`)
       .then(response => {
         // La suppression a réussi, retirer le jour de la liste
-        const index = this.jours.findIndex(item => item.nom === jour);
+        const index = this.jours.findIndex(item => item.id === idJour);
         if (index !== -1) {
           this.jours.splice(index, 1);
         }
@@ -179,7 +179,9 @@ export default {
         // En cas d'erreur, afficher un message d'erreur ou effectuer une action appropriée
       });
   }
-}
+},
+
+ 
 
 
     

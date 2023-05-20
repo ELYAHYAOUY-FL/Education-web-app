@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar1">
 <!-- LOGO -->
 <div class="logo">Pronote</div>
 

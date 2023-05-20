@@ -1,6 +1,5 @@
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-XXXXXXXXXXXXXXXXXXXXXXXXXXXX" crossorigin="anonymous">
-
+ 
   <MainLayout>
     <router-view>
 <div class="content-header">
@@ -20,12 +19,12 @@
 <div class="row">
   <div class="col-md-4">
     
-    <div class="card" style=" background-color: #bae4cf; width: 85%;" >
+    <div class="card" style=" background-color: #bae4cf; width: 80%;" >
       <div class="card-body"> <div> <i class="fas fa-users mr-2 fa-lg"></i>  
           </div>
         <div class="d-flex align-items-center">
          
-          <p class="card-text">Nombre total d'étudiants : {{ dashboardData.totalStudents }}</p>
+          <p class="card-text" style=" color: rgb(49, 49, 49);">Nombre total d'étudiants : {{ dashboardData.totalStudents }}</p>
          
         </div>
         
@@ -36,13 +35,13 @@
   </div>
  
   <div class="col-md-4">
-  <div class="card" style=" background-color: #bae4cf;  width: 85%;"  >
+  <div class="card" style=" background-color: #aad1be;  width: 85%;"  >
       <div class="card-body">
         <i class="fas fa-user mr-2 fa-lg"></i> <!-- Icône pour le nombre total de professeurs -->
 
      <div class="d-flex align-items-center">
            
-          <p class="card-text">Nombre total de professeurs : {{ dashboardData.totalTeachers }}</p>
+          <p class="card-text" style=" color: rgb(49, 49, 49);">Nombre total de professeurs : {{ dashboardData.totalTeachers }}</p>
           
           
         </div>
@@ -51,13 +50,13 @@
       </div>
     
     <div class="col-md-4">
-        <div class="card" style=" background-color: #bae4cf; " >
+        <div class="card" style=" background-color: #a2c4b3;  width: 85%; " >
       <div class="card-body">
         <i class="fas fa-book mr-2 fa-lg"></i> <!-- Icône pour le nombre total de niveaux scolaires -->
 
         <div class="d-flex align-items-center">
            
-          <p class="card-text">Nombre total de niveaux scolaires : {{ dashboardData.totalSchoolLevels }}</p>
+          <p class="card-text" style=" color: rgb(49, 49, 49);">Nombre total de niveaux scolaires : {{ dashboardData.totalSchoolLevels }}</p>
             
            
         </div>
@@ -72,6 +71,7 @@
   </template>
   
   <script>
+  
    import MainLayout from "../../Layouts/MainLayout.vue";
 
 import axios from 'axios';
