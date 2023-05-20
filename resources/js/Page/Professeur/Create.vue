@@ -84,13 +84,6 @@
 
         </form>
 
-       
-        
-        <div v-if="errors" class="alert alert-danger">
-  <ul>
-    <li v-for="error in errors" :key="error">{{ error }}</li>
-  </ul>
-</div>
       </div>
     </div>
   </MainLayout>
@@ -123,29 +116,11 @@ export default {
     },
     errors: {},
     successMessage: ""
-   // errors: [] // Add this line to initialize the errors array
+   
   };
 },
-// watch: {
-//     activity: {
-//       handler(newActivity) {
-//         if (newActivity) {
-//           // Mettre à jour les propriétés du formulaire avec les valeurs de l'activité
-//           this.nom = newActivity.nom;
-//           this.description = newActivity.description;
-//           this.date = newActivity.date;
-//           this.heure = newActivity.heure;
-//           this.isEditing = true;
-//         } else {
-//           this.resetForm();
-//         }
-//       },
-//       immediate: true
-//     },
 
- 
-  methods: {
-    
+ methods: {
     addViremnt() {
   axios.post('/api/virements', this.modelValue)
     .then(response => {
@@ -198,17 +173,7 @@ addProfessor() {
 },
 
 
-    // addProfessor() {
-    //   axios.post('/api/professuers', this.modelValue)
-    //     .then(response => {
-    //       // Handle the response
-    //     })
-    //     .catch(error => {
-    //       console.log(error.response.data);
-    //       this.errors = error.response.data.errors;
-    //     });
-    // },
-
+   
 
     handlePhotoChange(event) {
       this.modelValue.photo = event.target.files[0];
