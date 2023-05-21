@@ -27,12 +27,20 @@ import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
 //Textbook
 import textbookProf from './PageProfesseur/Textbook/index.vue'
 
+//login 
+import  LoginPage from './src/pages/Login.vue'
 const routes =[ 
 
     {
         path: '/',
         redirect: '/home'
       },
+      {
+        path: '/login' ,
+        name: 'Login',
+        component: LoginPage
+      },
+
       {
         path: '/home',
         component: AcuillePage

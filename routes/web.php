@@ -45,26 +45,27 @@ Route::post('/ajouter-menu', [CantineController::class, 'ajouterMenu']);
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::post('/activities', [ActivityController::class, 'store']);
 Route::get('/activities/{id}', [ActivityController::class, 'show']);
-
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 
-// Route::put('/activities/{id}', [ActivityController::class, 'update']);
+// authentification route 
 
-// Route::put('/activities/{id}', [ActivityController::class, 'update']);
-// Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
+// Route::group(['middleware' => 'role:administration'], function () {
+//     Route::get('/administration', 'AdministrationController@index');
+// });
 
+// Route::group(['middleware' => 'role:student'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
+// Route::group(['middleware' => 'role:student'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
+// Route::group(['middleware' => 'role:parents'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
 
-//textBook
-// Route::post('/textbooks', [TextbookController::class, 'store']);
-// Route::get('/textbooks', [TextbookController::class, 'index']);
-// Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
-// Route::post('/textbooks', [TextbookController::class, 'store']) ;
+// Add similar route groups for other roles (professor, parent) as needed
 
-// Route::delete('/activities/{id}', 'ActivityController@destroy');
-// Route::delete('/activities/{nom}', [ActivityController::class, 'destory']);
-
-// Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy');
 
 
 
@@ -72,17 +73,5 @@ Route::get('/{any}', function () {
     return inertia('welcome');
 })->where('any','.*');
 
-//  Route::get ('/' , function(){
-//      return inertia('Administration');
-//  });
-//  Route::get ('/hom' , function(){
-//     return inertia('Hom');
-// });
-
-// Route::get('/etudiant',[EtudiantController::class, "index"])->name("etudiant.index");
-// Route::get('/etudiant/create',[EtudiantController::class, "create"])->name("etudiant.create");
-
-// Route::get('/nivreauscolaire',[NiveauScolaireController::class, "index"])->name("nivreauscolaire.index");
-// Route::get('/nivreauscolaire/create',[NiveauScolaireController::class, "create"])->name("nivreauscolaire.create");
 
  
