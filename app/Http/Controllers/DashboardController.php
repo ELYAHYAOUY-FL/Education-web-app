@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Etudiant;
+use App\Models\Eleve;
 use App\Models\Professeur;
 use App\Models\NiveauScolaire;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function getDashboardData()
     {
         try{
-            $totalStudents = Etudiant::count();
+            $totalStudents = Eleve::count();
             $totalTeachers = Professeur::count();
             $totalSchoolLevels = NiveauScolaire::count();
             // Autres statistiques...

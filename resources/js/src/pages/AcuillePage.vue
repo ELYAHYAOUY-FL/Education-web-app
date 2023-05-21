@@ -1,6 +1,6 @@
 
 <template>
-    
+    <div>
     <div>
      <header class="hero">
         <Navbar/>
@@ -11,7 +11,8 @@
          <div>
             <Section/>
          </div>
-         <Footer />
+         <Footer/>
+        </div>
 </template>
 
 <script>

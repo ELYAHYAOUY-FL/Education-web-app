@@ -229,7 +229,7 @@
 export default {
   data() {
     return {
-    name :"footer",
+    name :"Footer",
       images1 : logoImag
        
     }
