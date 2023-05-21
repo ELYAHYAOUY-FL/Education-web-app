@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\NiveauScolaire;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Summary of NiveauScolaireSeeder
+ */
 class NiveauScolaireSeeder extends Seeder
 {
     /**
