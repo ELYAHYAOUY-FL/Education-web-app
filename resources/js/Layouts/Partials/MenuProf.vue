@@ -104,6 +104,12 @@
     </p>
   </a>
 </li>
+<li class="nav-item">
+  <router-link to="/textbookProf" class="nav-link " :class="{ 'active': $route.path === '/textbookProf' }">
+    <i class="fas fa-book"></i>
+  <p>Textbook</p>
+  </router-link>
+  </li>
 </ul>
 </nav>
 </div>

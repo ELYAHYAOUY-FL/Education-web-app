@@ -60,3 +60,11 @@ input[type=checkbox] {
     --green: #4c9e9e;
   }
   
+
+
+  @media (max-width: 450px) {
+    .grid2{
+      display: grid;
+      grid-template-columns:1fr;
+    }
+  }

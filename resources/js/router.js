@@ -16,6 +16,17 @@ import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
  import ProfesseurcreateAdmin from './Page/Professeur/Create.vue';
 //  import ProfesseurEditAdmin from './Page/Professeur/Edit.vue';
 
+//cantine
+import CantinePageadmin from './Page/Cantine/index.vue'
+ 
+
+//Activity
+import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
+import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
+
+//Textbook
+import textbookProf from './PageProfesseur/Textbook/index.vue'
+
 const routes =[ 
 
     {
@@ -97,11 +108,33 @@ component : NiveauListAdmin
   name :'ProfcretePageadmin',
   component : ProfesseurcreateAdmin
 },
-// {
-//   path : '/ProfesseurEditPageadmin',
-//   name :'ProfEditPageadmin',
-//   component : ProfesseurEditAdmin
-// },
+//cantine
+{
+  path : '/CantinePageadmin',
+  name :'CantPageadmin',
+  component : CantinePageadmin
+},
+ 
+//activity
+ 
+{
+  path : '/ActivitieyFormAdmin',
+  name :'ActivitieyFormAdmin',
+  component :ActivitieyFormAdmin
+},
+{
+  path : '/ActvityListAdmin',
+  name :'ActvityListAdmin',
+  component :ActvityListAdmin
+},
+
+//Textbook
+{
+  path : '/textbookProf',
+  name :'texbookProf',
+  component :textbookProf
+},
+ 
 
 
 ];

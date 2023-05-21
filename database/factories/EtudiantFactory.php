@@ -22,6 +22,7 @@ class EtudiantFactory extends Factory
             "sexe"=> ["M", "F"][rand(0,1)],
             "age" => rand(5, 13),
             "niveau_scolaire_id" => rand(1, 6),
+            "date_naissance" => $this->faker->date($format = 'Y-m-d', $max = 'now'),
         ];
     }
 }

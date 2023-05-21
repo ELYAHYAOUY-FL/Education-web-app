@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 	
+ 
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\ProfesseurController ;
 use App\Http\Controllers\MatiereController ;
@@ -27,7 +28,7 @@ Route::delete('/niveau_scolires/{id}', [NiveauScolaireController ::class, 'destr
 Route::put('/niveau_scolires/{id}', [NiveauScolaireController ::class,'update']);
 
 // professuers 
-Route::get('/professuers', [ProfesseurController ::class, 'index']);
+Route::get('/professuers', [ProfesseurController  ::class, 'index']);
 Route::post('/professuers', [ProfesseurController ::class, 'store']);
 Route::delete('/professuers/{id}', [ProfesseurController::class, 'destroy']);
 Route::put('professuers/{id}', [ProfesseurController::class, 'update']);
@@ -47,6 +48,33 @@ Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
 Route::get('/virements', [VirementController ::class, 'index']);
 
 Route::post('/virements', [VirementController ::class, 'store']);
+// use App\Http\Controllers\ProfessuerController ;
+
+use App\Http\Controllers\ActivityController;
+
+// Route::get('/activities', [ActivityController::class, 'index']);
+// Route::get('/activities/{id}', [ActivityController::class, 'show']);
+Route::post('/activities', [ActivityController::class, 'store']);
+// Route::put('/activities/{id}', [ActivityControllerr::class, 'update']);
+Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
+
+// Route::patch('/activities/{id}', [ActivityController::class, 'update']);
+// Route::put('/activities/{id}', [ActivityController::class, 'update']);
+// Route::get('/activities/{id}', [ActivityController::class, 'show']);
+
+// Mise à jour partielle d'une activité spécifique
+// Route::put('/activities', [ActivityController::class, 'updatePartial']);
+// Route::put('/activities/{id}', [ActivityController::class, 'update']);
+// Route::put('/activities/{id}', 'ActivityController@update');
+
+use App\Http\Controllers\TextbookController;
+// Route::post('/textbooks', [TextbookController::class, 'store']);
+Route::put('/textbooks/{id}', [TextbookController::class, 'update']);
+Route::delete('/textbooks/{id}', [TextbookController::class, 'destroy']);
+Route::get('/textbooks', [TextbookController::class, 'index']);
+Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
+Route::post('/textbooks', [TextbookController::class, 'store']) ;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
