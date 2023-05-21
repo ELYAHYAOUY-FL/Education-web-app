@@ -15,27 +15,26 @@
           </div>
           <div class="d-flex justify-content-end mt-3">
             <button class="btn btn-danger mr-2" @click="supprimerActivity(activity.id)">Supprimer</button>
-            <button class="btn btn-primary" @click="editActivity(activity)">Modifier</button>
+            <!-- <button class="btn btn-primary" @click="editActivity(activity)">Modifier</button> -->
           </div>
-          <div v-if="activity.id === editingId">
+          <!-- <div v-if="activity.id === editingId">
             <h4>Modifier l'activité</h4>
             <form @submit.prevent="submitForm">
               <div>
                 <label>Nom:</label>
                 <input v-model="nom" name="nom" required>
-                <!-- <input  type="text" id="nom" v-model="nom" required> -->
               </div>
               <div>
                 <label>Description:</label>
-                <textarea  id="description" v-model="description" required></textarea>
+                <textarea id="description" v-model="description" required></textarea>
               </div>
               <div>
                 <label>Date:</label>
-                <input   id="date" type="date" v-model="date" required>
+                <input id="date" type="date" v-model="date" required>
               </div>
               <div>
                 <label>Heure:</label>
-                <input   id="heure" type="time" v-model="heure" required>
+                <input id="heure" type="time" v-model="heure" required>
               </div>
               <div>
                 <label for="photo">Photo:</label>
@@ -46,7 +45,7 @@
               </div>
               <button type="submit">Enregistrer</button>
             </form>
-          </div>
+          </div> -->
         </li>
       </ul>
     </div>
@@ -89,54 +88,93 @@ export default {
           console.error('Erreur lors de la récupération des activités:', error);
         });
     },
-    editActivity(activity) {
-      this.editingId = activity.id;
+    // editActivity(activity) {
+    //   this.nom = activity.nom;
+    // this.description = activity.description;
+    // this.date = activity.date;
+    // this.heure = activity.heure;
+    // this.photo = null; // Clear the photo field
+    // this.inputKey = Date.now();
+    // this.imagePreview = activity.photo;
 
-      // Pré-remplir le formulaire avec les données de l'activité actuellement éditée
-      this.nom = activity.nom;
-      this.description = activity.description;
-      this.date = activity.date;
-      this.heure = activity.heure;
+    // // Set the editingId to the ID of the activity being edited
+    // this.editingId = activity.id;
+    // },
 
       // Pré-remplir la propriété "photo" si l'activité a une photo existante
-      if (activity.photo) {
-        this.photo = activity.photo;
-        this.imagePreview = '/photos/' + activity.photo;
-      } else {
-        this.photo = null;
-        this.imagePreview = '';
-      }
-      console.log('valid11');
-    },
-    submitForm() {
-      const formData = new FormData();
-      formData.append('nom', this.nom);
-      formData.append('description', this.description);
-      formData.append('date', this.date);
-      formData.append('heure', this.heure);
-      if (this.photo) {
-        formData.append('photo', this.photo);
-      }
-      console.log('valid2222');
-      console.log(formData); 
-      axios.put(`/activities/${this.editingId}`, formData)
-    .then(response => {
-        console.log(response.data.message);
-        this.resetForm();
-        this.editingId = null; 
-        this.fetchActivities(); // Mettre à jour la liste des activités après la modification réussie
-    })
-    .catch(error => {
-        if (error.response && error.response.data.errors) {
-            const errors = error.response.data.errors;
-            // Afficher les erreurs dans la console ou les traiter d'une autre manière
-            console.log(errors);
-        } else {
-            console.error('Erreur lors de la modification de l\'activité:', error);
-        }
-    });
+      // if (activity.photo) {
+      //   this.photo = activity.photo;
+      //   this.imagePreview = '/photos/' + activity.photo;
+      // } else {
+      //   this.photo = null;
+      //   this.imagePreview = '';
+      // }
+      // console.log('valid11');
+    // },
+    // submitForm() {
+    //   const formData = new FormData();
+    //   formData.append('nom', this.nom);
+    //   formData.append('description', this.description);
+    //   formData.append('date', this.date);
+    //   formData.append('heure', this.heure);
+    //   if (this.photo) {
+    //     formData.append('photo', this.photo);
+    //   }
+    //   console.log('valid2222');
+    //   console.log(formData); 
+    //   axios.put(`/activities/${this.editingId}`, formData)
+    // .then(response => {
+    //     console.log(response.data.message);
+    //     this.resetForm();
+    //     this.editingId = null; 
+    //     this.fetchActivities(); // Mettre à jour la liste des activités après la modification réussie
+    // })
+    // .catch(error => {
+    //     if (error.response && error.response.data.errors) {
+    //         const errors = error.response.data.errors;
+    //         // Afficher les erreurs dans la console ou les traiter d'une autre manière
+    //         console.log(errors);
+    //     } else {
+    //         console.error('Erreur lors de la modification de l\'activité:', error);
+    //     }
+    // });
 
-    },
+    // },
+  //   submitForm() {
+  //   // Create FormData object
+  //   const formData = new FormData();
+  //   formData.append('nom', this.nom);
+  //   formData.append('description', this.description);
+  //   formData.append('date', this.date);
+  //   formData.append('heure', this.heure);
+
+  //   if (this.photo) {
+  //     formData.append('photo', this.photo);
+  //   }
+
+  //   // Make a POST request to save the edited activity
+  //   axios.post(`/api/activities/${this.editingId}`, formData)
+  //     .then(response => {
+  //       console.log('Activité modifiée avec succès:', response.data);
+  //       // Reset form values and variables
+  //       this.nom = '';
+  //       this.description = '';
+  //       this.date = '';
+  //       this.heure = '';
+  //       this.photo = null;
+  //       this.inputKey = Date.now();
+  //       this.imagePreview = '';
+
+  //       // Reset editingId to null to exit editing mode
+  //       this.editingId = null;
+
+  //       // Fetch updated activities list
+  //       this.fetchActivities();
+  //     })
+  //     .catch(error => {
+  //       console.error('Erreur lors de la modification de l\'activité:', error);
+  //     });
+  // },
     onFileChange(event) {
       const file = event.target.files[0];
       this.form.photo = file;
