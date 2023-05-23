@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PayementsdemoiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ use App\Http\Controllers\MatiereController ;
 use App\Http\Controllers\ClassController ;
 use App\Http\Controllers\ClasseMatiereController ;
 use App\Http\Controllers\VirementController ;
+use App\Http\Controllers\EleveController;
+use App\Http\Controllers\ParentController;
+
+
 // niveua scolaire api 
 Route::get('/niveau_scolires', [NiveauScolaireController ::class, 'index']);
 Route::post('/niveau_scolires', [NiveauScolaireController ::class, 'store']);
@@ -33,13 +38,33 @@ Route::post('/professuers', [ProfesseurController ::class, 'store']);
 Route::delete('/professuers/{id}', [ProfesseurController::class, 'destroy']);
 Route::put('professuers/{id}', [ProfesseurController::class, 'update']);
 
+
+//Eleve
+Route::post('/eleves', [EleveController::class, 'store']);
+Route::get('/eleves', [EleveController::class, 'index']);
+Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
+Route::put('/eleves/{id}', [EleveController::class, 'update']);
+
+//parent 
+Route::get('/parents', [ParentController::class, 'index']);
+Route::post('/parents', [ParentController::class, 'store']);
+Route::get('/parents/create', [ParentController::class, 'create']);
+
+
+
+
 // matiers 
-Route::get('/matieres', [MatiereController  ::class, 'index']);
+Route::get('/matieres', [MatiereController::class, 'index']);
 
 
 // classes
-Route::get('/classes', [ClassController ::class, 'index']);
+Route::get('/classes', [ClassController::class, 'index']);
 
+//payement
+Route::post('/payements', [PayementsdemoiController::class, 'store']);
+Route::get('/payements', [PayementsdemoiController::class, 'index']);
+
+ 
 
 //classes and matiers relation 
 Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);

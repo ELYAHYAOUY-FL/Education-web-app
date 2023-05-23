@@ -1,104 +1,105 @@
 <template>
   <MainLayout>
-    <!-- Content header -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">La liste des niveaux scolaires</h1>
-          </div>
+    <h1 class="text-center">Liste des professuer</h1>
+    <div class="container row">
+      <div  v-for="(professuer, index) in professuers" :key="index" class="col-md-4 mb-4 fade-in">
+        <div class="card-header">
+          <h5 class="card-title">{{ professuer.nom }}</h5>
         </div>
-      </div>
-    </div>
-
-    <!-- Content body -->
-    <div class="content">
-      <div class="">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h1 class="card-title">Etudiants</h1>
-                <div class="card-tools">
-                  <ul class="pagination pagination-sm float-right">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="card-body p-0">
-                <table class="table">
-                  <thead>
-                    <tr>
-              
-                      <th>Photo</th>
-                      <th>Nom</th>
-                      <th>Prénom</th>
-                      <th>Phone</th>
-                      <th>Diplome </th>
-                      <th>Salaire</th>
-                      <th>matier </th>
-                      <th>classes</th>
-                      <th> Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- <tr v-for="etudiant in etudiants" :key="etudiant.id"> -->
-                      <tr v-for="(professuer, index) in professuers" :key="index">
-                      
-                      <td>{{ professuer. photo}}</td>
-                      <td>{{ professuer.nom }}</td>
-                      <td>{{ professuer.prenom }}</td>
-                      <td>{{ professuer.tel }}</td>
-                      <td>{{ professuer.diplom }}</td>
-                      <td>{{ professuer.virement.salaire }}</td>
-                      <td>
-  <ul>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <img :src="'/photos/' + professuer. photo" alt="Photo" class="professuer-photo img-fluid rounded-circle">
+            </div>
+            <div class="col-md-9">
+              <p class="card-text"  @click="toggleDetails(professuer)" style="padding: 20px;">
+                Prénom: {{ professuer.prenom }}
+              </p>
+              <p class="card-text"  @click="toggleDetails(professuer)"  >
+                Nom: {{ professuer.nom }}
+              </p>
+              <transition name="fade">
+                <div v-if="professuer.detailsVisible">
+                  <p class="card-text">telephone :  {{ professuer.tel }}</p>
+                  <p class="card-text">Diplome :  {{ professuer.diplom }}</p>
+                  <p class="card-text"> Salaire :   {{ professuer.virement.salaire }}</p>
+                  <ul  class="card-text">
     <li v-for="matiere in professuer.matieres" :key="matiere.id">
-      {{ matiere.titre }}
+      Matiere:  {{ matiere.titre }}
       
     </li>
   </ul>
-</td>
-<td>
-  <ul>
-    <li v-for="matiere in professuer.matieres" :key="matiere.id">
-     
-      <ul>
-        <li v-for="classe in matiere.classes" :key="classe.id">
+  <ul class="card-text">
+               <li v-for="matiere in professuer.matieres" :key="matiere.id">
+              <ul>
+           <li v-for="classe in matiere.classes" :key="classe.id">
           {{ classe.nom }}
         </li>
       </ul>
-    </li>
-  </ul>
-</td>
-
-
-                      <td>
-                        <div class="d-flex justify-items-center">
-                          <button class="btn btn-info mr-2"><i class="fas fa-pen fa-beat"></i></button>
-                          <button class="btn btn-danger"><i class="fas fa-solid fa-trash fa-beat fa-xl" @click="deleteProfesseur(professuer.id)"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+      </li></ul>
+    </div>
+              </transition>
             </div>
-               
           </div>
         </div>
+        <div class="card-footer">
+          <button class="btn btn" style="color: rgb(15, 189, 160);"    @click="deleteProfesseur(professuer.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          <button class="btn btn" style="color: rgb(40, 112, 100);"  >
+            <i class="fa fa-pencil"></i>
+          </button>
+        </div>
       </div>
-    </div>
+    </div> 
+                    
   </MainLayout>
 </template>
+<style scoped>
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+  transition: all 0.4s ease-in-out;
+
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: rgb(62, 148, 148);
+  padding: 10px;
+  text-align: center;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.professuer-photo {
+  
+  width: 100px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.card-text {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+</style>
       
       <script>
-      
       import MainLayout from '../../Layouts/MainLayout.vue';
       import axios from 'axios';
       export default {
@@ -107,7 +108,8 @@
           return {
             professuers: [],
             showForm: false,
-            photo : '',
+            photo: null,
+            
             nom : '',
             prenom : '',
             tel : '',
@@ -144,7 +146,11 @@ mounted() {
     console.log(error);
   }
 },
+toggleDetails(professuer) {
+      professuer.detailsVisible = !professuer.detailsVisible;
+    },
 
   } 
       };
       </script>
+      

@@ -5,6 +5,8 @@
  */
 
 namespace App\Models;
+use App\Models\Eleve;
+use App\Models\EleveParent;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -68,4 +70,9 @@ class Parente extends Model
 	{
 		return $this->hasMany(EleveParent::class);
 	}
+	public function eleves()
+{
+    return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
+}
+
 }

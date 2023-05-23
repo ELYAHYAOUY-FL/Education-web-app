@@ -28,6 +28,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->timestamps();
         });
+        Schema::table('eleves', function (Blueprint $table) {
+            $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
+        });
+        Schema::table('eleves', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
