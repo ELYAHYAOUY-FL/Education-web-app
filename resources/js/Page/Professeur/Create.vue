@@ -9,8 +9,8 @@
 
         <form  @submit.prevent="addViremnt" enctype="multipart/form-data">
           <div class="form-group">
-    <label for="salaire">Salire</label>
-    <input type="text" class="form-control" id="salaire" v-model="modelValue.salaire" required>
+        <label for="salaire">Salire</label>
+          <input type="text" class="form-control" id="salaire" v-model="modelValue.salaire" required>
          </div>
           <!-- <div class="form-group">
     <label for="date">Date de virement </label>

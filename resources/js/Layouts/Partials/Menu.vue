@@ -86,13 +86,13 @@
     </a>
      <ul class="nav nav-treeview">
     <li class="nav-item">
-    <router-link to="/StudentPageadmin" class="nav-link " :class="{ 'active': $route.path === '/StudentPageadmin' }">
+    <router-link to="/ParentListAdmin" class="nav-link " :class="{ 'active': $route.path === '/ParentListAdmin' }">
     <i class="far fa-circle nav-icon" style="color: aliceblue;"></i>
     <p> tous les parent </p>
     </router-link>
     </li>
     <li class="nav-item">
-    <router-link to="/StudentCreatadmin" class="nav-link" :class="{ 'active': $route.path === '/StudentCreatadmin' }">
+    <router-link to="/ParentCreatAdmin" class="nav-link" :class="{ 'active': $route.path === '/ParentCreatAdmin' }">
     <i class="far fa-circle nav-icon"></i>
     <p> ajouter parent </p>
     </router-link>

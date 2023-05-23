@@ -19,6 +19,9 @@ import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
 //cantine
 import CantinePageadmin from './Page/Cantine/index.vue'
  
+//parent
+import ParentListAdmin from './Page/Parent/index.vue';
+import ParentCreatAdmin from './Page/Parent/create.vue';
 
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
@@ -134,6 +137,17 @@ component : NiveauListAdmin
   path : '/ActvityListAdmin',
   name :'ActvityListAdmin',
   component :ActvityListAdmin
+},
+// ParentAdmin
+{
+  path : '/ParentListAdmin',
+  name :'parentListAdmin',
+  component :ParentListAdmin
+},
+{
+  path : '/ParentCreatAdmin',
+  name :'parentCreatAdmin',
+  component :ParentCreatAdmin
 },
 
 //Textbook

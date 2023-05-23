@@ -1,17 +1,14 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Models\Classe;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Elefe
+  * Class Eleve
  * 
  * @property int $id
  * @property string $nom_francais
@@ -28,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Class $class
+ * @property Classe $classe
  * @property User $user
  * @property Collection|Absence[] $absences
  * @property Collection|EleveNote[] $eleve_notes
@@ -40,32 +37,37 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Eleve extends Model
 {
-	protected $table = 'eleves';
+    protected $table = 'eleves';
 
-	protected $casts = [
-		'date_naissance' => 'datetime',
-		'classe_id' => 'int',
-		'user_id' => 'int'
-	];
+    protected $casts = [
+        'date_naissance' => 'datetime',
+        'classe_id' => 'int',
+        'user_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'nom_francais',
-		'nom_arabe',
-		'prenom_francais',
-		'prenom_arabe',
-		'date_naissance',
-		'lieu_naissance',
-		'sex',
-		'photo',
-		'CNE',
-		'classe_id',
-		'user_id'
-	];
+    protected $fillable = [
+        'nom_francais',
+        'nom_arabe',
+        'prenom_francais',
+        'prenom_arabe',
+        'date_naissance',
+        'lieu_naissance',
+        'sex',
+        'photo',
+        'CNE',
+        'classe_id',
+        'user_id'
+    ];
 
-	public function classe()
-	{
-		return $this->belongsTo(Classe::class, 'classe_id');
-	}
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'classe_id');
+    }
+
+
+    
+
+
 
 	public function user()
 	{

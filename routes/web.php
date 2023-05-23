@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EtudiantController;
+ 
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\CantineController;
 use App\Http\Controllers\TextbookController;
@@ -31,9 +31,7 @@ Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class
 // Route::get('adminn/nivScolairupdate',[NiveauScolaireController::class,'update']);
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);
 //admin etudaint
-Route::get('/etudiants', [EtudiantController::class, 'index']);
-Route::post('admin/etudiantcreate', [EtudiantController::class, 'store'])->name('etudiant.store');
-
+ 
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
