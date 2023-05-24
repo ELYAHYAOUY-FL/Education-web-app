@@ -4,13 +4,13 @@
       <div class="shape"></div>
       <div class="shape"></div>
     </div>
-    <form>
+    <form @submit.prevent="login">
       <h3>Login Here</h3>
       <label for="username">Username</label>
-  <input type="text" placeholder="Email or Phone" id="username">
+  <input type="text" placeholder="Email or Phone" id="username"  v-model="email">
 
   <label for="password">Password</label>
-  <input type="password" placeholder="Password" id="password">
+  <input type="password" placeholder="Password" id="password"  v-model="password">
 
   <button>Log In</button>
   <div class="social">
@@ -23,36 +23,37 @@
 
 <script>
 export default {
+    data() {
+    return {
+      email: '',
+   password:''
+    }
+  },
     // name: 'LoginForm'
     // Assuming you have a login method in your component
 methods: {
-    async login() {
-  try {
-    // Perform authentication logic and retrieve the user object with role
-    const response = await axios.post('/api/login', { username, password });
-    const user = response.data.user;
+  login(){
+    this.$store.dispatch('auth/login', {
+            email: this.email,
+            password: this.password,
+            // remember: this.status,
+          })
+          .then(res => {
+            console.log(this.$store.getters["auth/user_type"])
+            if(this.$store.getters["auth/user_type"]==="professeur")
+                    this.$router.push('/professeur')
+                  else if(this.$store.getters["auth/user_type"]==="admin")
+                      this.$router.push('/Administration')
+                      else if(this.$store.getters["auth/user_type"]==="entreprise")
+                            this.$router.push('/company')
+                
+          }).catch(error => {
+          console.log(error)
+          })
+console.log(  this.email)
+console.log(  this.password)
 
-    if (user.role === 1) {
-      // Redirect to the admin page
-      this.$router.push('/administration');
-    } else if (user.role === 2) {
-      // Redirect to the student page
-      this.$router.push('/student');
-    } else if (user.role === 3) {
-      // Redirect to the professor page
-      this.$router.push('/professor');
-    } else if (user.role === 4) {
-      // Redirect to the parent page
-      this.$router.push('/parent');
-    } else {
-      // Handle other roles or show an error message
-      console.error('Invalid role');
-    }
-  } catch (error) {
-    // Handle error during authentication
-    console.error('Authentication error:', error);
   }
-}
 
 }
 

@@ -21,7 +21,7 @@
                   <i :class="showForm ? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
                   {{ showForm ? 'Cancel' : 'Add NiveauScolaire' }}
                 </button>
-                <form v-if="showForm">
+                <form v-if="showForm" @submit.prevent="addNiveauScolaire">
                   <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="nom">
@@ -30,9 +30,9 @@
                     <label for="description">Discription</label>
                     <input type="text" class="form-control" id="description" v-model="description">
                   </div>
-                  <button class="btn btn-primary" @click="addNiveauScolaire">Save</button>
+                  <button class="btn btn-primary" >Save</button>
                 </form>
-                <form v-if="showForm1">
+                <form v-if="showForm1" @submit.prevent="saveUpdatedNiveauScolaire">
                   <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="niveau_scolaire.nom">
@@ -42,7 +42,7 @@
                     <input type="text" class="form-control" id="description" v-model="niveau_scolaire.description">
                   </div>
                   
-                  <button class="btn btn-primary" @click="saveUpdatedNiveauScolaire">Save</button>
+                  <button class="btn btn-primary" >Save</button>
                 </form>
               </div>
 
@@ -102,7 +102,7 @@ export default {
   mounted() {
     try {
       console.log('on mounted');
-      axios.get('/api/niveau_scolires').then((response) => {
+      axios.get('/niveau_scolires').then((response) => {
         console.log(response.data);
         this.niveau_scolaires = response.data;
       });
@@ -117,7 +117,7 @@ export default {
         description: this.description,
       };
       try {
-        const response = await axios.post('/api/niveau_scolires', newNiveauScolaire);
+        const response = await axios.post('/niveau_scolires', newNiveauScolaire);
         // handle the response as needed
         this.nom = '';
     this.description = ''; 
@@ -147,11 +147,20 @@ export default {
 
     async saveUpdatedNiveauScolaire() {
       try {
-    const response = await axios.put(`/api/niveau_scolires/${this.niveau_scolaire.id}`, {
+    const response = await axios.put(`/niveau_scolires/${this.niveau_scolaire.id}`, {
       nom: this.niveau_scolaire.nom,
       description: this.niveau_scolaire.description
     });
     console.log(response.data.message);
+    try {
+      console.log('on mounted');
+      axios.get('/niveau_scolires').then((response) => {
+        console.log(response.data);
+        this.niveau_scolaires = response.data;
+      });
+    } catch (error) {
+      console.error(error);
+    }
     this.showForm1 = false; // Hide the form after successful update
   } catch (error) {
     console.log(error.response.data.message);

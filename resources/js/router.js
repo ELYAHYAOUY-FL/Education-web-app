@@ -31,12 +31,14 @@ import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
 import textbookProf from './PageProfesseur/Textbook/index.vue'
 
 //login 
-import  LoginPage from './src/pages/Login.vue'
+import  LoginPage from './src/pages/Login.vue';
+import store  from '@/store';
 const routes =[ 
 
     {
         path: '/',
-        redirect: '/home'
+        redirect: '/home',
+        
       },
       {
         path: '/login' ,
@@ -46,17 +48,21 @@ const routes =[
 
       {
         path: '/home',
-        component: AcuillePage
+        component: AcuillePage,meta: {guest:true}
       },
     {
     path : '/Administration',
    name :'Admin',
-   component : AdministrationPage
+   component : AdministrationPage,
+   meta: {requiresAuth:true}
 },
 {
   path : '/professeur',
  name :'Prof',
- component : professeurPage
+ component : professeurPage,
+ meta: {requiresAuth:true ,  professeur: true},
+
+
 },
 {
 
@@ -154,7 +160,8 @@ component : NiveauListAdmin
 {
   path : '/textbookProf',
   name :'texbookProf',
-  component :textbookProf
+  component :textbookProf,
+  meta: {requiresAuth:true ,  professeur: true}
 },
  
 
@@ -165,5 +172,37 @@ const router  =createRouter({
     history : createWebHistory(),
     routes
 });
+router.beforeEach((to, from, next) => {
+  // set document title
+  // document.title = `${to.meta.title} - ${store.getters['appName']}`
+  const user_type = store.getters['auth/user_type']
+  if(to.matched.some(route => route.meta.guest) && store.getters['auth/isLogged']) {
+    if(store.getters['auth/user_type'] ==='professeur') 
+        return next("/professeur").isLogged
+  }
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    //  check if logged in if not, redirect to SignIn page.
+    if(!store.getters['auth/isLogged']) {
+      next({ name: 'Login' })
+    }else{ 
+      //check if page require admin user and user is admin
+      if(store.getters['auth/user_type'] !=='professeur' && to.matched.some(route => route.meta.professeur)){
+        return next('/login')
+      }  
+      // //check if page require entreprise user and user is entreprise
+      // if(store.getters['auth/user_type'] !=='entreprise' && to.matched.some(route => route.meta.company)){
+      //   return next('/error/401')
+      // }   
+      // //check if page require livreur user and user is livreur
+      // if(store.getters['auth/user_type'] !=='livreur' && to.matched.some(route => route.meta.delivery)){
+      //   return next('/error/401')
+      // }
+    next()
+    }
+  } else {
+    next() 
+  }
+
+})
 
 export default router;

@@ -24,6 +24,7 @@ use App\Http\Controllers\ClasseMatiereController ;
 use App\Http\Controllers\VirementController ;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\AuthController;
 
 
 // niveua scolaire api 
@@ -94,7 +95,12 @@ Route::post('/textbooks', [TextbookController::class, 'store']) ;
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
+    //Auth routes
+    Route::group(['prefix' => 'auth', 'name' => 'auth.'], function () {
+        Route::post('/login', [AuthController::class, 'login'])->name('login')->withoutMiddleware('auth:sanctum');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('/user', [AuthController::class, 'user'])->name('user');
+    });
+ });
 
