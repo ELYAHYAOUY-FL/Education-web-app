@@ -8,12 +8,6 @@ import router from "./router.js";
 import { createApp, h } from 'vue';
 
 
-
-
-
-
-
-
 import { setupStore } from './store';
 
 const app = createApp(App);

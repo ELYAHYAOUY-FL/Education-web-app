@@ -8,18 +8,17 @@
     <div class="row">
       <div class="col-md-6">
         <div class="about_img-container">
-          <img src="../assest/images/about.png" alt="" class="img">
+          <img src="../assest/images/about1.jpg" alt="" class="img">
         </div>
       </div>
       <div class="col-md-6">
         <div class="about_detail-box">
           <h3>
-            About our School
-          </h3>
+            À propos de notre école  </h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            Chez <b>EduSage</b>, nous sommes passionnés par l'éducation et nous croyons fermement au pouvoir de la technologie pour améliorer l'apprentissage. Notre plateforme a été conçue dans le but de simplifier et d'enrichir l'expérience éducative pour les élèves, les enseignants et les parents.
+
+En tant que fournisseur de services éducatifs, nous offrons une gamme de fonctionnalités et d'outils qui facilitent la communication, la collaboration et l'accès aux ressources pédagogiques. Notre objectif est de créer un environnement numérique convivial, interactif et sécurisé où chaque acteur de l'éducation peut trouver les outils nécessaires pour réussir.
           </p>
           
         </div>
@@ -38,19 +37,17 @@
       <div class="col-md-6">
         <div class="admission_detail-box">
           <h3>
-            Admission open
+            Soumission de la demande d'admission
           </h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            Une fois que vous avez pris la décision de nous rejoindre, veuillez remplir notre formulaire de demande d'admission. Assurez-vous de fournir toutes les informations requises, telles que les coordonnées de l'élève, les informations sur les parents/tuteurs, les antécédents scolaires, etc. Vous pouvez soumettre la demande en ligne ou la déposer physiquement à notre bureau des admissions.
           </p>
           
         </div>
       </div>
       <div class="col-md-6">
         <div class="admission_img-container">
-          <img src="../assest/images/penn.png" alt="" class="pen">
+          <img src="../assest/images/admission.jpg" alt="" class="pen">
         </div>
       </div>
     </div>
@@ -67,14 +64,13 @@
     <div class="row">
       <div class="col-md-6">
         <div class="why_img-container">
-          <img src="../assest/images/why.png" alt="" class="img">
+          <img src="../assest/images/determine.jpg" alt="" class="img">
         </div>
       </div>
       <div class="col-md-6">
         <div class="why_detail-box">
           <h3>
-            Why learn on Fanadesh
-          </h3>
+            Pourquoi apprendre sur EduSage</h3>
           <p>
             Une application de gestion scolaire est un outil essentiel pour les établissements scolaires, 
             offrant une gestion efficace des étudiants, le suivi des performances académiques, 

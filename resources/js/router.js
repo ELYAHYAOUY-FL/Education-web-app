@@ -48,13 +48,14 @@ const routes =[
 
       {
         path: '/home',
-        component: AcuillePage,meta: {guest:true}
+        component: AcuillePage,
+        meta: {guest:true}
       },
     {
     path : '/Administration',
    name :'Admin',
    component : AdministrationPage,
-   meta: {requiresAuth:true}
+   meta: {requiresAuth:true , administration:true}
 },
 {
   path : '/professeur',
@@ -68,97 +69,109 @@ const routes =[
 
   path :'/parent',
   name :'parent',
- component :parentPage
+ component :parentPage,
+ meta: {requiresAuth:true, parent:true}
+
 },
 
 {
     path : '/Student',
    name :'Eleve',
-   component : studentPage
+   component : studentPage,
+   meta: {requiresAuth:true ,eleve:true}
+
 },
 // **********************admin router *********************
 // student path 
 {
-  path : '/StudentPageadmin',
+  path : '/Administration/Student',
   name :'ElevePageadmin',
-  component : EtudiantListAdmin
+  component : EtudiantListAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/StudentCreatadmin',
+  path : '/Administration/StudentCreat',
   name :'EtudiantCreatAdmin',
-  component : EtudiantCreatAdmin
+  component : EtudiantCreatAdmin,
+  meta: {requiresAuth:true , administration:true}
+
   },
 
 
   // niveau Scolaire Path 
 {
-path : '/NiveauPageadmin',
+path : '/Administration/NiveauScolaire',
 name : 'NiveauListAdmin',
-component : NiveauListAdmin
+component : NiveauListAdmin,
+meta: {requiresAuth:true , administration:true}
+
 },
 
 
 //  prof path 
 {
-  path : '/ProfesseurPageadmin',
+  path : '/Administration/Professeur',
   name :'ProfPageadmin',
-  component : ProfesseurListAdmin
+  component : ProfesseurListAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ProfesseurCreatePageadmin',
+  path : '/Administration/ProfesseurCreat',
   name :'ProfcretePageadmin',
-  component : ProfesseurcreateAdmin
+  component : ProfesseurcreateAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
-// {
-//   path : '/ProfesseurEditPageadmin',
-//   name :'ProfEditPageadmin',
-//   component : ProfesseurEditAdmin
-// },
-//  parent  path 
+
+// ParentAdmin
 {
-  path : '/ProfesseurPageadmin',
-  name :'ProfPageadmin',
-  component : ProfesseurListAdmin
+  path : '/Administration/Parent',
+  name :'parentListAdmin',
+  component :ParentListAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ProfesseurCreatePageadmin',
-  name :'ProfcretePageadmin',
-  component : ProfesseurcreateAdmin
+  path : '/Administration/ParentCreat',
+  name :'parentCreatAdmin',
+  component :ParentCreatAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
+
 //cantine
 {
-  path : '/CantinePageadmin',
+  path : '/Administration/Cantine',
   name :'CantPageadmin',
-  component : CantinePageadmin
+  component : CantinePageadmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
  
 //activity
  
 {
-  path : '/ActivitieyFormAdmin',
+  path : '/Administration/ActivitieyForm',
   name :'ActivitieyFormAdmin',
-  component :ActivitieyFormAdmin
+  component :ActivitieyFormAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ActvityListAdmin',
+  path : '/Administration/ActvityListAdmin',
   name :'ActvityListAdmin',
-  component :ActvityListAdmin
+  component :ActvityListAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
-// ParentAdmin
-{
-  path : '/ParentListAdmin',
-  name :'parentListAdmin',
-  component :ParentListAdmin
-},
-{
-  path : '/ParentCreatAdmin',
-  name :'parentCreatAdmin',
-  component :ParentCreatAdmin
-},
+
+// ************************************** professeur routing  *****************************************
 
 //Textbook
 {
-  path : '/textbookProf',
+  path : '/parent/textbookProf',
   name :'texbookProf',
   component :textbookProf,
   meta: {requiresAuth:true ,  professeur: true}
@@ -179,6 +192,12 @@ router.beforeEach((to, from, next) => {
   if(to.matched.some(route => route.meta.guest) && store.getters['auth/isLogged']) {
     if(store.getters['auth/user_type'] ==='professeur') 
         return next("/professeur").isLogged
+    if(store.getters['auth/user_type'] ==='admin') 
+        return next("/Administration").isLogged
+    if(store.getters['auth/user_type'] ==='eleve') 
+        return next("/Student").isLogged
+    if(store.getters['auth/user_type'] ==='parent') 
+        return next("/parent").isLogged
   }
   if (to.matched.some(route => route.meta.requiresAuth)) {
     //  check if logged in if not, redirect to SignIn page.
@@ -189,13 +208,19 @@ router.beforeEach((to, from, next) => {
       if(store.getters['auth/user_type'] !=='professeur' && to.matched.some(route => route.meta.professeur)){
         return next('/login')
       }  
-      // //check if page require entreprise user and user is entreprise
-      // if(store.getters['auth/user_type'] !=='entreprise' && to.matched.some(route => route.meta.company)){
-      //   return next('/error/401')
-      // }   
+      //check if page require admin  user and user is admin
+      if(store.getters['auth/user_type'] !=='admin' && to.matched.some(route => route.meta.administration)){
+        return next('/login')
+      }   
+      if(store.getters['auth/user_type'] !=='eleve' && to.matched.some(route => route.meta.eleve)){
+        return next('/login')
+      }   
+      if(store.getters['auth/user_type'] !=='parent' && to.matched.some(route => route.meta.parent)){
+        return next('/login')
+      }   
       // //check if page require livreur user and user is livreur
       // if(store.getters['auth/user_type'] !=='livreur' && to.matched.some(route => route.meta.delivery)){
-      //   return next('/error/401')
+      //   return next('/erxror/401')
       // }
     next()
     }

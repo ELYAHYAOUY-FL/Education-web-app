@@ -40,12 +40,18 @@ methods: {
           })
           .then(res => {
             console.log(this.$store.getters["auth/user_type"])
-            if(this.$store.getters["auth/user_type"]==="professeur")
-                    this.$router.push('/professeur')
-                  else if(this.$store.getters["auth/user_type"]==="admin")
-                      this.$router.push('/Administration')
-                      else if(this.$store.getters["auth/user_type"]==="entreprise")
-                            this.$router.push('/company')
+            if(this.$store.getters["auth/user_type"]==="professeur"){
+              this.$router.push('/professeur')
+            }
+            else if(this.$store.getters["auth/user_type"]==="admin"){
+              this.$router.push('/Administration')
+            }
+            else if(this.$store.getters["auth/user_type"]==="eleve"){
+              this.$router.push('/Student')
+            }
+           else if(this.$store.getters["auth/user_type"]==="parent"){
+             this.$router.push('/parent')
+             }
                 
           }).catch(error => {
           console.log(error)
@@ -61,7 +67,7 @@ console.log(  this.password)
 </script>
 
 <style>
-
+/* 
 
 *,
 *:before,
@@ -193,7 +199,7 @@ button {
 
 .social i {
   margin-right: 4px;
-}
+} */
    
 </style>
 <style></style>

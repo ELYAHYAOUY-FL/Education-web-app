@@ -23,7 +23,7 @@ export default {
   // logout
   logout({ commit }) {
     return new Promise(resolve => {
-      this.$http.post(`${prefixUrl}logout`)
+      axios.post(`${prefixUrl}logout`)
         .catch(() => {
 
         })
