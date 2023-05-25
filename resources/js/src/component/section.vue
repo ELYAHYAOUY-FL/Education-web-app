@@ -3,7 +3,7 @@
      <div class="common_style">
 
 <!-- about section -->
-<section class="about_section">
+<section class="about_section" data-aos="fade-up-right">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -31,7 +31,7 @@ En tant que fournisseur de services éducatifs, nous offrons une gamme de foncti
 <!-- end about section -->
 
 <!-- admission section -->
-<section class="admission_section">
+<section class="admission_section" data-aos="fade-up-left">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -59,7 +59,7 @@ En tant que fournisseur de services éducatifs, nous offrons une gamme de foncti
 <!-- end admission section -->
 
 <!-- why section -->
-<section class="why_section">
+<section class="why_section" data-aos="fade-up-right">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -91,3 +91,15 @@ En tant que fournisseur de services éducatifs, nous offrons une gamme de foncti
 
 </div>
 </template>
+
+
+<script>
+  import 'aos/dist/aos.css'
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
