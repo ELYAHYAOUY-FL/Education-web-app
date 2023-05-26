@@ -3,37 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleve;
-use App\Models\Classe;
+use App\Models\Groupe;
 use Illuminate\Http\Request;
 
 class EleveController extends Controller
 {
     public function index()
     {
-        $eleves = Eleve::with('classe')->get();
+        $eleves = Eleve::with('groupe')->get();
         return response()->json($eleves);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nom_francais' => 'required|string',
-            'nom_arabe' => 'required|string',
-            'prenom_francais' => 'required|string',
-            'prenom_arabe' => 'required|string',
-            'date_naissance' => 'required|date',
-            'lieu_naissance' => 'required|string',
-            'sex' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation de la photo
             'CNE' => 'required|string|unique:eleves,CNE',
-            'classe_id' => 'required',
-        ]);
+                        'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
+            'user_id' => 'required',
+            'groupe_id' => 'required',
+        ]);
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $photoName = time() . '.' . $photo->getClientOriginalExtension();
             $photo->move(public_path('photos'), $photoName);
-    
+
             $validatedData['photo'] = $photoName;
         }
     
@@ -50,7 +44,7 @@ class EleveController extends Controller
     
         // Remove the professor's association with subjects
         $eleve->eleve_professuers()->update(['eleve_id' => null]);
-    
+        $professeur->groups()->update(['group_id' => null]);
         // Delete the professor
         $eleve->delete();
     

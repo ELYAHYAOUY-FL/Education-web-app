@@ -1,159 +1,239 @@
 <template>
   <MainLayout>
-  <div>
-    <h1>Create New Student</h1>
-    <form @submit.prevent="submitForm">
-      <div>
-        <label for="nom_francais">Nom (Français):</label>
-        <input type="text" id="nom_francais" v-model="formData.nom_francais">
-        <span v-if="errors.nom_francais" class="error">{{ errors.nom_francais[0] }}</span>
+    <div class="content-header">
+      <div class="container-fluid">
+        <h2>Ajouter des élèves:</h2>
+      
+
+        <form @submit.prevent="addUser" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="nom_francais">Nom en français</label>
+            <input type="text" class="form-control" id="nom_francais" v-model="modelValue.nom_francais" required>
+          </div>
+          <div class="form-group">
+            <label for="nom_arabe">Nom en arabe</label>
+            <input type="text" class="form-control" id="nom_arabe" v-model="modelValue.nom_arabe" required>
+          </div>
+          <div class="form-group">
+            <label for="prenom_francais">Prénom en français</label>
+            <input type="text" class="form-control" id="prenom_francais" v-model="modelValue.prenom_francais" required>
+          </div>
+          <div class="form-group">
+            <label for="prenom_arabe">Prénom en arabe</label>
+            <input type="text" class="form-control" id="prenom_arabe" v-model="modelValue.prenom_arabe" required>
+          </div>
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
+            <input type="date" class="form-control" id="date_naissance" v-model="modelValue.date_naissance" required>
+          </div>
+          <div class="form-group">
+            <label for="lieu_naissance">Lieu de naissance</label>
+            <input type="text" class="form-control" id="lieu_naissance" v-model="modelValue.lieu_naissance" required>
+          </div>
+          <div class="form-group">
+            <label for="sex">Sex :</label>
+            <select  class="form-control" id="sex" v-model="modelValue.sex" required>
+              <option value=""></option>
+              <option value="F">F</option>
+              <option value="M">M</option>
+            </select>
+            
+          </div>
+          <div class="form-group">
+        <label for="photo">Photo</label>
+        <input type="file" accept="image/*" class="form-control" id="photo" @change="handlePhotoChange" required>
+        <div>
+          <img src="" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
+        </div>
+        <div class="form-group">
+            <label for="adresse">Adress</label>
+            <input type="text" class="form-control" id="adresse" v-model="modelValue.adresse" required>
+          </div>
       </div>
-      <div>
-        <label for="nom_arabe">Nom (Arabe):</label>
-        <input type="text" id="nom_arabe" v-model="formData.nom_arabe">
-        <span v-if="errors.nom_arabe" class="error">{{ errors.nom_arabe[0] }}</span>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" v-model="modelValue.email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" v-model="modelValue.password" required>
+          </div>
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username" v-model="modelValue.username" required>
+          </div>
+          
+          <!-- <div class="form-group">
+            <label for="user_type"></label>
+            <input type="text" class="form-control" id="user_type" v-model="modelValue.user_type" required>
+          </div> -->
+          <div class="form-group">
+            <label for="user_type">Type d'utilisateur :</label>
+            <select  class="form-control" id="user_type" v-model="modelValue.user_type" required>
+              <option value=""></option>
+              <option value="F">eleve</option>
+              <!-- <option value="M">professeur</option>
+              <option value="M">admin</option>
+              <option value="M">parent</option> -->
+            </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="CNE">CNE</label>
+            <input type="text" class="form-control" id="CNE" v-model="modelValue.CNE" required>
+          </div>
+          <div>
+  <label for="groupe_id">Group:</label>
+  <select id="groupe_id" v-model="modelValue.groupe_id">
+    <option v-for="groupe in groupes" :key="groupe.id" :value="groupe.id">{{ groupe.nom }}</option>
+  </select>
+</div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+        <div v-if="successMessage" class="alert alert-success text-center">
+          <i class="fa fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
       </div>
-      <div>
-        <label for="prenom_francais">Prénom (Français):</label>
-        <input type="text" id="prenom_francais" v-model="formData.prenom_francais">
-        <span v-if="errors.prenom_francais" class="error">{{ errors.prenom_francais[0] }}</span>
-      </div>
-      <div>
-        <label for="prenom_arabe">Prénom (Arabe):</label>
-        <input type="text" id="prenom_arabe" v-model="formData.prenom_arabe">
-        <span v-if="errors.prenom_arabe" class="error">{{ errors.prenom_arabe[0] }}</span>
-      </div>
-      <div>
-        <label for="date_naissance">Date de naissance:</label>
-        <input type="date" id="date_naissance" v-model="formData.date_naissance">
-        <span v-if="errors.date_naissance" class="error">{{ errors.date_naissance[0] }}</span>
-      </div>
-      <div>
-        <label for="lieu_naissance">Lieu de naissance:</label>
-        <input type="text" id="lieu_naissance" v-model="formData.lieu_naissance">
-        <span v-if="errors.lieu_naissance" class="error">{{ errors.lieu_naissance[0] }}</span>
-      </div>
-      <div>
-        <label for="sex">Sexe:</label>
-        <select id="sex" v-model="formData.sex">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <span v-if="errors.sex" class="error">{{ errors.sex[0] }}</span>
-      </div>
-      <div>
-        <label for="photo">Photo:</label>
-        <input type="file" id="photo" @change="onFileChange">
-        <span v-if="errors.photo" class="error">{{ errors.photo[0] }}</span>
-      </div>
-      <div>
-        <label for="CNE">CNE:</label>
-        <input type="text" id="CNE" v-model="formData.CNE">
-        <span v-if="errors.CNE" class="error">{{ errors.CNE[0] }}</span>
-      </div>
-      <div>
-        <label for="classe_id">Classe:</label>
-        <select id="classe_id" v-model="formData.classe_id">
-          <option v-for="classe in classes" :key="classe.id" :value="classe.id">{{ classe.nom }}</option>
-        </select>
-        <span v-if="errors.classe_id" class="error">{{ errors.classe_id[0] }}</span>
-      </div>
-      <div>
-        <button type="submit">Add</button>
-      </div>
-    </form>
-  </div>
-</MainLayout>
+    </div>
+  </MainLayout>
 </template>
 
+
 <script>
-import axios from 'axios';
-import MainLayout from '../../Layouts/MainLayout.vue';
+import MainLayout from "../../Layouts/MainLayout.vue";
+import axios from "axios";
 
 export default {
   components: { MainLayout },
   data() {
     return {
-      formData: {
-        nom_francais: '',
-        nom_arabe: '',
-        prenom_francais: '',
-        prenom_arabe: '',
-        date_naissance: '',
-        lieu_naissance: '',
-        sex: '',
+      modelValue: {
+        nom_francais: "",
+        nom_arabe: "",
+        prenom_francais: "",
+        prenom_arabe: "",
+        date_naissance: "",
+        lieu_naissance: "",
+        sex: "",
+        email: "",
+        password: "",
+        username: "",
+        user_type: "",
+        adresse: "",
         photo: null,
-        CNE: '',
-        classe_id: '',
-        // user_id: '',
+        CNE: "",
       },
-      errors: {},
-      classes: [], 
-      // users:[],// Tableau des classes disponibles
+      eleves: [],
+      groupes: [],
+      previewPhoto: null,
+      successMessage: "",
     };
   },
   mounted() {
+    // this.fetchEtudiants();
     this.fetchClasses();
-    // this.fetchUsers(); // Récupérer les classes disponibles lors du montage du composant
   },
-  methods: {
-    fetchClasses() {
-      axios.get('/api/classes')
+
+ methods: {
+  fetchClasses() {
+      axios.get('/groupes')
         .then(response => {
-          this.classes = response.data;
+          this.groupes = response.data;
         })
         .catch(error => {
           console.error(error);
         });
     },
-    // fetchUsers(){
-
-    // },
-    onFileChange(event) {
-      this.formData.photo = event.target.files[0];
+   
+  addUser() {
+  axios.post('/users', this.modelValue)
+    .then(response => {
+          const userId = response.data.user_id;
+          this.modelValue.user_id = userId;
+          this.addEleve();
+          this.successMessage = "Form submitted successfully";
+          this.clearForm();
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          this.errors = error.response.data.errors;
+        });
     },
-    submitForm() {
-      this.errors = {}; // Réinitialiser les erreurs
 
-      // Créer un objet FormData pour envoyer les données du formulaire en tant que multipart/form-data
+    addEleve() {
       const formData = new FormData();
-      formData.append('nom_francais', this.formData.nom_francais);
-      formData.append('nom_arabe', this.formData.nom_arabe);
-      formData.append('prenom_francais', this.formData.prenom_francais);
-      formData.append('prenom_arabe', this.formData.prenom_arabe);
-      formData.append('date_naissance', this.formData.date_naissance);
-      formData.append('lieu_naissance', this.formData.lieu_naissance);
-      formData.append('sex', this.formData.sex);
-      formData.append('photo', this.formData.photo);
-      formData.append('CNE', this.formData.CNE);
-      formData.append('classe_id', this.formData.classe_id);
+  formData.append('photo', this.modelValue.photo); // Append the photo file to the form data
 
-      axios
-        .post('/api/eleves', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(response => {
-          // Succès : faire quelque chose avec la réponse
-          console.log(response.data);
-          // Rediriger ou afficher un message de succès, par exemple :
-         
-        })
-        .catch(error => {
-          // Erreur : afficher les erreurs de validation
-          if (error.response.status === 422) {
-            this.errors = error.response.data.errors;
-          }
-          console.error(error);
-        });
+      formData.append('CNE', this.modelValue.CNE);
+      formData.append('user_id', this.modelValue.user_id);
+      formData.append('groupe_id', this.modelValue.groupe_id);
+      
+      axios.post('/eleves', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then(response => {
+        const eleveId = response.data.eleve_id;
+        // Handle the response
+      }).catch(error => {
+        console.log(error.response.data);
+        this.errors = error.response.data.errors;
+      });
     },
-  },
-};
+   
+
+
+   
+
+    handlePhotoChange(event) {
+      this.modelValue.photo = event.target.files[0];
+      this.previewImage(event);
+    },
+
+    previewImage(event) {
+  const file = event.target.files[0];
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    const img = document.getElementById('image-preview');
+    if (img) {
+      img.src = event.target.result;
+      img.style.display = 'block';
+    }
+  };
+
+  reader.readAsDataURL(file);
+},
+clearForm() {
+  this.modelValue = {
+    nom_francais: "",
+    nom_arabe: "",
+    prenom_francais: "",
+    prenom_arabe: "",
+    date_naissance: "",
+    lieu_naissance: "",
+    sex: "",
+    email: "",
+    password: "",
+    username: "",
+    user_type: "",
+    adresse: "",
+    photo: null,
+    CNE: "",
+    groupe_id: ""
+  };
+  this.previewPhoto = null;
+  this.successMessage = "";
+}
+
+  }
+ 
+}
+;
 </script>
 
-<style>
-.error {
-  color: red;
-}
-</style>

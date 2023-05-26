@@ -19,12 +19,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NiveauScolaireController;
 use App\Http\Controllers\ProfesseurController ;
 use App\Http\Controllers\MatiereController ;
-use App\Http\Controllers\ClassController ;
+use App\Http\Controllers\GroupeController ;
 use App\Http\Controllers\ClasseMatiereController ;
 use App\Http\Controllers\VirementController ;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 
 // niveua scolaire api 
@@ -59,7 +60,8 @@ Route::get('/matieres', [MatiereController::class, 'index']);
 
 
 // classes
-Route::get('/classes', [ClassController::class, 'index']);
+Route::get('/groupes', [GroupeController::class, 'index']);
+
 
 //payement
 Route::post('/payements', [PayementsdemoiController::class, 'store']);
@@ -92,6 +94,11 @@ Route::delete('/textbooks/{id}', [TextbookController::class, 'destroy']);
 Route::get('/textbooks', [TextbookController::class, 'index']);
 Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
 Route::post('/textbooks', [TextbookController::class, 'store']) ;
+
+//users
+// Route::post('/users', [UserController::class, 'store']) ;
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/users', [UserController::class, 'store']);
 
 
 

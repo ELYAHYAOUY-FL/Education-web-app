@@ -48,7 +48,7 @@ class Groupe extends Model
 	];
 	public function niveau_scolaire()
 	{
-		return $this->belongsTo(NiveauScolaire::class);
+		return $this->belongsTo(NiveauScolaire::class,'niveau_scolaire_id');
 	}
 	
 	// public function emploi()

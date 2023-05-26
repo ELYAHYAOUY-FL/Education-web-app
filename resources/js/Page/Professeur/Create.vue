@@ -125,8 +125,6 @@ export default {
   axios.post('/api/virements', this.modelValue)
     .then(response => {
       const virementId = response.data.virement_id;
-
-      // Associate virement with the professor
       this.modelValue.virement_id = virementId;
 
       // Call the addProfessor method to create the professor
