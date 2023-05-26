@@ -39,11 +39,13 @@ class NiveauScolaireController extends Controller
     $validatedData = $request->validate([
         'nom' => 'required',
         'description' => 'required',
+        'année_scolaire' => 'required',
     ]);
 
     $niveau_scolaire = new NiveauScolaire;
     $niveau_scolaire->nom = $validatedData['nom'];
     $niveau_scolaire->description = $validatedData['description'];
+    $niveau_scolaire->année_scolaire = $validatedData['année_scolaire'];
 
     $niveau_scolaire->save();
 
@@ -61,11 +63,13 @@ class NiveauScolaireController extends Controller
     $validatedData = $request->validate([
         'nom' => 'required|string|max:255',
         'description' => 'required',
+        'année_scolaire' => 'required',
     ]);
 
     // Update the specific fields of niveau scolaire with the validated data
     $niveauScolaire->nom = $validatedData['nom'];
     $niveauScolaire->description = $validatedData['description'];
+    $niveauScolaire->année_scolaire = $validatedData['année_scolaire'];
     $niveauScolaire->save();
 
     // Return a response indicating success

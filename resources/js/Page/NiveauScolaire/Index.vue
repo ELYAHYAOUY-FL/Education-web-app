@@ -27,6 +27,10 @@
                     <input type="text" class="form-control" id="nom" v-model="nom">
                   </div>
                   <div class="form-group">
+                    <label for="anne">Année scolaire</label>
+                    <input type="text" class="form-control" id="anne" v-model="année_scolaire">
+                  </div>
+                  <div class="form-group">
                     <label for="description">Discription</label>
                     <input type="text" class="form-control" id="description" v-model="description">
                   </div>
@@ -36,6 +40,10 @@
                   <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="niveau_scolaire.nom">
+                  </div>
+                  <div class="form-group">
+                    <label for="année_scolaire">Année scolaire</label>
+                    <input type="text" class="form-control" id="année_scolaire" v-model="niveau_scolaire.année_scolaire">
                   </div>
                   <div class="form-group">
                     <label for="description">Discription</label>
@@ -94,13 +102,18 @@ export default {
       showForm1: false,
       nom: '',
       id: '',
+      année_scolaire:'',
       description: '',
       niveau_scolaires: [],
       niveau_scolaire: {}
     };
   },
   mounted() {
-    try {
+this.affichera();
+  },
+  methods: {
+    affichera(){
+      try {
       console.log('on mounted');
       axios.get('/niveau_scolires').then((response) => {
         console.log(response.data);
@@ -109,20 +122,22 @@ export default {
     } catch (error) {
       console.error(error);
     }
-  },
-  methods: {
+    },
     async addNiveauScolaire() {
       const newNiveauScolaire = {
         nom: this.nom,
         description: this.description,
+        année_scolaire: this.année_scolaire,
       };
       try {
         const response = await axios.post('/niveau_scolires', newNiveauScolaire);
         // handle the response as needed
         this.nom = '';
     this.description = ''; 
+    this.année_scolaire = ''; 
     this.niveau_scolaires = response.data;
         this.showForm = false;
+        this.affichera();
       } catch (error) {
         console.error(error);
       }
@@ -132,7 +147,7 @@ export default {
 
     async deleteNiveauScolaire(id) {
       try {
-        const response = await axios.delete(`/api/niveau_scolires/${id}`);
+        const response = await axios.delete(`/niveau_scolires/${id}`);
         this.niveau_scolaires = this.niveau_scolaires.filter(niveau_scolaire => niveau_scolaire.id !== id);
       } catch (error) {
         console.log(error);
@@ -149,7 +164,8 @@ export default {
       try {
     const response = await axios.put(`/niveau_scolires/${this.niveau_scolaire.id}`, {
       nom: this.niveau_scolaire.nom,
-      description: this.niveau_scolaire.description
+      description: this.niveau_scolaire.description,
+      année_scolaire: this.niveau_scolaire.année_scolaire
     });
     console.log(response.data.message);
     try {
@@ -158,6 +174,7 @@ export default {
         console.log(response.data);
         this.niveau_scolaires = response.data;
       });
+      this.affichera();
     } catch (error) {
       console.error(error);
     }
