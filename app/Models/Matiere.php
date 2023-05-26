@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Professeur $professeur
- * @property Collection|Class[] $classes
+ * @property Collection|Groupe[] $groupes
  * @property Collection|Devoir[] $devoirs
  * @property MatiereEmploi $matiere_emploi
  *
@@ -33,13 +33,13 @@ class Matiere extends Model
 
 	protected $casts = [
 		'coefficient' => 'int',
-		'professeur_id' => 'int'
+		 
 	];
 
 	protected $fillable = [
 		'titre',
 		'coefficient',
-		'professeur_id'
+		 
 	];
 
 	// public function professeur()
@@ -54,15 +54,15 @@ class Matiere extends Model
 	// }
 	
 
-    public function classes()
+    public function groupes()
     {
-        return $this->belongsToMany(Classe::class);
+        return $this->belongsToMany( Groupe::class);
     }
 
 
-	public function professeur()
+	public function professeurs()
 {
-    return $this->belongsTo(Professeur::class);
+    return $this->belongsToMany(Professeur::class);
 }
 
 	
@@ -71,6 +71,10 @@ class Matiere extends Model
 	public function devoirs()
 	{
 		return $this->hasMany(Devoir::class);
+	}
+	public function exams()
+	{
+		return $this->hasMany(Exam::class);
 	}
 
 	public function matiere_emploi()

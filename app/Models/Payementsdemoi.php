@@ -29,21 +29,21 @@ class Payementsdemoi extends Model
 {
 	protected $table = 'payementsdemois';
 
-	protected $casts = [
-		'date' => 'datetime',
-		'frais' => 'float',
-		'est_paye' => 'bool'
-	];
+    protected $fillable = [
+        'bankinformation_parent_id',
+        'date',
+        'mois',
+        'année',
+        'montant',
+        'est_paye',
+    ];
 
-	protected $fillable = [
-		'date',
-		'nom_compte',
-		'frais',
-		'est_paye'
-	];
-
-	public function parents()
-	{
-		return $this->hasMany(Parente::class, 'payement_id');
-	}
+    public function bankInformationParent()
+    {
+        return $this->belongsTo(Bankinformation_Parent::class);
+    }
+	// public function parents()
+	// {
+	// 	return $this->hasMany(Parente::class, 'payement_id');
+	// }
 }

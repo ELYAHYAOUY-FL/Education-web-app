@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Elefe|null $elefe
+ * @property Eleve|null $eleve
  * @property Professeur|null $professeur
  *
  * @package App\Models

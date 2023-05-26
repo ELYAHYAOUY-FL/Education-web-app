@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('emploi_temps', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date');
-            $table->string('mois');
+            $table->time('heure_debut');
+            $table->time('heure_fin');
+            $table->string('jour');
             $table->string('annee');
-            $table->unsignedBigInteger('matiere_id')->index('exams_matiere_id_foreign');
-            $table->unsignedBigInteger('note_id');
+          
+            // $table->unsignedBigInteger('groupe_id')->index('emploi_temps_groupe_id_foreign');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('emploi_temps');
     }
 };

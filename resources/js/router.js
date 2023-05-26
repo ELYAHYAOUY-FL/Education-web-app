@@ -30,6 +30,8 @@ import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
 //Textbook
 import textbookProf from './PageProfesseur/Textbook/index.vue'
 
+//calendrie
+import calendrier from './Page/calendrie.vue'
 const routes =[ 
 
     {
@@ -148,7 +150,13 @@ component : NiveauListAdmin
   name :'texbookProf',
   component :textbookProf
 },
- 
+//Textbook
+{
+  path : '/calendrier',
+  name :'calendrie',
+  component :calendrier
+},
+  
 
 
 ];

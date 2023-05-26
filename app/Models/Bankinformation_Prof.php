@@ -5,21 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Textbook extends Model
+class Bankinformation_Prof extends Model
 {
     use HasFactory;
-    protected $table = 'textbooks';
+    protected $table = 'bankinformation_profs';
 
     protected $fillable = [
         'professeur_id',
-        'title',
-        'description',
-        'date',
-        'heure',
+        'rib',
+        'numero_compte',
+        'type_bank',
     ];
-
     public function professeur()
     {
         return $this->belongsTo(Professeur::class);
+    }
+
+    public function salaires()
+    {
+        return $this->hasMany(Salaire::class);
     }
 }

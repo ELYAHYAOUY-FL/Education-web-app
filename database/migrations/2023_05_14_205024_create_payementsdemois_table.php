@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('payementsdemois', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('bankinformation_parent_id')->index('payementsdemois_bankinformation_parent_id_id_foreign');
             $table->date('date');
             $table->string('mois');
-            $table->string('annee');
-            $table->unsignedBigInteger('matiere_id')->index('exams_matiere_id_foreign');
-            $table->unsignedBigInteger('note_id');
+            $table->string('année');
+            $table->decimal('montant');
+            $table->boolean('est_paye');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('payementsdemois');
     }
 };

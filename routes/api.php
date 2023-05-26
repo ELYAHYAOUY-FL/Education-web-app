@@ -25,6 +25,7 @@ use App\Http\Controllers\VirementController ;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\ParentController;
 
+Route::get("/events", [App\Http\Controllers\HomeController::class, 'Events'])->name('Events');
 
 // niveua scolaire api 
 Route::get('/niveau_scolires', [NiveauScolaireController ::class, 'index']);

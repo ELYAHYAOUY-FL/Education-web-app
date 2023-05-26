@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Classe;
+use App\Models\Groupe;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -20,12 +20,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $sex
  * @property string|null $photo
  * @property string $CNE
- * @property int $classe_id
+ * @property int $groupe_id
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Classe $classe
+ * @property Groupe $groupe
  * @property User $user
  * @property Collection|Absence[] $absences
  * @property Collection|EleveNote[] $eleve_notes
@@ -35,39 +35,28 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Eleve extends Model
+class Eleve extends User
 {
     protected $table = 'eleves';
 
     protected $casts = [
         'date_naissance' => 'datetime',
-        'classe_id' => 'int',
+        'groupe_id' => 'int',
         'user_id' => 'int'
     ];
 
     protected $fillable = [
-        'nom_francais',
-        'nom_arabe',
-        'prenom_francais',
-        'prenom_arabe',
-        'date_naissance',
-        'lieu_naissance',
-        'sex',
         'photo',
         'CNE',
-        'classe_id',
+        'groupe_id',
         'user_id'
     ];
 
-    public function classe()
+    public function groupe()
     {
-        return $this->belongsTo(Classe::class, 'classe_id');
+        return $this->belongsTo(Groupe::class, 'groupe_id');
     }
-
-
-    
-
-
+   
 
 	public function user()
 	{

@@ -140,7 +140,13 @@
     </router-link>
     </li>    
 </ul> 
-    </li>    
+    </li>
+    <li class="nav-item">
+    <router-link to="/calendrier" class="nav-link" :class="{ 'active': $route.path === '/calendrier' }">
+    <i class="far fa-circle nav-icon" style="color: aliceblue;"></i>
+    <p color="black"> Calendrier</p>
+    </router-link>
+    </li>     
 </ul>
     </nav>
     

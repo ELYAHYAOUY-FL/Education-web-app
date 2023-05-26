@@ -34,32 +34,28 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Parente extends Model
+class Parente extends User
 {
 	protected $table = 'parents';
 
 	protected $casts = [
-		'date_naissance' => 'datetime',
-		'payement_id' => 'int',
+		
 		'user_id' => 'int'
 	];
 
 	protected $fillable = [
-		'nom',
-		'prenom',
-		'date_naissance',
-		'lieu_naissance',
+		 
 		'tel',
-		'address',
+		 
 		'CNI',
-		'payement_id',
+		 
 		'user_id'
 	];
 
-	public function payementsdemoi()
-	{
-		return $this->belongsTo(Payementsdemoi::class, 'payement_id');
-	}
+	// public function payementsdemoi()
+	// {
+	// 	return $this->belongsTo(Payementsdemoi::class, 'payement_id');
+	// }
 
 	public function user()
 	{

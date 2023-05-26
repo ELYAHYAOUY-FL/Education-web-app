@@ -35,6 +35,8 @@ class Exam extends Model
 
 	protected $fillable = [
 		'date',
+		'mois',
+		'annee',
 		'matiere_id',
 		'note_id'
 	];

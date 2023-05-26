@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $parent_id
  * @property int $id
  * 
- * @property Elefe $elefe
+ * @property Eleve $eleve
  * @property Parent $parent
  *
  * @package App\Models

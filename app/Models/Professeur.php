@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Virement $virement
+ * 
  * @property Collection|Absence[] $absences
  * @property Collection|EleveProfessuer[] $eleve_professuers
  * @property Collection|Matiere[] $matieres
@@ -36,35 +36,28 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Professeur extends Model
+class Professeur extends User
 {
 	protected $table = 'professeurs';
 
-	protected $casts = [
-		'virement_id' => 'int',
-		'date_naissance' => 'datetime',
-		'matier_id' => 'int'
-	];
+	// protected $casts = [
+	// 	'virement_id' => 'int',
+	// 	'date_naissance' => 'datetime',
+	// 	'matier_id' => 'int'
+	// ];
 
 	protected $fillable = [
-		'virement_id',
+		 
 		'photo',
-		'nom',
-		'prenom',
-		'sex',
-		'date_naissance',
-		'lieu_naissance',
 		'tel',
-		'address',
 		'diplom',
-		'matier_id'
 	];
 
 	
-	public function virement()
-    {
-        return $this->belongsTo(Virement::class);
-    }
+	// public function virement()
+    // {
+    //     return $this->belongsTo(Virement::class);
+    // }
 
 	public function absences()
 	{
@@ -78,10 +71,10 @@ class Professeur extends Model
 
 	
 
-    public function classes()
-    {
-        return $this->matieres()->with('classes');
-    }
+    // public function groupes()
+    // {
+    //     return $this->matieres()->with('groupes');
+    // }
 	
 	public function matieres()
 	{
