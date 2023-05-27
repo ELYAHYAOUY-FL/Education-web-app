@@ -2,8 +2,7 @@
   <MainLayout>
   <div>
       <h1>Liste des parents avec leurs élèves</h1>
-
-      <ul>
+         <ul>
             <li v-for="parent in parents" :key="parent.id">
                 <h3>{{ parent.nom }}</h3>
                 <ul>
@@ -48,10 +47,6 @@
   }
 };
 </script>
-
-
-
-
 
 <!-- <template>
     <MainLayout>

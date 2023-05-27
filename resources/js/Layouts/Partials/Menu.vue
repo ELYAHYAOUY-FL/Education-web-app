@@ -95,7 +95,7 @@
     </router-link>
     </li>
     <li class="nav-item">
-    <router-link to="/Administration/ProfesseurCreat" class="nav-link" :class="{ 'active': $route.path === '/Administration/ProfesseurCreat' }">
+    <router-link to="/Administration/ParentCreat" class="nav-link" :class="{ 'active': $route.path === '/Administration/ProfesseurCreat' }">
     <i class="far fa-circle nav-icon"></i>
     <p> ajouter parent </p>
     </router-link>

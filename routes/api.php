@@ -21,11 +21,13 @@ use App\Http\Controllers\ProfesseurController ;
 use App\Http\Controllers\MatiereController ;
 use App\Http\Controllers\GroupeController ;
 use App\Http\Controllers\ClasseMatiereController ;
-use App\Http\Controllers\VirementController ;
+use App\Http\Controllers\Bankinformation_ProfController ;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+
+
 
 
 // niveua scolaire api 
@@ -35,10 +37,10 @@ Route::delete('/niveau_scolires/{id}', [NiveauScolaireController ::class, 'destr
 Route::put('/niveau_scolires/{id}', [NiveauScolaireController ::class,'update']);
 
 // professuers 
-Route::get('/professuers', [ProfesseurController  ::class, 'index']);
-Route::post('/professuers', [ProfesseurController ::class, 'store']);
-Route::delete('/professuers/{id}', [ProfesseurController::class, 'destroy']);
-Route::put('professuers/{id}', [ProfesseurController::class, 'update']);
+Route::get('/professeurs', [ProfesseurController  ::class, 'index']);
+Route::post('/professeurs', [ProfesseurController::class, 'store']);
+Route::delete('/professeurs/{id}', [ProfesseurController::class, 'destroy']);
+Route::put('/professeurs/{id}', [ProfesseurController::class, 'update']);
 
 
 //Eleve
@@ -73,7 +75,8 @@ Route::get('/payements', [PayementsdemoiController::class, 'index']);
 Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
 
 // vireemnet 
-Route::get('/virements', [VirementController ::class, 'index']);
+Route::get('/bankinformations', [Bankinformation_ProfController ::class, 'index']);
+Route::post('/bankinformations', [Bankinformation_ProfController ::class, 'store']);
 
 Route::post('/virements', [VirementController ::class, 'store']);
 // use App\Http\Controllers\ProfessuerController ;

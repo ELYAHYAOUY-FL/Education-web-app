@@ -2,187 +2,243 @@
   <MainLayout>
     <div class="content-header">
       <div class="container-fluid">
-        <h2>les fromation du parent : </h2> <div v-if="successMessage" class="alert alert-success text-center">
-      <i class="fa fa-check-circle"></i>
-      {{ successMessage }}
-    </div>
+        <h2>Ajouter parents :</h2>
+      
 
-        <form  @submit.prevent="addViremnt" enctype="multipart/form-data">
+        <form @submit.prevent="addUser" enctype="multipart/form-data">
           <div class="form-group">
-        <label for="frais">Les Frais : </label>
-          <input type="text" class="form-control" id="frais" v-model="modelValue.frais" required>
-         </div>
-          <!-- <div class="form-group">
-    <label for="date">Date de virement </label>
-    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-  </div> -->
+            <label for="nom_francais">Nom en français</label>
+            <input type="text" class="form-control" id="nom_francais" v-model="modelValue.nom_francais" required>
+          </div>
           <div class="form-group">
-    <label for="nom_compte">Nom Compte :</label>
-    <input type="text" class="form-control" id="nom_compte" v-model="modelValue.nom_compte" required>
-  </div>
-  <!-- <div class="form-group">
-            <label for="est_paye">Est payee  :</label>
-            <select  class="form-control" id="est_paye" v-model="modelValue.est_paye" required>
-              <option value=""></option>
-              <option value="1">Oui</option>
-              <option value="0">Non</option>
-            </select>
-            
-           </div>-->
-        
+            <label for="nom_arabe">Nom en arabe</label>
+            <input type="text" class="form-control" id="nom_arabe" v-model="modelValue.nom_arabe" required>
+          </div>
           <div class="form-group">
-    <label for="prenom">Prénom</label>
-    <input type="text" class="form-control" id="prenom" v-model="modelValue.prenom" required>
-  </div>
-  <div class="form-group">
-    <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" v-model="modelValue.nom" required>
-  </div>
+            <label for="prenom_francais">Prénom en français</label>
+            <input type="text" class="form-control" id="prenom_francais" v-model="modelValue.prenom_francais" required>
+          </div>
           <div class="form-group">
-            <label for="date_naissance">Date nissance</label>
+            <label for="prenom_arabe">Prénom en arabe</label>
+            <input type="text" class="form-control" id="prenom_arabe" v-model="modelValue.prenom_arabe" required>
+          </div>
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
             <input type="date" class="form-control" id="date_naissance" v-model="modelValue.date_naissance" required>
           </div>
           <div class="form-group">
-            <label for="lieu_naissance">Lieu nissance</label>
+            <label for="lieu_naissance">Lieu de naissance</label>
             <input type="text" class="form-control" id="lieu_naissance" v-model="modelValue.lieu_naissance" required>
           </div>
           <div class="form-group">
-            <label for="tel">Tel</label>
-            <input type="number" class="form-control" id="tel" v-model="modelValue.tel" required>
+            <label for="sex">Sex :</label>
+            <select  class="form-control" id="sex" v-model="modelValue.sex" required>
+              <option value=""></option>
+              <option value="F">F</option>
+              <option value="M">M</option>
+            </select>
+            
+          </div>
+          <!-- <div class="form-group">
+        <label for="photo">Photo</label>
+        <input type="file" accept="image/*" class="form-control" id="photo" @change="handlePhotoChange" required>
+        <div>
+          <img src="" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
+      </div>
+        </div> -->
+        <div class="form-group">
+            <label for="adresse">Adress</label>
+            <input type="text" class="form-control" id="adresse" v-model="modelValue.adresse" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" v-model="modelValue.email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" v-model="modelValue.password" required>
+          </div>
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username" v-model="modelValue.username" required>
           </div>
           
           <!-- <div class="form-group">
-            <label for="salaire">Salaire</label>
-            <input type="number" class="form-control" id="salaire" v-model="modelValue.salaire" required>
+            <label for="user_type"></label>
+            <input type="text" class="form-control" id="user_type" v-model="modelValue.user_type" required>
           </div> -->
           <div class="form-group">
-            <label for="address">Adress</label>
-            <input type="text" class="form-control" id="address" v-model="modelValue.address" required>
+            <label for="user_type">Type d'utilisateur :</label>
+            <select  class="form-control" id="user_type" v-model="modelValue.user_type" required>
+              <option value=""></option>
+              <option value="F">parent</option>
+              <!-- <option value="M">professeur</option>
+              <option value="M">admin</option>
+              <option value="M">parent</option> -->
+            </select>
+            
           </div>
           <div class="form-group">
-            <label for="CIN">CNI :</label>
-            <input  class="form-control" id="CNI" v-model="modelValue.CNI" required>
-              
+            <label for="CNE">CNI</label>
+            <input type="text" class="form-control" id="CNE" v-model="modelValue.CNI" required>
+          </div>
+          <div class="form-group">
+            <label for="tel">telephone</label>
+            <input type="text" class="form-control" id="tel" v-model="modelValue.tel" required>
           </div>
           <div>
-  <label for="eleves">Élèves :</label>
-  <select id="eleves" v-model="modelValue.eleves" required>
-    <option v-for="eleve in eleves" :key="eleve.id" :value="eleve.id">{{ eleve.nom }}</option>
+  <label for="eleve_id">Eleves :</label>
+  <select id="eleve_id" v-model="modelValue.groupe_id">
+    <option v-for="groupe in groupes" :key="groupe.id" :value="groupe.id">{{ groupe.nom }}</option>
   </select>
 </div>
-
-           <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="save">
-          </div> 
-
+          <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
-
+        <div v-if="successMessage" class="alert alert-success text-center">
+          <i class="fa fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
       </div>
     </div>
   </MainLayout>
 </template>
-  <script>
-  import MainLayout from "../../Layouts/MainLayout.vue";
-  import axios from "axios";
-  
-  export default {
-    components: { MainLayout },
-    data() {
+
+
+<script>
+import MainLayout from "../../Layouts/MainLayout.vue";
+import axios from "axios";
+
+export default {
+  components: { MainLayout },
+  data() {
     return {
       modelValue: {
-         frais: '',
-        est_paye: '',
-        nom_compte: '',
-        // date: '',
-        prenom: '',
-        nom: '',
-        date_naissance: '',
-        lieu_naissance: '',
-        tel: '',
-        address: '',
-        CNI: '',
-        eleves: '',
-      
-        
+        nom_francais: "",
+        nom_arabe: "",
+        prenom_francais: "",
+        prenom_arabe: "",
+        date_naissance: "",
+        lieu_naissance: "",
+        sex: "",
+        email: "",
+        password: "",
+        username: "",
+        user_type: "",
+        adresse: "",
+        // photo: null,
+        CNI: "",
+        tel: "",
       },
+      parents: [],
       eleves: [],
-     allEleves: [] ,
-      errors: {},
-      successMessage: ""
-     
+      previewPhoto: null,
+      successMessage: "",
     };
   },
-  
-  created() {
-        // Récupérer tous les élèves depuis l'API
-        this.fetchAllEleves();
-    },
-    methods: {
-        fetchAllEleves() {
-            // Faites une requête à l'API pour récupérer tous les élèves
-            // et mettez à jour la propriété allEleves avec les données renvoyées
-            // Exemple avec axios :
-            axios.get('/api/eleves')
-                .then(response => {
-                    this.eleves = response.data;
-                    console.log('All eleves:', this.eleves);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-      addViremnt() {
-    axios.post('/api/payements', this.modelValue)
-      .then(response => {
-        const payemnentId = response.data.payement_id;
-  
-        // Associate virement with the professor
-        this.modelValue.payement_id = payemnentId;
-  
-        // Call the addProfessor method to create the professor
-        this.addProfessor();
-        this.successMessage = "Form submitted successfully";
-      })
-      .catch(error => {
-        console.log(error.response.data);
-        this.errors = error.response.data.errors;
-      });
+  mounted() {
+    this.fetcheleves();
+    // this.fetchClasses();
   },
-  
-  addProfessor() {
-    const formData = new FormData();
-    formData.append('prenom', this.modelValue.prenom);
-    formData.append('nom', this.modelValue.nom);
-    formData.append('date_naissance', this.modelValue.date_naissance);
-    formData.append('lieu_naissance', this.modelValue.lieu_naissance);
-    formData.append('tel', this.modelValue.tel);
-    formData.append('diplom', this.modelValue.diplom);
-    formData.append('frais', this.modelValue.frais);
-    formData.append('address', this.modelValue.address);
-    formData.append('CNI', this.modelValue.CNI);
-    formData.append('payement_id', this.modelValue.payement_id);
 
-    this.modelValue.eleves.forEach(eleveId => {
-    formData.append('eleves[]', eleveId);
-  });
-  
-    axios
-      .post('/api/parent', formData, {
+ methods: {
+  fetcheleves() {
+      axios.get('/eleves')
+        .then(response => {
+          this.groupes = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+   
+  addUser() {
+  axios.post('/users', this.modelValue)
+    .then(response => {
+          const userId = response.data.user_id;
+          this.modelValue.user_id = userId;
+          this.addEleve();
+          this.successMessage = "Form submitted successfully";
+          this.clearForm();
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          this.errors = error.response.data.errors;
+        });
+    },
+
+    addEleve() {
+      const formData = new FormData();
+  // formData.append('photo', this.modelValue.photo); // Append the photo file to the form data
+
+      formData.append('tel', this.modelValue.tel);
+      formData.append('CNI', this.modelValue.CNI);
+      formData.append('user_id', this.modelValue.user_id);
+     
+      axios.post('/parents', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+          'Content-Type': 'multipart/form-data',
         },
-      })
-      .then(response => {
+      }).then(response => {
         const parentId = response.data.parent_id;
-  
         // Handle the response
-      })
-      .catch(error => {
+      }).catch(error => {
         console.log(error.response.data);
         this.errors = error.response.data.errors;
       });
-  },
     },
+   
+
+
+   
+
+    // handlePhotoChange(event) {
+    //   this.modelValue.photo = event.target.files[0];
+    //   this.previewImage(event);
+    // },
+
+//     previewImage(event) {
+//   const file = event.target.files[0];
+//   if (!file) {
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = (event) => {
+//     const img = document.getElementById('image-preview');
+//     if (img) {
+//       img.src = event.target.result;
+//       img.style.display = 'block';
+//     }
+//   };
+
+//   reader.readAsDataURL(file);
+// },
+clearForm() {
+  this.modelValue = {
+    nom_francais: "",
+    nom_arabe: "",
+    prenom_francais: "",
+    prenom_arabe: "",
+    date_naissance: "",
+    lieu_naissance: "",
+    sex: "",
+    email: "",
+    password: "",
+    username: "",
+    user_type: "",
+    adresse: "",
+    
+    CNI: "",
+    tel: ""
+  };
+  
+  this.successMessage = "bien enregestrer , ajouter nouveaux ";
+}
+
   }
-  ;
-  </script>
+ 
+}
+;
+</script>
+

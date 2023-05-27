@@ -18,7 +18,7 @@ class EleveController extends Controller
     {
         $validatedData = $request->validate([
             'CNE' => 'required|string|unique:eleves,CNE',
-                        'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
             'user_id' => 'required',
             'groupe_id' => 'required',
@@ -32,9 +32,6 @@ class EleveController extends Controller
         }
     
         $eleve = Eleve::create($validatedData);
-    
-        // $professuer = Professuer::create($validatedData);
-    
         return response()->json(['eleve_id' => $eleve->id]);
         
     }

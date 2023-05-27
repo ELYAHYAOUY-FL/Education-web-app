@@ -36,21 +36,23 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Professeur extends User
+class Professeur extends Model
 {
 	protected $table = 'professeurs';
 
-	// protected $casts = [
-	// 	'virement_id' => 'int',
-	// 	'date_naissance' => 'datetime',
-	// 	'matier_id' => 'int'
-	// ];
+	protected $casts = [
+		'date_naissance' => 'datetime',
+		'user_id' => 'int'
+		
+	];
 
 	protected $fillable = [
 		 
 		'photo',
 		'tel',
 		'diplom',
+		'CNI',
+		 'user_id' => 'int',
 	];
 
 	
@@ -58,6 +60,10 @@ class Professeur extends User
     // {
     //     return $this->belongsTo(Virement::class);
     // }
+	public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 	public function absences()
 	{

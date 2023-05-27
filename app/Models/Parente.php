@@ -39,7 +39,8 @@ class Parente extends User
 	protected $table = 'parents';
 
 	protected $casts = [
-		
+		'date_naissance' => 'datetime',
+
 		'user_id' => 'int'
 	];
 
@@ -56,19 +57,19 @@ class Parente extends User
 	// {
 	// 	return $this->belongsTo(Payementsdemoi::class, 'payement_id');
 	// }
-
 	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 	public function eleve_parents()
-	{
-		return $this->hasMany(EleveParent::class);
-	}
-	public function eleves()
 {
-    return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
+    return $this->hasMany(EleveParent::class)->withTimestamps();
 }
+
+	public function eleves()
+    {
+        return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
+    }
 
 }
