@@ -33,6 +33,15 @@ class Eleve extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    // public function parents()
+    // {
+    //     return $this->belongsToMany(Parente::class, 'eleve_parents');
+    // }
+    public function parents()
+    {
+        return $this->belongsToMany(Parente::class, 'eleve_parent', 'eleve_id', 'parent_id');
+    }
+
 
     public function absences()
     {

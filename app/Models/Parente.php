@@ -62,14 +62,22 @@ class Parente extends User
         return $this->belongsTo(User::class, 'user_id');
     }
 
-	public function eleve_parents()
+// 	public function eleve_parents()
+// {
+//     return $this->hasMany(EleveParent::class)->withTimestamps();
+// }
+public function eleve_parent()
 {
-    return $this->hasMany(EleveParent::class)->withTimestamps();
+	return $this->hasMany(EleveParent::class, 'parent_id');
 }
 
-	public function eleves()
-    {
-        return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
-    }
+public function eleves()
+{
+	return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
+}
+	// public function eleves()
+    // {
+    //     return $this->belongsToMany(Eleve::class, 'eleve_parent', 'parent_id', 'eleve_id');
+    // }
 
 }

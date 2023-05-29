@@ -26,6 +26,7 @@ use App\Http\Controllers\EleveController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ParentEleveController;
 
 
 
@@ -53,8 +54,16 @@ Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/parents', [ParentController::class, 'index']);
 Route::post('/parents', [ParentController::class, 'store']);
 Route::get('/parents/create', [ParentController::class, 'create']);
+// Route::post('/parents', [ParentController::class, 'create']);
+Route::post('/parents/{parentId}/eleves', [ParentController::class, 'associateEleve']);
+
+// 
+// routes/api.php
 
 
+
+Route::get('/parents/eleves', [ParentEleveController::class, 'index']);
+Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
 
 
 // matiers 
