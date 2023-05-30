@@ -10,7 +10,7 @@ class EleveController extends Controller
 {
     public function index()
     {
-        $eleves = Eleve::with('groupe','user')->get();
+        $eleves = Eleve::with('groupe','user' , 'eleve_exams')->get();
         return response()->json($eleves);
     }
 
