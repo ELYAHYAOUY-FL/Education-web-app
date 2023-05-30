@@ -53,6 +53,7 @@ class Professeur extends Model
 		'diplom',
 		'CNI',
 		 'user_id' => 'int',
+		 'matier_id' => 'int',
 	];
 
 	
@@ -64,11 +65,19 @@ class Professeur extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+	public function matiere()
+    {
+        return $this->belongsTo(Matiere::class, 'matier_id');
+    }
 
 	public function absences()
 	{
 		return $this->hasMany(Absence::class);
 	}
+	public function groupes()
+    {
+        return $this->belongsToMany(Groupe::class, 'groupe_professeur', 'professeur_id', 'groupe_id');
+    }
 
 	public function eleve_professuers()
 	{
@@ -82,13 +91,16 @@ class Professeur extends Model
     //     return $this->matieres()->with('groupes');
     // }
 	
-	public function matieres()
-	{
-		return $this->hasMany(Matiere::class);
-	}
+	// public function matieres()
+	// {
+	// 	return $this->hasMany(Matiere::class);
+	// }
 	
-
-
+	
+	public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class, 'matiere_professeur', 'professeur_id', 'matiere_id');
+    }
 
 	public function retards()
 	{

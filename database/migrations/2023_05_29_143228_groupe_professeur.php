@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('matiere_professeur', function (Blueprint $table) {
-            $table->integer('id');
-            $table->unsignedBigInteger('professeur_id')->nullable()->index('FK_matiere_professeur_professeur_id');
-            $table->unsignedBigInteger('matiere_id')->nullable()->index('FK_matiere_professeur_matiere_id');
+        Schema::create('groupe_professeur', function (Blueprint $table) {
+            $table->unsignedBigInteger('groupe_id')->index('groupe_id');
+            $table->unsignedBigInteger('professeur_id')->index('professeur_id');
+
+            $table->primary(['groupe_id', 'professeur_id']);
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matiere_professeur');
+        Schema::dropIfExists('groupe_professeur');
     }
 };
+

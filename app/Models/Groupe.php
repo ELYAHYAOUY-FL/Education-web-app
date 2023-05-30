@@ -50,6 +50,10 @@ class Groupe extends Model
 	{
 		return $this->belongsTo(NiveauScolaire::class,'niveau_scolaire_id');
 	}
+	public function professeurs ()
+    {
+        return $this->belongsToMany(Professeur::class, 'groupe_professeur', 'professeur_id', 'groupe_id');
+    }
 	
 	// public function emploi()
 	// {
@@ -68,13 +72,13 @@ class Groupe extends Model
 
 	public function matieres()
 	{
-		return $this->belongsToMany(Matiere::class, 'classe_matiere', 'classe_id');
+		return $this->belongsToMany(Matiere::class, 'groupe_matiere', 'groupe_id', 'matiere_id');
 	}
 	
 
 	public function eleves()
 	{
-		return $this->hasMany(Eleve::class, 'classe_id');
+		return $this->hasMany(Eleve::class, 'groupe_id');
 	}
 
 	// public function emploi_temps()

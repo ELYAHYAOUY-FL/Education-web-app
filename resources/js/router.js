@@ -26,9 +26,11 @@ import ParentCreatAdmin from './Page/Parent/create.vue';
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
 import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
-
+// ********************************professeur importing 
 //Textbook
 import textbookProf from './PageProfesseur/Textbook/index.vue'
+//groupes
+import Groupes from './PageProfesseur/niveau scolaire/gestionGreoupes.vue'
 
 //login 
 import  LoginPage from './src/pages/Login.vue';
@@ -174,6 +176,12 @@ meta: {requiresAuth:true , administration:true}
   path : '/parent/textbookProf',
   name :'texbookProf',
   component :textbookProf,
+  meta: {requiresAuth:true ,  professeur: true}
+},
+{
+  path : '/parent/groupes',
+  name :'groupes',
+  component :Groupes,
   meta: {requiresAuth:true ,  professeur: true}
 },
  

@@ -17,6 +17,7 @@
             <div class="info">
               <a href="#" class="d-block"> </a>
             </div>
+            <span>{{ user.username }} </span>
             <buttom   @click="logout" > 
                       <span>Logout</span>
             </buttom>
@@ -25,10 +26,10 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
   
               <li class="nav-item">
-                <router-link to="" class="nav-link" :class="{ active: $route.path === '' }">
+                <router-link to="/parent/groupes" class="nav-link" :class="{ active: $route.path === '/parent/groupes' }">
                   <i class="nav-icon fas fa-chalkboard"></i>
                   <p>
-                    Niveau Scolaire
+                    groupe  Scolaire
                   </p>
                 </router-link>
               </li>

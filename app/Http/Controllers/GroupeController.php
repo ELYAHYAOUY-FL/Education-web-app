@@ -11,7 +11,7 @@ class GroupeController extends Controller
     
     public function index()
     {
-        $groupes = Groupe::with('niveau_scolaire')->get();
+        $groupes = Groupe::with('niveau_scolaire','eleves')->get();
         return response()->json($groupes);
     }
 }

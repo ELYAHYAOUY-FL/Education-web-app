@@ -72,7 +72,7 @@
             <select  class="form-control" id="user_type" v-model="modelValue.user_type" required>
               <option value=""></option>
               <!-- <option value="F">eleve</option> -->
-             <option value="M">professeur</option>
+             <option value="professeur">professeur</option>
                <!-- <option value="M">admin</option>
               <option value="M">parent</option> -->
             </select>

@@ -54,16 +54,20 @@ class Matiere extends Model
 	// }
 	
 
-    public function groupes()
+    // public function groupes()
+    // {
+    //     return $this->belongsToMany( Groupe::class);
+    // }
+	public function groupes()
     {
-        return $this->belongsToMany( Groupe::class);
+        return $this->belongsToMany(Groupe::class, 'groupe_matiere', 'matiere_id', 'groupe_id');
     }
 
 
-	public function professeurs()
-{
-    return $this->belongsToMany(Professeur::class);
-}
+// 	public function professeurs()
+// {
+//     return $this->belongsToMany(Professeur::class,'matiere_professeur', 'professeur_id', 'matiere_id');
+// }
 
 	
 

@@ -12,10 +12,22 @@ class ProfesseurController extends Controller
  
 public function index()
 {
-    $professors = Professeur::all();
+  $professors = Professeur::with('groupes','matiere')->get();
 
     return response()->json($professors);
 }
+
+public function getById($userId)
+{
+    $professeur = Professeur::with('groupes', 'matiere','groupes.eleves.user')->where('user_id', $userId)->first();
+
+    if (!$professeur) {
+        return response()->json(['error' => 'Professeur not found'], 404);
+    }
+
+    return response()->json($professeur);
+}
+
 
 public function store(Request $request)
   {
