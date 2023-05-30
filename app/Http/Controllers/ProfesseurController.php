@@ -18,7 +18,16 @@ public function index()
     return response()->json($professors);
 }
 
+public function getProfById($userId)
+{
+    $professeur= Professeur::with('matiere', 'matiere.emploiTemp')->where('user_id', $userId)->first();
 
+    if (!$professeur) {
+        return response()->json(['error' => 'professeur$professeurnot found'], 404);
+    }
+
+    return response()->json($professeur);
+}
 public function destroy($id)
 {
     $professeur = Professeur::findOrFail($id);

@@ -10,9 +10,21 @@ class EleveController extends Controller
 {
     public function index()
     {
-        $eleves = Eleve::with('classe')->get();
+        $eleves = Eleve::with('groupe')->get();
         return response()->json($eleves);
     }
+
+    public function getById($userId)
+{
+    $eleves= Eleve::with('groupe', 'groupe.emploiTemp')->where('user_id', $userId)->first();
+
+    if (!$eleves) {
+        return response()->json(['error' => 'elevesnot found'], 404);
+    }
+
+    return response()->json($eleves);
+}
+
 
     public function store(Request $request)
     {

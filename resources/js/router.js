@@ -18,7 +18,7 @@ import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
 
 //cantine
 import CantinePageadmin from './Page/Cantine/index.vue'
- 
+ import Cantine from './PageEleve/Cantine.vue'
 //parent
 import ParentListAdmin from './Page/Parent/index.vue';
 import ParentCreatAdmin from './Page/Parent/create.vue';
@@ -26,10 +26,19 @@ import ParentCreatAdmin from './Page/Parent/create.vue';
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
 import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
+import Activity from './PageEleve/Activity.vue'
 
 //Textbook
 import textbookProf from './PageProfesseur/Textbook/index.vue'
+//Calendrie
+import Calendrie from './PageProfesseur/calendarPag.vue'
+import Calend from './PageEleve/calendarEleve.vue'
+import Calendr from './src/pages/calendarAdmin.vue'
 
+//Emploi Temps 
+import EmploisTemps from './Page/EmploiTemps/Emploicreate.vue'
+import Emploi from './PageEleve/Emploicreate.vue'
+import EmploiProf from './PageProfesseur/Emploi.vue'
 //login 
 import  LoginPage from './src/pages/Login.vue';
 import store  from '@/store';
@@ -149,6 +158,13 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , administration:true}
 
 },
+{
+  path : '/eleve/Cantine',
+  name :'Cantine',
+  component : Cantine  ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
  
 //activity
  
@@ -166,18 +182,72 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , administration:true}
 
 },
+{
+  path : '/eleve/Activity',
+  name :'Activity ',
+  component :Activity  ,
+  meta: {requiresAuth:true ,  eleve:true}
+
+},
+// calendrie
+{
+  path : '/Administration/Calendr',
+  name :'Calendr',
+  component :Calendr ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+
+{
+  path : '/eleve/Calend',
+  name :'Calendri',
+  component :Calend ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+//Emploi temps 
+{
+  path : '/Administration/EmploisTemps',
+  name :'EmploisTemps',
+  component :EmploisTemps ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+{
+  path : '/eleve/Emploi',
+  name :'Emploi',
+  component :Emploi ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+
 
 // ************************************** professeur routing  *****************************************
 
 //Textbook
 {
-  path : '/parent/textbookProf',
+  path : '/professeur/textbookProf',
   name :'texbookProf',
   component :textbookProf,
   meta: {requiresAuth:true ,  professeur: true}
 },
  
+//EmploiProf
 
+{
+  path : '/professeur/EmploiProf',
+  name :'emploiProf',
+  component :EmploiProf,
+  meta: {requiresAuth:true ,  professeur: true}
+},
+//calendrie 
+{
+  path : '/professeur/Calendrie',
+  name :'Calendrie',
+  component :Calendrie ,
+  meta: {requiresAuth:true , professeur:true}
+
+},
 
 ];
 

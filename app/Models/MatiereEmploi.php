@@ -38,13 +38,15 @@ class MatiereEmploi extends Model
 		'matiere_id'
 	];
 
-	public function emploi_temp()
-	{
-		return $this->belongsTo(EmploiTemp::class, 'emploi_id');
-	}
+	
+	public function emploiTemp()
+    {
+        return $this->belongsTo(EmploiTemp::class, 'emploi_id');
+    }
 
-	public function matiere()
-	{
-		return $this->belongsTo(Matiere::class);
-	}
+    public function matiere()
+    {
+        return $this->belongsTo(Matiere::class, 'matiere_id');
+    }
+	
 }

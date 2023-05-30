@@ -51,34 +51,20 @@ class Groupe extends Model
 		return $this->belongsTo(NiveauScolaire::class);
 	}
 	
-	// public function emploi()
-	// {
-	// 	return $this->belongsTo(Emploi::class);
-	// }
-	
-	// public function niveau_scolaire()
-	// {
-	// 	return $this->belongsTo(NiveauScolaire::class);
-	// }
-
-	// public function emploi_temp()
-	// {
-	// 	return $this->belongsTo(EmploiTemp::class, 'emploi_id');
-	// }
-
-	public function matieres()
-	{
-		return $this->belongsToMany(Matiere::class, 'classe_matiere', 'classe_id');
-	}
-	
-
 	public function eleves()
 	{
-		return $this->hasMany(Eleve::class, 'classe_id');
+		return $this->hasMany(Eleve::class, 'groupe_id');
 	}
+	public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class, 'groupe_matiere', 'groupe_id', 'matiere_id');
+    }
 
-	// public function emploi_temps()
-	// {
-	// 	return $this->hasMany(EmploiTemp::class, 'classe_id');
-	// }
+     
+
+	public function emploiTemp()
+    {
+        return $this->hasMany(EmploiTemp::class, 'groupe_id');
+    }
+	
 }

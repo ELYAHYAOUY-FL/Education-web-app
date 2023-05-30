@@ -110,12 +110,26 @@
   </a>
 </li>
 <li class="nav-item">
-  <router-link to="/parent/textbookProf" class="nav-link " :class="{ 'active': $route.path === '/textbookProf' }">
-    <i class="fas fa-book"></i>
-  <p>Textbook</p>
+  <router-link to="/professeur/textbookProf" class="nav-link " :class="{ 'active': $route.path === '/textbookProf' }">
+    <i class="fas fa-book"> </i>
+    <p>Textbook</p>
   </router-link>
   </li>
+  <li class="nav-item">
+    <router-link to="/professeur/Calendrie" class="nav-link" :class="{ 'active': $route.path === '/professeur/Calendrie' }">
+      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+    <p color="black"> Calendrie </p>
+    </router-link>
+    </li>
+    <li class="nav-item">
+    <router-link to="/professeur/EmploiProf" class="nav-link" :class="{ 'active': $route.path === '/professeur/EmploiProf' }">
+      <i class="fas fa-sharp fa-solid fa-clock" style="color: aliceblue;"></i>
+    <p color="black">  Emploi Temps </p>
+    </router-link>
+    </li>              
 </ul>
+ 
+
 </nav>
 </div>
 </aside>

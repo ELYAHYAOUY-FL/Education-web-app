@@ -35,15 +35,19 @@ class  GroupeMatiere extends Model
         'matiere_id' => 'int'
     ];
 
-    public function  groupe()
-{
-    return $this->belongsTo( Groupe::class);
-}
+    public function groupe()
+    {
+        return $this->belongsTo(Groupe::class, 'groupe_id');
+    }
 
 
     public function matiere()
     {
         return $this->belongsTo(Matiere::class, 'matiere_id');
     }
+
+
+
 }
+
 

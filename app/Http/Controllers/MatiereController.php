@@ -18,8 +18,8 @@ class MatiereController extends Controller
     // }
     public function index()
 {
-    $matieres = Matiere::with('professeur', 'professeur.classes')->get();
-
+     //$matieres = Matiere::with('professeur', 'professeur.classes')->get();
+   $matieres = Matiere::all();
     return response()->json($matieres);
 }
 }
