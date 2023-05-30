@@ -2,9 +2,7 @@
 use App\Http\Controllers\DashboardController;
  
 use App\Http\Controllers\NiveauScolaireController;
-use App\Http\Controllers\CantineController;
-use App\Http\Controllers\TextbookController;
-use App\Http\Controllers\ActivityController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfesseurController;
 
@@ -32,18 +30,7 @@ Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);
 //admin etudaint
  
-//cantine 
-Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
-Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
-Route::delete('/menu-jour/{id}', [CantineController::class, 'supprimerJour']);
-Route::get('/menu-jour/{nom}', [CantineController::class, 'getMenuJour']);
-Route::post('/ajouter-menu', [CantineController::class, 'ajouterMenu']);
 
-//activity
-Route::get('/activities', [ActivityController::class, 'index']);
-Route::post('/activities', [ActivityController::class, 'store']);
-Route::get('/activities/{id}', [ActivityController::class, 'show']);
-Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 
 // authentification route 

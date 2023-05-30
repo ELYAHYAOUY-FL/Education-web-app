@@ -42,11 +42,6 @@ class Matiere extends Model
 		 
 	];
 
-	// public function professeur()
-	// {
-	// 	return $this->belongsTo(Professeur::class);
-	// }
-
 	
 	// public function classes()
 	// {
@@ -80,9 +75,15 @@ class Matiere extends Model
 	{
 		return $this->hasMany(Exam::class);
 	}
+	// public function groupes()
+    // {
+    //     return $this->belongsToMany(Groupe::class, 'matiere_groupe', 'matiere_id', 'groupe_id');
+    // }
 
-	public function matiere_emploi()
-	{
-		return $this->hasOne(MatiereEmploi::class);
-	}
+    public function emploiTemps()
+    {
+        return $this->hasMany(EmploiTemp::class, 'matiere_id');
+    }
+
+	 
 }

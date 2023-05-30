@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('salle');
             $table->integer('capacity');
             $table->unsignedBigInteger('niveau_scolaire_id')->index('classes_niveau_scolaire_id_foreign');
-            // $table->unsignedBigInteger('emploi_id')->index('fk_classes_emploi_temps_id');
             $table->timestamps();
         });
     }

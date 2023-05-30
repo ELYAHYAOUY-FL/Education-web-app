@@ -6,9 +6,12 @@
 
 namespace App\Models;
 
+use App\Models\Groupe;
+use App\Models\MatiereEmploi;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Matiere;
 
 
 class EmploiTemp extends Model
@@ -17,31 +20,31 @@ class EmploiTemp extends Model
 
 	protected $casts = [
 		'heure_debut' => 'datetime',
-		'heure_fin' => 'datetime',
-		'jour' => 'string'
+		 
+		'jour' => 'string',
+		'groupe_id' => 'int',
+		'matiere_id' => 'int',
 	];
 
 	protected $fillable = [
 		'heure_debut',
-		'heure_fin',
+		 
 		'jour',
+		'matiere_id',
+		'groupe_id',
 		
 	];
 
-	
+	public function matiere()
+    {
+        return $this->belongsTo(Matiere::class, 'matiere_id');
+    }
+	public function groupe()
+    {
+        return $this->belongsTo(Groupe::class, 'groupe_id');
+    }
+	 
+	 
 
-	// public function classes()
-	// {
-	// 	return $this->hasOne(Classe::class, 'emploi_id');
-	// }
-
-	public function matiere_emploi()
-	{
-		return $this->hasOne(MatiereEmploi::class, 'emploi_id');
-	}
-
-	// public function salle_emploi()
-	// {
-	// 	return $this->hasOne(SalleEmploi::class, 'emploi_id');
-	// }
+	 
 }

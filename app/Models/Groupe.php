@@ -80,9 +80,16 @@ class Groupe extends Model
 	{
 		return $this->hasMany(Eleve::class, 'groupe_id');
 	}
+	// public function matieres()
+    // {
+    //     return $this->belongsToMany(Matiere::class, 'groupe_matiere', 'groupe_id', 'matiere_id');
+    // }
 
-	// public function emploi_temps()
-	// {
-	// 	return $this->hasMany(EmploiTemp::class, 'classe_id');
-	// }
+     
+
+	public function emploiTemp()
+    {
+        return $this->hasMany(EmploiTemp::class, 'groupe_id');
+    }
+	
 }

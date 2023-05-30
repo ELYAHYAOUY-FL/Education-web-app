@@ -143,7 +143,19 @@
     </router-link>
     </li>    
 </ul> 
+    </li> 
+    <li class="nav-item">
+    <router-link to="/Administration/Calendr" class="nav-link" :class="{ 'active': $route.path === '/Administration/Calendr' }">
+      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+    <p color="black"> Calendrie </p>
+    </router-link>
     </li>    
+    <li class="nav-item">
+    <router-link to="/Administration/EmploisTemps" class="nav-link" :class="{ 'active': $route.path === '/Administration/EmploisTemps' }">
+      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+    <p color="black"> Emplois Temps </p>
+    </router-link>
+    </li>       
 </ul>
     </nav>
     
