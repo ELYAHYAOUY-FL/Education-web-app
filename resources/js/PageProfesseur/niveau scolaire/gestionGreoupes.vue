@@ -142,13 +142,11 @@
             console.error(error);
           });
       },
-      addnote(){
-
-      },
+     
       addnote() {
     axios.post('/notes', this.modelValue).then(response => {
      
-          const noteId = response.data.note_id;
+          const noteId = response.data.id;
           this.modelValue.note_id = noteId;
           this.addExamsNote();
 
@@ -163,7 +161,7 @@
       
       const newNiveauScolaire = {
         date: this.modelValue.date,
-        matiere_id: this.professeur.matiere,
+        matiere_id: this.professeur.matiere.id,
         note_id:  this.modelValue.note_id ,
         // nom : 
           };

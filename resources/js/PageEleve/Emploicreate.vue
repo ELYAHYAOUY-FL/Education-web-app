@@ -13,7 +13,7 @@
     </div>
       </div>
       <div class="emploi-temps" v-if="emploiTemps.length > 0">
-        <template v-for="(emplois, jour) in groupedEmploiTemps" :key="jour">
+        <div v-for="(emplois, jour) in groupedEmploiTemps" :key="jour">
           <div class="jour-container">
             <div class="jour-header">
               <strong>{{ jour }}</strong>
@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
     </MenuLayoutEleve>

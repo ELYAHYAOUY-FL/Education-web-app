@@ -19,7 +19,7 @@ public function index()
 
 public function getById($userId)
 {
-    $professeur = Professeur::with('groupes', 'matiere','groupes.eleves.user','groupes.eleves.eleve_exams.note','groupes.eleves.eleve_exams.matire', 'matiere.emploiTemp')->where('user_id', $userId)->first();
+    $professeur = Professeur::with('groupes', 'matiere','groupes.eleves.user','groupes.eleves.eleve_exams.note','groupes.eleves.eleve_exams.matire')->where('user_id', $userId)->first();
 
     if (!$professeur) {
         return response()->json(['error' => 'Professeur not found'], 404);

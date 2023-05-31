@@ -163,18 +163,7 @@ export default {
   },
 
  methods: {
-  // fetchClasses() {
-  //     axios.get('/groupes')
-  //       .then(response => {
-  //         this.groupes = response.data;
-  //       })
-  //       .catch(error => {
-  //         console.error(error);
-  //       });
-  //   },
-   
 
-   
 
   addUser() {
   axios.post('/users', this.modelValue)

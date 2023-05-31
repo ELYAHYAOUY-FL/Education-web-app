@@ -16,6 +16,15 @@ class TextbookController extends Controller
     {
         return response()->json($textbook);
     }
+    public function gettextbookbyidprof($PorfId)
+    {
+
+        $text = Textbook::with('professeur')->where('professeur_id', $PorfId)->get();
+        
+        return response()->json($text);
+       
+    }
+
 
     // public function store(Request $request)
     // {
@@ -62,6 +71,8 @@ class TextbookController extends Controller
             'description' => 'nullable',
             'date' => 'required',
             'heure' => 'required',
+            'professeur_id' => 'required',
+
         ]);
 
         $textbook = Textbook::create($validatedData);

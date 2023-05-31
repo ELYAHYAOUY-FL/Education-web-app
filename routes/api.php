@@ -51,6 +51,8 @@ Route::post('/eleves', [EleveController::class, 'store']);
 Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
+Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
+
 
 //parent 
 Route::get('/parents', [ParentController::class, 'index']);
@@ -106,17 +108,22 @@ Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
 
 use App\Http\Controllers\TextbookController;
+//textbook prof
 // Route::post('/textbooks', [TextbookController::class, 'store']);
 Route::put('/textbooks/{id}', [TextbookController::class, 'update']);
 Route::delete('/textbooks/{id}', [TextbookController::class, 'destroy']);
 Route::get('/textbooks', [TextbookController::class, 'index']);
 Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
 Route::post('/textbooks', [TextbookController::class, 'store']) ;
+Route::get('/textbooks/getbyProf/{ProfId}', [TextbookController::class, 'gettextbookbyidprof']) ;
 
 //users
 // Route::post('/users', [UserController::class, 'store']) ;
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
+
+
+
 //Calendrie
 use App\Http\Controllers\EventController;
 Route::get('/events', [EventController::class, 'index']);
@@ -124,23 +131,24 @@ Route::post('/events', [EventController::class, 'store']);
 
 //emploi temps
 Route::post('/emplois', [EmploiTempController::class, 'store']);
-Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
-Route::get('/professeurs/user/{userId}', [ProfesseurController::class, 'getProfById']);
-Route::get('/emploiProf', [EmploiTempController::class, 'getEmploiProf']);
+// Route::get('/professeurs/user/{userId}', [ProfesseurController::class, 'getProfById']);
+Route::get('/emplois/Professeur/{MatiereId}', [EmploiTempController::class, 'getEmploiProf']);
 
 Route::get('/emplois', [ EmploiTempController::class, 'getSchedulesByGroup']);
-Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
 // Route::get('/emplois', [EmploiTempController::class, 'getEmplois']);
 Route::get('/emplois/groupe/{EmploiId}', [EmploiTempController::class, 'getEmplois']);
 
 
+
+// groupes
+Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
 Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
 // Route::get('/matieres', [MatiereController::class, 'index']);
 
-use App\Http\Controllers\CantineController;
- 
 
+
+use App\Http\Controllers\CantineController;
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
@@ -154,6 +162,8 @@ Route::post('/activities', [ActivityController::class, 'store']);
 Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
+// notess 
+Route::post('/activities', [ActivityController::class, 'store']);
 
 
 

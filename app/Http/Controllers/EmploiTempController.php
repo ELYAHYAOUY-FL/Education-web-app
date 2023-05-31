@@ -35,7 +35,7 @@ class EmploiTempController extends Controller
 
         return response()->json($schedules);
     }
-    public function getEmplois($EmploiId)
+public function getEmplois($EmploiId)
     {
         // $groupeId = $request->query('groupe_id');
         
@@ -43,16 +43,18 @@ class EmploiTempController extends Controller
         
         return response()->json($emplois);
     }
-    public function getEmploiProf(Request $request)
+
+public function getEmploiProf($MatiereId)
     {
-        $matiereId = $request->query('matiere_id');
+        // $matiereId = $request->query('matiere_id');
         
-        $emplois = EmploiTemp::with('groupe')->where('matiere_id', $matiereId)->get();
+        $emplois = EmploiTemp::with('groupe')->where('matiere_id', $MatiereId)->get();
         
         return response()->json($emplois);
     }
+
     public function store(Request $request)
-{
+   {
     // Validation des données reçues depuis le formulaire
     $validatedData = $request->validate([
         'jour' => 'required',

@@ -33,7 +33,7 @@ import textbookProf from './PageProfesseur/Textbook/index.vue'
 //groupes
 import Groupes from './PageProfesseur/niveau scolaire/gestionGreoupes.vue'
 //Textbook
-import textbookProf from './PageProfesseur/Textbook/index.vue'
+// import textbookProf from './PageProfesseur/Textbook/index.vue'
 //Calendrie
 import Calendrie from './PageProfesseur/calendarPag.vue'
 import Calend from './PageEleve/calendarEleve.vue'
