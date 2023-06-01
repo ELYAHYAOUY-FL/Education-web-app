@@ -28,6 +28,14 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParentEleveController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\TextbookController;
+use App\Http\Controllers\CantineController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\EleveExamController;
+
 
 
 
@@ -98,7 +106,6 @@ Route::post('/bankinformations', [Bankinformation_ProfController ::class, 'store
 Route::post('/virements', [VirementController ::class, 'store']);
 // use App\Http\Controllers\ProfessuerController ;
 
-use App\Http\Controllers\ActivityController;
 
 
 Route::post('/activities', [ActivityController::class, 'store']);
@@ -107,7 +114,6 @@ Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
 
 
-use App\Http\Controllers\TextbookController;
 //textbook prof
 // Route::post('/textbooks', [TextbookController::class, 'store']);
 Route::put('/textbooks/{id}', [TextbookController::class, 'update']);
@@ -125,7 +131,6 @@ Route::post('/users', [UserController::class, 'store']);
 
 
 //Calendrie
-use App\Http\Controllers\EventController;
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'store']);
 
@@ -148,7 +153,6 @@ Route::post('/groupes', [GroupeController::class, 'store']);
 
 
 
-use App\Http\Controllers\CantineController;
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
@@ -163,9 +167,13 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 // notess 
-Route::post('/activities', [ActivityController::class, 'store']);
+Route::post('/notes', [NoteController::class, 'store']);
 
 
+
+//exams 
+Route::post('/exams', [ExamController::class, 'store']);
+Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
 
 
 

@@ -15,11 +15,11 @@ class EleveExames extends Model
 	protected $casts = [
 		'exame_id' => 'int',
 		'eleve_id' => 'int',
-		'id' => 'int'
 	];
 
 	protected $fillable = [
-		'id'
+		'exame_id',
+		'eleve_id' ,
 	];
 
 	public function eleve()
