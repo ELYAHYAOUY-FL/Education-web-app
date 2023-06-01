@@ -184,9 +184,6 @@ export default {
 
   mounted() {
     this.fetchProfesseur();
-    this.fetchGroupes();
-    this.fetchMatieres();
-    this.fetchEleves();
   },
   methods: {
     handleExamClick(groupeIndex, eleveIndex, eleveId, examIndex) {
@@ -218,46 +215,11 @@ export default {
           console.error(error);
         });
     },
-    fetchGroupes() {
-      axios
-        .get('/groupes/')
-        .then(response => {
-          this.groupes = response.data;
-          console.log(this.groupes)
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    fetchEleves() {
-      axios
-        .get('/eleves')
-        .then(response => {
-          this.eleves = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    fetchMatieres() {
-      axios
-        .get('/matieres')
-        .then(response => {
-          this.matieres = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
     addnote() {
       axios.post('/notes', this.modelValue)
         .then(response => {
-          const noteId = response.data.id;
-          console.log(noteId)
-          this.modelValue.note_id = noteId;
-          console.log(this.modelValue.note_id);
+          this.modelValue.note_id =  response.data.id;
           this.currentNote = response.data.valeur; 
-          // this.addExamsNote();
           this.addExamsNote(this.relationExamEleve.eleve_id); //    
             })
         .catch(error => {
@@ -270,8 +232,7 @@ export default {
   this.exams.note_id = this.modelValue.note_id;
   const columnHeaders = ['First Exam', 'Second Exam', 'Third Exam', 'Prof Note'];
   const columnIndex = this.activeForms[0][2]; // Get the column index of the active form
-
-  if (columnIndex < columnHeaders.length) {
+if (columnIndex < columnHeaders.length) {
     this.exams.nom = columnHeaders[columnIndex]; // Assign the corresponding column header
   } else {
     this.exams.nom = ''; // Default value if the column index is out of bounds
@@ -280,13 +241,7 @@ export default {
   axios
     .post('/exams', this.exams)
     .then(response => {
-      const examId = response.data;
-      this.modelValue.exame_id = examId;
-      this.relationExamEleve.exame_id = this.modelValue.exame_id ;
-      console.log(this.modelValue.exame_id );
-      console.log(this.relationExamEleve.exame_id  );
-      this.showForm = false;
-  
+      this.relationExamEleve.exame_id = response.data;
       this.affectEleveId(eleveId); // Pass the eleveId argument here
       this.addRelationExamEleve(eleveId);
     })
@@ -297,23 +252,9 @@ export default {
 
     affectEleveId(eleveId){
       this.relationExamEleve.eleve_id = eleveId;
-      this.relationExamEleve.exame_id = this.modelValue.exame_id ;
-      console.log(this.relationExamEleve.eleve_id)
-      console.log(this.relationExamEleve.exame_id)
     },
   
     addRelationExamEleve(eleveId) {
-      this.relationExamEleve.exame_id = this.modelValue.exame_id ;
-  this.relationExamEleve.eleve_id = eleveId;
-  // Assign the saved note data to currentNote property
-      // Clear the form or reset necessary values
-      this.modelValue = {
-        date: "",
-        valeur: "",
-        nom: "",
-        exame_id: ""
-      };
-console.log(  this.relationExamEleve.exame_id )
   axios
     .post('/relation-exam-eleve', this.relationExamEleve)
     .then(response => {
@@ -321,6 +262,7 @@ console.log(  this.relationExamEleve.exame_id )
       this.relationExamEleve.exame_id = this.modelValue.exame_id;
     this.relationExamEleve.eleve_id = eleveId;
     console.log(this.relationExamEleve.exame_id);
+    this.showForm = false;
     })
     .catch(error => {
       // Handle the error

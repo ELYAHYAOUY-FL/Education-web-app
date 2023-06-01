@@ -167,14 +167,12 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 // notess 
+// Route::post('/notes', [NoteController::class, 'store']);
 Route::post('/notes', [NoteController::class, 'store']);
-
-
 
 //exams 
 Route::post('/exams', [ExamController::class, 'store']);
 Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
-
 
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {
