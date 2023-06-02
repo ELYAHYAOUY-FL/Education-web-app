@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Virement $virement
+ * 
  * @property Collection|Absence[] $absences
  * @property Collection|EleveProfessuer[] $eleve_professuers
  * @property Collection|Matiere[] $matieres
@@ -41,35 +41,43 @@ class Professeur extends Model
 	protected $table = 'professeurs';
 
 	protected $casts = [
-		'virement_id' => 'int',
 		'date_naissance' => 'datetime',
-		'matier_id' => 'int'
+		'user_id' => 'int'
+		
 	];
 
 	protected $fillable = [
-		'virement_id',
+		 
 		'photo',
-		'nom',
-		'prenom',
-		'sex',
-		'date_naissance',
-		'lieu_naissance',
 		'tel',
-		'address',
 		'diplom',
-		'matier_id'
+		'CNI',
+		 'user_id' => 'int',
+		 'matier_id' => 'int',
 	];
 
 	
-	public function virement()
+	// public function virement()
+    // {
+    //     return $this->belongsTo(Virement::class);
+    // }
+	public function user()
     {
-        return $this->belongsTo(Virement::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+	public function matiere()
+    {
+        return $this->belongsTo(Matiere::class, 'matier_id');
     }
 
 	public function absences()
 	{
 		return $this->hasMany(Absence::class);
 	}
+	public function groupes()
+    {
+        return $this->belongsToMany(Groupe::class, 'groupe_professeur', 'professeur_id', 'groupe_id');
+    }
 
 	public function eleve_professuers()
 	{
@@ -78,18 +86,21 @@ class Professeur extends Model
 
 	
 
-    public function classes()
-    {
-        return $this->matieres()->with('classes');
-    }
+    // public function groupes()
+    // {
+    //     return $this->matieres()->with('groupes');
+    // }
+	
+	// public function matieres()
+	// {
+	// 	return $this->hasMany(Matiere::class);
+	// }
+	
 	
 	public function matieres()
-	{
-		return $this->hasMany(Matiere::class);
-	}
-	
-
-
+    {
+        return $this->belongsToMany(Matiere::class, 'matiere_professeur', 'professeur_id', 'matiere_id');
+    }
 
 	public function retards()
 	{

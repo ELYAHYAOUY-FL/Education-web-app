@@ -29,12 +29,12 @@ class Note extends Model
 
 	protected $casts = [
 		'valeur' => 'int',
-		'date' => 'datetime'
+		
 	];
 
 	protected $fillable = [
 		'valeur',
-		'date'
+		
 	];
 
 	public function eleve_note()

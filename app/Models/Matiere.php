@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Professeur $professeur
- * @property Collection|Class[] $classes
+ * @property Collection|Groupe[] $groupes
  * @property Collection|Devoir[] $devoirs
  * @property MatiereEmploi $matiere_emploi
  *
@@ -33,19 +33,14 @@ class Matiere extends Model
 
 	protected $casts = [
 		'coefficient' => 'int',
-		'professeur_id' => 'int'
+		 
 	];
 
 	protected $fillable = [
 		'titre',
 		'coefficient',
-		'professeur_id'
+		 
 	];
-
-	// public function professeur()
-	// {
-	// 	return $this->belongsTo(Professeur::class);
-	// }
 
 	
 	// public function classes()
@@ -54,16 +49,20 @@ class Matiere extends Model
 	// }
 	
 
-    public function classes()
+    // public function groupes()
+    // {
+    //     return $this->belongsToMany( Groupe::class);
+    // }
+	public function groupes()
     {
-        return $this->belongsToMany(Classe::class);
+        return $this->belongsToMany(Groupe::class, 'groupe_matiere', 'matiere_id', 'groupe_id');
     }
 
 
-	public function professeur()
-{
-    return $this->belongsTo(Professeur::class);
-}
+// 	public function professeurs()
+// {
+//     return $this->belongsToMany(Professeur::class,'matiere_professeur', 'professeur_id', 'matiere_id');
+// }
 
 	
 
@@ -72,9 +71,19 @@ class Matiere extends Model
 	{
 		return $this->hasMany(Devoir::class);
 	}
-
-	public function matiere_emploi()
+	public function exams()
 	{
-		return $this->hasOne(MatiereEmploi::class);
+		return $this->hasMany(Exam::class);
 	}
+	// public function groupes()
+    // {
+    //     return $this->belongsToMany(Groupe::class, 'matiere_groupe', 'matiere_id', 'groupe_id');
+    // }
+
+    public function emploiTemps()
+    {
+        return $this->hasMany(EmploiTemp::class, 'matiere_id');
+    }
+
+	 
 }

@@ -1,37 +1,52 @@
-/* ************************************************************************************************* */
-/* ********************************************  Hero ********************************************** */
+/* ********************************* */
+/* ***************  Hero ***************** */
+
+/* @import 'vue-base-input/src/assets/vue-base-input.css'; */
+
 @import "admin-lte/plugins/fontawesome-free/css/all";
 @import "admin-lte/dist/css/adminlte";
-@import 'vue-base-input/src/assets/vue-base-input.css';
-
-
+/* main.css */
+ 
 
 /* NAVBAR STYLING STARTS */
+/* .flexnavbar{
+  
+} */
+
+
 .navbar1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    
+    padding: 2px 20px ;
+  
+    margin-bottom: 0;
+  }
     /* background-color:#1c1d1c; */
-    background:#000  ;
-    opacity: 0.5;
-    color: #000;
-    height: 30%;
+    /* height: 30%; */
+   
+    .navbar1 .nav-links  {
+      margin-bottom: 0;
+    }
+ .logo1  {
+      margin-top: 5px;
+      margin-bottom: 0;
+      color: #ffffff;
+    width:80px;
     }
     
     .navbar1 .nav-links a {
     color: #ffffff;
-    font-weight: bold;
+    /* font-weight: bold; */
     list-style: none;
     opacity: 1 !important;
-    }
+    margin: 0;
+    } */
     
     /* LOGO */
-    .logo {
-      color: #ffffff;
-    font-size: 32px;
-    font-weight: bold;
+    .logo1 {
+      
+    margin: 0 ;
     }
     
     /* NAVBAR MENU */
@@ -57,9 +72,9 @@
     }
     
     .dropdown {
-    background-color: rgb(1, 139, 139);
+    background-color: #457973;
     padding: 1em 0;
-    position: absolute; /*WITH RESPECT TO PARENT*/
+    position: absolute; 
     display: none;
     border-radius: 8px;
     top: 35px;
@@ -85,26 +100,28 @@
  
 
 
-/* ********************************************************************************************** */
-/* ************************ header ***************************************************** */
+/* ******************************** */
+/* ******** header ******************* */
 header.hero {
-    background: url(../js/src/assest/images/header.avif) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    color: #fff;
-    padding-bottom: 80px;
-  }
+  background: url(../js/src/assest/images/header6.jpg) no-repeat center center fixed;
+  /* background-image: url('../js/src/assest/images/header5.jpeg'); */
+  
+  background-size: cover;
+  
+ 
+  color: #fff;
+  padding-bottom: 120px;
+}
+
   header.hero .hero-text {
-    margin-top: 20%;
+    margin-top: 15%;
     margin-bottom: 20%;
   }
   header.hero h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 4.5em;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-size: 4em;
     font-weight: 600;
-    line-height: 1.4em;
+    line-height: 1.2em;
   }
   header.hero h1 span,
   header.hero h3 {
@@ -114,142 +131,75 @@ header.hero {
     margin: 3em 0;
   }
 
-  /* ************************************************************************************************ */
-  /* *************** slide card ***************** */
-  /* Define variables */
-:root {
-    --vue-navy: #2c3e50;
-    --vue-navy-light: #3a5169;
-    --vue-teal: #42b883;
-    --vue-teal-light: #42b983;
-    --gray: #666a73;
-    --light-gray: #f8f8f8;
-    --vue-teal-footer: teal;
-  }
-  
-  /* Apply styles to body */
-  body {
-    background: var(--light-gray);
-    color: var(--vue-navy);
-    font-family: 'Source Sans Pro', sans-serif;
-  }
+  /* ******************************** */
+  /* ***** slide card ******* */
+
   
   /* Apply styles to card carousel wrapper */
   .card-carousel-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0 40px;
-    color: var(--gray);
+    margin: 70px 0 40px;
+    
+  }
+  :root{
+    --vue-teal-footer : #457973;
   }
   
-  /* Apply styles to card carousel */
-  .card-carousel {
-    display: flex;
-    justify-content: center;
-    width: 750px;
-  }
-  
-  /* Apply styles to card carousel overflow container */
-  .card-carousel--overflow-container {
-    overflow: hidden;
-  }
-  
-  /* Apply styles to card carousel navigation */
-  .card-carousel--nav__left,
-  .card-carousel--nav__right {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    padding: 10px;
-    box-sizing: border-box;
-    border-top: 2px solid var(--vue-teal);
-    border-right: 2px solid var(--vue-teal);
-    cursor: pointer;
-    margin: 0 20px;
-    transition: transform 150ms linear;
-  }
-  
-  /* Apply styles to card carousel navigation disabled state */
-  .card-carousel--nav__left[disabled],
-  .card-carousel--nav__right[disabled] {
-    opacity: 0.2;
-    border-color: black;
-  }
-  
-  /* Apply styles to card carousel left navigation */
-  .card-carousel--nav__left {
-    transform: rotate(-135deg);
-  }
-  
-  /* Apply styles to card carousel left navigation on active state */
-  .card-carousel--nav__left:active {
-    transform: rotate(-135deg) scale(0.9);
-  }
-  
-  /* Apply styles to card carousel right navigation */
-  .card-carousel--nav__right {
-    transform: rotate(45deg);
-  }
-  
-  /* Apply styles to card carousel right navigation on active state */
-  .card-carousel--nav__right:active {
-    transform: rotate(45deg) scale(0.9);
-  }
   
   /* Apply styles to card carousel cards */
   .card-carousel-cards {
-    display: flex;
-    transition: transform 150ms ease-out;
-    transform: translateX(0px);
+    display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* transition: transform 150ms ease-out;
+    transform: translateX(0px); */
   }
   
   /* Apply styles to card carousel card */
   .card-carousel--card {
+   width: 19rem;
     margin: 0 10px;
     cursor: pointer;
     box-shadow: 0 4px 15px 0 rgba(40, 44, 53, 0.06), 0 2px 2px 0 rgba(40, 44, 53, 0.08);
     background-color: #fff;
-    border-radius: 4px;
-    z-index: 3;
+  
+
     margin-bottom: 2px;
   }
   
-  /* Apply styles to first card in carousel */
-  .card-carousel--card:first-child {
-    margin-left: 0;
+  .flexCardsImage{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
   }
-  
-  /* Apply styles to last card in carousel */
-  .card-carousel--card:last-child {
-    margin-right: 0;
-  }
+ 
   
   /* Apply styles to card image */
   .card-carousel--card img {
     vertical-align: bottom;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    /* border-radius: 50%; */
+  width: 10rem;
+  padding: 10px;
     transition: opacity 150ms linear;
-    user-select: none;
+
+   
   }
   
   /* Apply styles to card name  */
-  .card-carousel--card--footer{
-    border-top: 0;
-    padding: 7px 15px;
-  }
+ 
   .para{
-    padding: 20px 20px;
+    padding: 20px 10px;
     margin: 0;
     margin-bottom: 2px;
-    font-size: 19px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 300;
     color: black;
     user-select: none;
   }
 
- /* ************************************************************************************************ */
+ /* ******************************** */
   /* common style for some sections */
 .common_style>section {
   padding: 50px 0;
@@ -267,11 +217,11 @@ header.hero {
 
 .common_style h3 {
   font-weight: 600;
-  color: #151516;
+  color: #457973;
 }
 
 .common_style p {
-  font-weight: 600;
+  font-weight: 400;
   color: #4e4f50;
   margin: 30px 0 50px 0;
 }
@@ -301,8 +251,8 @@ header.hero {
 
 /* end common style */
 
- /* ************************************************************************************************ */
-  /* *************** Footer ***************** */
+ /* ******************************** */
+  /* ***** Footer ******* */
 
   .footer-widget p {
     margin-bottom: 27px;
@@ -349,7 +299,7 @@ header.hero {
     transform: translateX(113px); } }
 
 .animate-border.border-white:after {
-  border-color: #fff; }
+  border-color: #4c9e9e; }
 
 .animate-border.border-yellow:after {
   border-color: #F5B02E; }
@@ -411,6 +361,7 @@ header.hero {
   .dk-footer-box-info .footer-social-link h3 {
     color: #fff;
     font-size: 24px;
+    text-align: center;
     margin-bottom: 25px; }
   .dk-footer-box-info .footer-social-link ul {
     list-style-type: none;
@@ -507,31 +458,6 @@ header.hero {
   display: block;
   clear: both; }
 
-.dk-footer-form {
-  position: relative; }
-  .dk-footer-form input[type=email] {
-    padding: 14px 28px;
-    border-radius: 50px;
-    background: #2E2E2E;
-    border: 1px solid #2E2E2E; }
-  .dk-footer-form input::-webkit-input-placeholder, .dk-footer-form input::-moz-placeholder, .dk-footer-form input:-ms-input-placeholder, .dk-footer-form input::-ms-input-placeholder, .dk-footer-form input::-webkit-input-placeholder {
-    color: #878787;
-    font-size: 14px; }
-  .dk-footer-form input::-webkit-input-placeholder, .dk-footer-form input::-moz-placeholder, .dk-footer-form input:-ms-input-placeholder, .dk-footer-form input::-ms-input-placeholder, .dk-footer-form input::placeholder {
-    color: #878787;
-    font-size: 14px; }
-  .dk-footer-form button[type=submit] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 12px 24px 12px 17px;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    border: 1px solid var(--vue-teal-footer);
-    background: var(--vue-teal-footer);
-    color: #fff; }
-  .dk-footer-form button:hover {
-    cursor: pointer; }
 
 /* ==========================
 
@@ -568,47 +494,3 @@ header.hero {
     font-size: 20px;
     color: #fff;
     margin-bottom: 0; }
-
-.copyright {
-  padding: 28px 0;
-  margin-top: 55px;
-  background-color: #202020; }
-  .copyright span,
-  .copyright a {
-    color: #878787;
-    -webkit-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear; }
-  .copyright a:hover {
-    color:var(--vue-teal-footer); }
-
-.copyright-menu ul {
-  text-align: right;
-  margin: 0; }
-
-.copyright-menu li {
-  display: inline-block;
-  padding-left: 20px; }
-
-.back-to-top {
-  position: relative;
-  z-index: 2; }
-  .back-to-top .btn-dark {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    padding: 0;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #2e2e2e;
-    border-color: #2e2e2e;
-    display: none;
-    z-index: 999;
-    -webkit-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear; }
-    .back-to-top .btn-dark:hover {
-      cursor: pointer;
-      background: #FA6742;
-      border-color: #FA6742; }

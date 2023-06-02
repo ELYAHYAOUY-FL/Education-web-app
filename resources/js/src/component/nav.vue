@@ -1,20 +1,20 @@
 <template>
   <nav class="navbar1">
 <!-- LOGO -->
-<div class="logo">Pronote</div>
-
+<!-- <div class="logo1">Pronote</div> -->
+<div ><img src="../assest/images/logoo.png" alt="" class="logo1"></div>
 <!-- NAVIGATION MENU -->
 <ul class="nav-links">
 
 <!-- USING CHECKBOX HACK -->
-<input type="checkbox" id="checkbox_toggle" />
+<input type="checkbox" id="checkbox_toggle"/>
 <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
 
 <!-- NAVIGATION MENUS -->
 <div class="menu">
-<li><a href="/">Acuille</a></li>
-<li><a href="/">a propos de nous </a></li>
+<li><a href="/">Accueille</a></li>
+<li><a href="/">à propos de nous</a></li>
 
 <li class="services">
 <a href="/">Services</a>
@@ -30,8 +30,8 @@
 
 </li>
 
-<li><a href="/">Payemnt</a></li>
-<li><a href="/">Contact-nous </a></li>
+<li><a href="/">Paiement</a></li>
+<li><a href="/">Contact nous </a></li>
 </div>
 </ul>
 </nav>

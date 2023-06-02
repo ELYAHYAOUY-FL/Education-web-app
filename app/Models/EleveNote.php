@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $eleve_id
  * @property int $id
  * 
- * @property Elefe $elefe
+ * @property Eleve $eleve
  * @property Note $note
  *
  * @package App\Models
@@ -38,7 +38,7 @@ class EleveNote extends Model
 
 	public function eleve()
 	{
-		return $this->belongsTo(Elefe::class, 'eleve_id');
+		return $this->belongsTo(Eleve::class, 'eleve_id');
 	}
 
 	public function note()

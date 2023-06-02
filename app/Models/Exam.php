@@ -35,6 +35,8 @@ class Exam extends Model
 
 	protected $fillable = [
 		'date',
+		
+		'nom',
 		'matiere_id',
 		'note_id'
 	];
@@ -43,4 +45,16 @@ class Exam extends Model
 	{
 		return $this->belongsTo(Note::class, 'id');
 	}
+	public function matire()
+	{
+		return $this->belongsTo(Matiere::class, 'id');
+	}
+	public function eleves_exam()
+    {
+        return $this->belongsToMany(Eleve::class, 'eleve_exams','eleve_id','exame_id');
+    }
+	public function eleve_exames()
+    {
+        return $this->hasMany(EleveExames::class, 'exame_id');
+    }
 }

@@ -1,10 +1,8 @@
 <?php
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EtudiantController;
+ 
 use App\Http\Controllers\NiveauScolaireController;
-use App\Http\Controllers\CantineController;
-use App\Http\Controllers\TextbookController;
-use App\Http\Controllers\ActivityController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfesseurController;
 
@@ -31,40 +29,28 @@ Route::delete('admin/deleteNiveauScolair/{id}', [NiveauScolaireController::class
 // Route::get('adminn/nivScolairupdate',[NiveauScolaireController::class,'update']);
 Route::put('/adminn/nivScolairupdate/{id}', [NiveauScolaireController::class, 'update']);
 //admin etudaint
-Route::get('/etudiants', [EtudiantController::class, 'index']);
-Route::post('admin/etudiantcreate', [EtudiantController::class, 'store'])->name('etudiant.store');
-
-//cantine 
-Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
-Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
-Route::delete('/menu-jour/{id}', [CantineController::class, 'supprimerJour']);
-Route::get('/menu-jour/{nom}', [CantineController::class, 'getMenuJour']);
-Route::post('/ajouter-menu', [CantineController::class, 'ajouterMenu']);
-
-//activity
-Route::get('/activities', [ActivityController::class, 'index']);
-Route::post('/activities', [ActivityController::class, 'store']);
-Route::get('/activities/{id}', [ActivityController::class, 'show']);
-
-Route::put('/activities/{id}', [ActivityController::class, 'update']);
+ 
 
 
-// Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
-// Route::put('/activities/{id}', [ActivityController::class, 'update']);
-// Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
+// authentification route 
 
+// Route::group(['middleware' => 'role:administration'], function () {
+//     Route::get('/administration', 'AdministrationController@index');
+// });
 
-//textBook
-// Route::post('/textbooks', [TextbookController::class, 'store']);
-// Route::get('/textbooks', [TextbookController::class, 'index']);
-// Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
-// Route::post('/textbooks', [TextbookController::class, 'store']) ;
+// Route::group(['middleware' => 'role:student'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
+// Route::group(['middleware' => 'role:student'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
+// Route::group(['middleware' => 'role:parents'], function () {
+//     Route::get('/student', 'StudentController@index');
+// });
 
-// Route::delete('/activities/{id}', 'ActivityController@destroy');
-// Route::delete('/activities/{nom}', [ActivityController::class, 'destory']);
+// Add similar route groups for other roles (professor, parent) as needed
 
-// Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy');
 
 
 
@@ -72,17 +58,5 @@ Route::get('/{any}', function () {
     return inertia('welcome');
 })->where('any','.*');
 
-//  Route::get ('/' , function(){
-//      return inertia('Administration');
-//  });
-//  Route::get ('/hom' , function(){
-//     return inertia('Hom');
-// });
-
-// Route::get('/etudiant',[EtudiantController::class, "index"])->name("etudiant.index");
-// Route::get('/etudiant/create',[EtudiantController::class, "create"])->name("etudiant.create");
-
-// Route::get('/nivreauscolaire',[NiveauScolaireController::class, "index"])->name("nivreauscolaire.index");
-// Route::get('/nivreauscolaire/create',[NiveauScolaireController::class, "create"])->name("nivreauscolaire.create");
 
  

@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Parente;
 
 /**
  * Class EleveParent
@@ -15,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $parent_id
  * @property int $id
  * 
- * @property Elefe $elefe
- * @property Parent $parent
+ * @property Eleve $eleve
+ * @property Parente $parent
  *
  * @package App\Models
  */
@@ -37,13 +38,23 @@ class EleveParent extends Model
 		'parent_id'
 	];
 
-	public function eleve()
-	{
-		return $this->belongsTo(Eleve::class, 'eleve_id');
-	}
+// 	public function eleve()
+// 	{
+// 		return $this->belongsTo(Eleve::class, 'eleve_id');
+// 	}
 
-	public function parent()
-	{
-		return $this->belongsTo(Parente::class);
-	}
+// 	public function parent()
+// {
+//     return $this->belongsTo(Parente::class, 'parent_id');
+// }
+public function eleve()
+{
+	return $this->belongsTo(Eleve::class, 'eleve_id');
+}
+
+public function parent()
+{
+	return $this->belongsTo(Parente::class, 'parent_id');
+}
+
 }

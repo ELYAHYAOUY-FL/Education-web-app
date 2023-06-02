@@ -21,28 +21,36 @@
                   <i :class="showForm ? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
                   {{ showForm ? 'Cancel' : 'Add NiveauScolaire' }}
                 </button>
-                <form v-if="showForm">
+                <form v-if="showForm" @submit.prevent="addNiveauScolaire">
                   <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="nom">
                   </div>
                   <div class="form-group">
+                    <label for="anne">Année scolaire</label>
+                    <input type="text" class="form-control" id="anne" v-model="année_scolaire">
+                  </div>
+                  <div class="form-group">
                     <label for="description">Discription</label>
                     <input type="text" class="form-control" id="description" v-model="description">
                   </div>
-                  <button class="btn btn-primary" @click="addNiveauScolaire">Save</button>
+                  <button class="btn btn-primary" >Save</button>
                 </form>
-                <form v-if="showForm1">
+                <form v-if="showForm1" @submit.prevent="saveUpdatedNiveauScolaire">
                   <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control" id="nom" v-model="niveau_scolaire.nom">
+                  </div>
+                  <div class="form-group">
+                    <label for="année_scolaire">Année scolaire</label>
+                    <input type="text" class="form-control" id="année_scolaire" v-model="niveau_scolaire.année_scolaire">
                   </div>
                   <div class="form-group">
                     <label for="description">Discription</label>
                     <input type="text" class="form-control" id="description" v-model="niveau_scolaire.description">
                   </div>
                   
-                  <button class="btn btn-primary" @click="saveUpdatedNiveauScolaire">Save</button>
+                  <button class="btn btn-primary" >Save</button>
                 </form>
               </div>
 
@@ -94,35 +102,42 @@ export default {
       showForm1: false,
       nom: '',
       id: '',
+      année_scolaire:'',
       description: '',
       niveau_scolaires: [],
       niveau_scolaire: {}
     };
   },
   mounted() {
-    try {
+this.affichera();
+  },
+  methods: {
+    affichera(){
+      try {
       console.log('on mounted');
-      axios.get('/api/niveau_scolires').then((response) => {
+      axios.get('/niveau_scolires').then((response) => {
         console.log(response.data);
         this.niveau_scolaires = response.data;
       });
     } catch (error) {
       console.error(error);
     }
-  },
-  methods: {
+    },
     async addNiveauScolaire() {
       const newNiveauScolaire = {
         nom: this.nom,
         description: this.description,
+        année_scolaire: this.année_scolaire,
       };
       try {
-        const response = await axios.post('/api/niveau_scolires', newNiveauScolaire);
+        const response = await axios.post('/niveau_scolires', newNiveauScolaire);
         // handle the response as needed
         this.nom = '';
     this.description = ''; 
+    this.année_scolaire = ''; 
     this.niveau_scolaires = response.data;
         this.showForm = false;
+        this.affichera();
       } catch (error) {
         console.error(error);
       }
@@ -132,7 +147,7 @@ export default {
 
     async deleteNiveauScolaire(id) {
       try {
-        const response = await axios.delete(`/api/niveau_scolires/${id}`);
+        const response = await axios.delete(`/niveau_scolires/${id}`);
         this.niveau_scolaires = this.niveau_scolaires.filter(niveau_scolaire => niveau_scolaire.id !== id);
       } catch (error) {
         console.log(error);
@@ -147,11 +162,22 @@ export default {
 
     async saveUpdatedNiveauScolaire() {
       try {
-    const response = await axios.put(`/api/niveau_scolires/${this.niveau_scolaire.id}`, {
+    const response = await axios.put(`/niveau_scolires/${this.niveau_scolaire.id}`, {
       nom: this.niveau_scolaire.nom,
-      description: this.niveau_scolaire.description
+      description: this.niveau_scolaire.description,
+      année_scolaire: this.niveau_scolaire.année_scolaire
     });
     console.log(response.data.message);
+    try {
+      console.log('on mounted');
+      axios.get('/niveau_scolires').then((response) => {
+        console.log(response.data);
+        this.niveau_scolaires = response.data;
+      });
+      this.affichera();
+    } catch (error) {
+      console.error(error);
+    }
     this.showForm1 = false; // Hide the form after successful update
   } catch (error) {
     console.log(error.response.data.message);

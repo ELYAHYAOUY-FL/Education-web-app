@@ -2,65 +2,33 @@
   <MainLayout>
     <div class="content-header">
       <div class="container-fluid">
-        <h2>les fromation de virement  : </h2> <div v-if="successMessage" class="alert alert-success text-center">
-      <i class="fa fa-check-circle"></i>
-      {{ successMessage }}
-    </div>
+        <h2>Ajouter des élèves:</h2>
+      
 
-        <form  @submit.prevent="addViremnt" enctype="multipart/form-data">
+        <form @submit.prevent="addUser" enctype="multipart/form-data">
           <div class="form-group">
-    <label for="salaire">Salire</label>
-    <input type="text" class="form-control" id="salaire" v-model="modelValue.salaire" required>
-         </div>
-          <!-- <div class="form-group">
-    <label for="date">Date de virement </label>
-    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-  </div> -->
+            <label for="nom_francais">Nom en français</label>
+            <input type="text" class="form-control" id="nom_francais" v-model="modelValue.nom_francais" required>
+          </div>
           <div class="form-group">
-    <label for="rib">RIB</label>
-    <input type="text" class="form-control" id="rib" v-model="modelValue.rib" required>
-  </div>
-  <!-- <div class="form-group">
-            <label for="est_paye">Est payee  :</label>
-            <select  class="form-control" id="est_paye" v-model="modelValue.est_paye" required>
-              <option value=""></option>
-              <option value="1">Oui</option>
-              <option value="0">Non</option>
-            </select>
-            
-           </div>-->
-        
+            <label for="nom_arabe">Nom en arabe</label>
+            <input type="text" class="form-control" id="nom_arabe" v-model="modelValue.nom_arabe" required>
+          </div>
           <div class="form-group">
-    <label for="prenom">Prénom</label>
-    <input type="text" class="form-control" id="prenom" v-model="modelValue.prenom" required>
-  </div>
-  <div class="form-group">
-    <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" v-model="modelValue.nom" required>
-  </div>
+            <label for="prenom_francais">Prénom en français</label>
+            <input type="text" class="form-control" id="prenom_francais" v-model="modelValue.prenom_francais" required>
+          </div>
           <div class="form-group">
-            <label for="date_naissance">Date nissance</label>
+            <label for="prenom_arabe">Prénom en arabe</label>
+            <input type="text" class="form-control" id="prenom_arabe" v-model="modelValue.prenom_arabe" required>
+          </div>
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
             <input type="date" class="form-control" id="date_naissance" v-model="modelValue.date_naissance" required>
           </div>
           <div class="form-group">
-            <label for="lieu_naissance">Lieu nissance</label>
+            <label for="lieu_naissance">Lieu de naissance</label>
             <input type="text" class="form-control" id="lieu_naissance" v-model="modelValue.lieu_naissance" required>
-          </div>
-          <div class="form-group">
-            <label for="tel">Tel</label>
-            <input type="number" class="form-control" id="tel" v-model="modelValue.tel" required>
-          </div>
-          <div class="form-group">
-            <label for="diplom">Diplôme</label>
-            <input type="text" class="form-control" id="diplom" v-model="modelValue.diplom" required>
-          </div>
-          <!-- <div class="form-group">
-            <label for="salaire">Salaire</label>
-            <input type="number" class="form-control" id="salaire" v-model="modelValue.salaire" required>
-          </div> -->
-          <div class="form-group">
-            <label for="address">Adress</label>
-            <input type="text" class="form-control" id="address" v-model="modelValue.address" required>
           </div>
           <div class="form-group">
             <label for="sex">Sex :</label>
@@ -78,12 +46,75 @@
           <img src="" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
         </div>
       </div>
-           <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="save">
-          </div> 
-
+        <div class="form-group">
+            <label for="adresse">Adress</label>
+            <input type="text" class="form-control" id="adresse" v-model="modelValue.adresse" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" v-model="modelValue.email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" v-model="modelValue.password" required>
+          </div>
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username" v-model="modelValue.username" required>
+          </div>
+         
+          <!-- <div class="form-group">
+            <label for="user_type"></label>
+            <input type="text" class="form-control" id="user_type" v-model="modelValue.user_type" required>
+          </div> -->
+          <div class="form-group">
+            <label for="user_type">Type d'utilisateur :</label>
+            <select  class="form-control" id="user_type" v-model="modelValue.user_type" required>
+              <option value=""></option>
+              <!-- <option value="F">eleve</option> -->
+             <option value="professeur">professeur</option>
+               <!-- <option value="M">admin</option>
+              <option value="M">parent</option> -->
+            </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="CNI">CNI</label>
+            <input type="text" class="form-control" id="CNI" v-model="modelValue.CNI" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="tel">tel</label>
+            <input type="text" class="form-control" id="tel" v-model="modelValue.tel" required>
+          </div>
+          <div class="form-group">
+            <label for="diplom">Diplom</label>
+            <input type="text" class="form-control" id="diplom" v-model="modelValue.diplom" required>
+          </div>
+          <!-- <div class="form-group">
+            <label for="numero_compte">numero_compte</label>
+            <input type="text" class="form-control" id="numero_compte" v-model="modelValue.numero_compte" required>
+          </div>
+          <div class="form-group">
+            <label for="type_bank">type_bank</label>
+            <input type="text" class="form-control" id="type_bank" v-model="modelValue.type_bank" required>
+          </div>
+          <div class="form-group">
+            <label for="rib">RIB</label>
+            <input type="text" class="form-control" id="rib" v-model="modelValue.rib" required>
+          </div> -->
+          <!-- <div>
+  <label for="groupe_id">Group:</label>
+  <select id="groupe_id" v-model="modelValue.groupe_id">
+    <option v-for="groupe in groupes" :key="groupe.id" :value="groupe.id">{{ groupe.nom }}</option>
+  </select>
+</div> -->
+          <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
-
+        <div v-if="successMessage" class="alert alert-success text-center">
+          <i class="fa fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
       </div>
     </div>
   </MainLayout>
@@ -97,73 +128,75 @@ import axios from "axios";
 export default {
   components: { MainLayout },
   data() {
-  return {
-    modelValue: {
-      salaire: '',
-      est_paye: '',
-      rib: '',
-      // date: '',
-      prenom: '',
-      nom: '',
-      date_naissance: '',
-      lieu_naissance: '',
-      tel: '',
-      diplom: '',
-      address: '',
-      sex: '',
-      photo: null, // Change this line to null  
-         
-    },
-    errors: {},
-    successMessage: ""
-   
-  };
-},
+    return {
+      modelValue: {
+        nom_francais: "",
+        nom_arabe: "",
+        prenom_francais: "",
+        prenom_arabe: "",
+        date_naissance: "",
+        lieu_naissance: "",
+        sex: "",
+        email: "",
+        password: "",
+        username: "",
+        user_type: "",
+        adresse: "",
+        photo: null,
+        CNI: "",
+        tel: "",
+        diplom: "",
+        rib: "",
+        type_bank:"",
+        numero_compte:""
+
+      },
+      professeurs: [],
+      // groupes: [],
+      previewPhoto: null,
+      successMessage: "",
+    };
+  },
+  mounted() {
+    // this.fetchEtudiants();
+    // this.fetchClasses();
+  },
 
  methods: {
-    addViremnt() {
-  axios.post('/api/virements', this.modelValue)
+
+
+  addUser() {
+  axios.post('/users', this.modelValue)
     .then(response => {
-      const virementId = response.data.virement_id;
+          const userId = response.data.user_id;
+          this.modelValue.user_id = userId;
+          this.addProfesseur();
+          this.successMessage = "Form submitted successfully";
+          this.clearForm();
+        })
+        .catch(error => {
+          console.log(error.response.data);
+          this.errors = error.response.data.errors;
+        });
+    },
 
-      // Associate virement with the professor
-      this.modelValue.virement_id = virementId;
-
-      // Call the addProfessor method to create the professor
-      this.addProfessor();
-      this.successMessage = "Form submitted successfully";
-    })
-    .catch(error => {
-      console.log(error.response.data);
-      this.errors = error.response.data.errors;
-    });
-},
-
-addProfessor() {
+addProfesseur() {
   const formData = new FormData();
   formData.append('photo', this.modelValue.photo); // Append the photo file to the form data
-
-  // Append other fields to the form data
-  formData.append('prenom', this.modelValue.prenom);
-  formData.append('nom', this.modelValue.nom);
-  formData.append('date_naissance', this.modelValue.date_naissance);
-  formData.append('lieu_naissance', this.modelValue.lieu_naissance);
-  formData.append('tel', this.modelValue.tel);
   formData.append('diplom', this.modelValue.diplom);
-  formData.append('salaire', this.modelValue.salaire);
-  formData.append('address', this.modelValue.address);
-  formData.append('sex', this.modelValue.sex);
-  formData.append('virement_id', this.modelValue.virement_id); // Include the virement_id
+  formData.append('CNI', this.modelValue.CNI);
+  formData.append('tel', this.modelValue.tel);
+  formData.append('user_id', this.modelValue.user_id);
 
-  axios
-    .post('/api/professuers', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-      },
-    })
+ axios.post('/professeurs', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
     .then(response => {
-      const professorId = response.data.professuer_id;
-
+      const professeurId = response.data.professeur_id;
+      // this.modelValue.professeur_id = professeurId;
+      // this.addBankinfo();
       // Handle the response
     })
     .catch(error => {
@@ -171,7 +204,22 @@ addProfessor() {
       this.errors = error.response.data.errors;
     });
 },
+   
+addBankinfo(){
+  const bankinfoData = {
+    professeur_id: this.modelValue.professeur_id,
+    // Add other bankinfo-related fields
+  };
 
+  axios.post('/bankinformations', bankinfoData)
+    .then(response => {
+      // Handle the response
+    })
+    .catch(error => {
+      console.log(error.response.data);
+      this.errors = error.response.data.errors;
+    });
+},
 
    
 
@@ -197,9 +245,32 @@ addProfessor() {
   };
 
   reader.readAsDataURL(file);
+},
+clearForm() {
+  this.modelValue = {
+    nom_francais: "",
+    nom_arabe: "",
+    prenom_francais: "",
+    prenom_arabe: "",
+    date_naissance: "",
+    lieu_naissance: "",
+    sex: "",
+    email: "",
+    password: "",
+    username: "",
+    user_type: "",
+    adresse: "",
+    photo: null,
+    CNI: "",
+    rib: "",
+    groupe_id: ""
+  };
+  this.previewPhoto = null;
+  this.successMessage = "";
 }
 
   },
+ 
 }
 ;
 </script>

@@ -8,5 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Textbook extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'date', 'heure'];
+    protected $table = 'textbooks';
+
+    protected $fillable = [
+        'professeur_id',
+        'title',
+        'description',
+        'date',
+        'heure',
+    ];
+
+    public function professeur()
+    {
+        return $this->belongsTo(Professeur::class);
+    }
 }

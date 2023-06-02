@@ -15,7 +15,7 @@
               <input type="date" v-model="form.date" class="form-control" required>
             </div>
             <div class="form-group">
-              <input type="time" v-model="form.heure" class="form-control" required>
+              <input type="time" v-model="form.heure"  class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary btn-add"><i class="fas fa-plus"></i> Ajouter</button>
           </form>
@@ -31,7 +31,7 @@
         <input type="date" v-model="editForm.date" class="form-control" required>
       </div>
       <div class="form-group">
-        <input type="time" v-model="editForm.heure" class="form-control" required>
+        <input type="time" v-model="editForm.heure"  class="form-control" required>
       </div>
       <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Mettre à jour</button>
       <button @click="cancelEdit" class="btn btn-danger"><i class="fas fa-times"></i> Annuler</button>
@@ -132,159 +132,18 @@
 
 
 </style>
-
-
-<!-- <script>
-import MainLayoutProf from "../../Layouts/MainLayoutProf.vue";
-import axios from 'axios';
-export default {
-  name: "Prof",
-    components: { MainLayoutProf },
-  data() {
-    return {
-      textbooks: [],
-      selectedTextbook: null,
-      form: {
-        title: "",
-        description: "",
-        date: "",
-        heure: "",
-      },
-      editMode: false,
-       
-    };
-  },
-  created() {
-    this.getTextbooks();
-  },
-  methods: {
-    getTextbooks() {
-      // Faites une requête à votre backend pour récupérer les textbooks
-      axios.get('/textbooks')
-        .then(response => {
-          this.textbooks = response.data;
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des textbooks:', error);
-        });
-    },
-    showTextbookDetails(textbookId) {
-      // Recherche du textbook correspondant dans la liste
-      this.selectedTextbook = this.textbooks.find(textbook => textbook.id === textbookId);
-    },
-  
-    editTextbook(textbook) {
-    this.editMode = true;
-    this.form = {
-      id: textbook.id,
-      title: textbook.title,
-      description: textbook.description,
-      date: textbook.date,
-      heure: textbook.heure
-    };
-  },
-  submitForm() {
-    if (this.editMode) {
-      // Appel à l'API pour mettre à jour le cahier de texte existant
-      axios.put(`/api/textbooks/${this.form.id}`, this.form)
-        .then(response => {
-          // Afficher les modifications dans la vue
-          const index = this.textbooks.findIndex(item => item.id === this.form.id);
-          if (index !== -1) {
-            this.textbooks[index] = { ...this.form };
-          }
-          this.cancelEdit();
-        })
-        .catch(error => {
-          console.log(error);
-          // Gérer l'erreur de mise à jour
-        });
-    } 
-  },
-  cancelEdit() {
-    this.editMode = false;
-    this.resetForm();
-  },
-  resetForm() {
-    this.form = {
-      id: null,
-      title: '',
-      description: '',
-      date: '',
-      heure: ''
-    };
-  },
-
-    
-    supprimertexbook(id) {
-      if (confirm("Êtes-vous sûr de vouloir supprimer ce Textbook?")) {
-        axios
-          .delete(`/api/textbooks/${id}`)
-          .then(response => {
-            this.textbooks = this.textbooks.filter(textbook => textbook.id !== id);
-            console.log(' Textbook deleted successfully');
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
-      }
-    },
-    createTextbook() {
-  // Effectuer une requête HTTP pour créer un nouveau cahier de texte
-  const newTextbook = {
-    title: this.form.title,
-    description: this.form.description,
-    date: this.form.date,
-    heure: this.form.heure
-  };
-
-  axios.post('/textbooks', newTextbook)
-    .then(response => {
-      // Ajouter le nouveau cahier de texte à la liste
-      this.textbooks.push(response.data);
-      console.log('Textbook created successfully');
-    })
-    .catch(error => {
-      console.error('Erreur lors de la création du cahier de texte:', error);
-    });
-},
-
-
-//     submitForm() {
-//       if (this.editMode) {
-//         this.updateTextbook();
-//       } else {
-//         this.createTextbook();
-//       }
-//       this.resetForm();
-//     },
-//     cancelEdit() {
-//   // Annuler l'édition, réinitialiser le formulaire
-//   this.editMode = false;
-//   this.resetForm();
-  
-//   // Restaurer les valeurs d'origine du cahier de texte
-//   const editedIndex = this.textbooks.findIndex(textbook => textbook.id === this.editedTextbookId);
-//   if (editedIndex !== -1) {
-//     this.textbooks[editedIndex] = { ...this.originalTextbook };
-//   }
-// },
-
-    // resetForm() {
-    //   this.form.title = "";
-    //   this.form.description = "";
-    //   this.form.date = "";
-    //   this.form.heure = "";
-    // },
- }
-     
-  }
-</script> -->
 <script>
 import MainLayoutProf from "../../Layouts/MainLayoutProf.vue";
+import { mapGetters } from 'vuex';
+
 export default {
   name: "Prof",
     components: { MainLayoutProf },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      }),
+    },
   data() {
     return {
       textbooks: [],
@@ -293,7 +152,9 @@ export default {
         description: '',
         date: '',
         heure: '',
+        professeur_id :'',
       },
+      textbookId:'',
       editMode: false,
       editForm: null,
       visibleDescriptions: []
@@ -302,13 +163,30 @@ export default {
   },
   mounted() {
     this.getTextbooks();
+    this.fetchProf();
   },
   methods: {
     // Récupérer la liste des cahiers de texte
+    fetchProf() {
+    axios.get('/professeurs/user/' + this.user.id)
+      .then(response => {
+        const { data } = response;
+        //  const grouup = data.groupe.id;
+        this.textbookId = data.id;
+
+        console.log(this.textbookId)
+        this.getTextbooks();// Fetch emploi temps after setting the groupe
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
     getTextbooks() {
-      axios.get('/api/textbooks')
+      axios.get('/textbooks/getbyProf/' + this.textbookId)
         .then(response => {
           this.textbooks = response.data;
+        
+          console.log(this.textbooks)
         })
         .catch(error => {
           console.log(error);
@@ -316,9 +194,12 @@ export default {
     },
     // Ajouter un cahier de texte
     addTextbook() {
-      axios.post('/api/textbooks', this.form)
+      this.form.professeur_id= this.textbookId
+      console.log(this.form.professeur_id)
+      axios.post('/textbooks', this.form)
         .then(response => {
-          this.textbooks.push(response.data);
+          // this.textbooks.push(response.data);
+          this.getTextbooks();
           this.resetForm();
         })
         .catch(error => {
@@ -339,7 +220,7 @@ export default {
 
     // Mettre à jour un cahier de texte
     updateTextbook() {
-      axios.put(`/api/textbooks/${this.editForm.id}`, this.editForm)
+      axios.put(`/textbooks/${this.editForm.id}`, this.editForm)
         .then(response => {
           const index = this.textbooks.findIndex(item => item.id === this.editForm.id);
           if (index !== -1) {
@@ -358,7 +239,7 @@ export default {
     },
     // Supprimer un cahier de texte
     deleteTextbook(id) {
-      axios.delete(`/api/textbooks/${id}`)
+      axios.delete(`/textbooks/${id}`)
         .then(response => {
           this.textbooks = this.textbooks.filter(item => item.id !== id);
         })

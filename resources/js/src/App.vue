@@ -8,6 +8,8 @@
 </template>
 
 <script>
+ 
+
 import  AcuillePage from './pages/AcuillePage.vue'
 export default {
   
@@ -16,4 +18,4 @@ export default {
   }
 }
 </script>
-
+ 

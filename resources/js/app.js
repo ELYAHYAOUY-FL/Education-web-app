@@ -1,15 +1,25 @@
 import './bootstrap';
 
-import app from "./src/App.vue";
+import App from "./src/App.vue";
 import router from "./router.js";
+ 
 //import { createApp } from "vue";
 // import routerAdmin from "./routerAdmin";
 // import { RouteLocationNormalizedLoaded } from 'vue-router';
-
-
-createApp(app).use(router).mount("#app");
-
 import { createApp, h } from 'vue';
+
+
+import { setupStore } from './store';
+
+const app = createApp(App);
+app.use(router);
+
+setupStore(app);
+
+app.mount('#app');
+  
+
+
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 render: () =>

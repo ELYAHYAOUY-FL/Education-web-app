@@ -10,7 +10,7 @@
       <div>
         <Section data-aos="zoom-in"/>
       </div>
-      <Footer data-aos="slide-left" />
+      <Footer data-aos="fade-up" />
     </div>
   </template>
   

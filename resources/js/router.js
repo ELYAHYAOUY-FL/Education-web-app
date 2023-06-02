@@ -18,124 +18,246 @@ import EtudiantCreatAdmin from './Page/Etudiant/Create.vue';
 
 //cantine
 import CantinePageadmin from './Page/Cantine/index.vue'
- 
+ import Cantine from './PageEleve/Cantine.vue'
+//parent
+import ParentListAdmin from './Page/Parent/index.vue';
+import ParentCreatAdmin from './Page/Parent/create.vue';
 
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
 import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
-
+import Activity from './PageEleve/Activity.vue'
+// ********************************professeur importing 
 //Textbook
 import textbookProf from './PageProfesseur/Textbook/index.vue'
+//groupes
+import Groupes from './PageProfesseur/niveau scolaire/gestionGreoupes.vue'
+//Textbook
+// import textbookProf from './PageProfesseur/Textbook/index.vue'
+//Calendrie
+import Calendrie from './PageProfesseur/calendarPag.vue'
+import Calend from './PageEleve/calendarEleve.vue'
+import Calendr from './src/pages/calendarAdmin.vue'
 
+//Emploi Temps 
+import EmploisTemps from './Page/EmploiTemps/Emploicreate.vue'
+import Emploi from './PageEleve/Emploicreate.vue'
+import EmploiProf from './PageProfesseur/Emploi.vue'
+//login 
+import  LoginPage from './src/pages/Login.vue';
+import store  from '@/store';
 const routes =[ 
 
     {
         path: '/',
-        redirect: '/home'
+        redirect: '/home',
+        
       },
       {
+        path: '/login' ,
+        name: 'Login',
+        component: LoginPage
+      },
+
+      {
         path: '/home',
-        component: AcuillePage
+        component: AcuillePage,
+        meta: {guest:true}
       },
     {
     path : '/Administration',
    name :'Admin',
-   component : AdministrationPage
+   component : AdministrationPage,
+   meta: {requiresAuth:true , administration:true}
 },
 {
   path : '/professeur',
  name :'Prof',
- component : professeurPage
+ component : professeurPage,
+ meta: {requiresAuth:true ,  professeur: true},
+
+
 },
 {
 
   path :'/parent',
   name :'parent',
- component :parentPage
+ component :parentPage,
+ meta: {requiresAuth:true, parent:true}
+
 },
 
 {
     path : '/Student',
    name :'Eleve',
-   component : studentPage
+   component : studentPage,
+   meta: {requiresAuth:true ,eleve:true}
+
 },
 // **********************admin router *********************
 // student path 
 {
-  path : '/StudentPageadmin',
+  path : '/Administration/Student',
   name :'ElevePageadmin',
-  component : EtudiantListAdmin
+  component : EtudiantListAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/StudentCreatadmin',
+  path : '/Administration/StudentCreat',
   name :'EtudiantCreatAdmin',
-  component : EtudiantCreatAdmin
+  component : EtudiantCreatAdmin,
+  meta: {requiresAuth:true , administration:true}
+
   },
 
 
   // niveau Scolaire Path 
 {
-path : '/NiveauPageadmin',
+path : '/Administration/NiveauScolaire',
 name : 'NiveauListAdmin',
-component : NiveauListAdmin
+component : NiveauListAdmin,
+meta: {requiresAuth:true , administration:true}
+
 },
 
 
 //  prof path 
 {
-  path : '/ProfesseurPageadmin',
+  path : '/Administration/Professeur',
   name :'ProfPageadmin',
-  component : ProfesseurListAdmin
+  component : ProfesseurListAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ProfesseurCreatePageadmin',
+  path : '/Administration/ProfesseurCreat',
   name :'ProfcretePageadmin',
-  component : ProfesseurcreateAdmin
+  component : ProfesseurcreateAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
-// {
-//   path : '/ProfesseurEditPageadmin',
-//   name :'ProfEditPageadmin',
-//   component : ProfesseurEditAdmin
-// },
-//  parent  path 
+
+// ParentAdmin
 {
-  path : '/ProfesseurPageadmin',
-  name :'ProfPageadmin',
-  component : ProfesseurListAdmin
+  path : '/Administration/Parent',
+  name :'parentListAdmin',
+  component :ParentListAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ProfesseurCreatePageadmin',
-  name :'ProfcretePageadmin',
-  component : ProfesseurcreateAdmin
+  path : '/Administration/ParentCreat',
+  name :'parentCreatAdmin',
+  component :ParentCreatAdmin,
+  meta: {requiresAuth:true , administration:true}
+
 },
+
 //cantine
 {
-  path : '/CantinePageadmin',
+  path : '/Administration/Cantine',
   name :'CantPageadmin',
-  component : CantinePageadmin
+  component : CantinePageadmin ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+{
+  path : '/eleve/Cantine',
+  name :'Cantine',
+  component : Cantine  ,
+  meta: {requiresAuth:true , eleve:true}
+
 },
  
 //activity
  
 {
-  path : '/ActivitieyFormAdmin',
+  path : '/Administration/ActivitieyForm',
   name :'ActivitieyFormAdmin',
-  component :ActivitieyFormAdmin
+  component :ActivitieyFormAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
 {
-  path : '/ActvityListAdmin',
+  path : '/Administration/ActvityListAdmin',
   name :'ActvityListAdmin',
-  component :ActvityListAdmin
+  component :ActvityListAdmin ,
+  meta: {requiresAuth:true , administration:true}
+
 },
+{
+  path : '/eleve/Activity',
+  name :'Activity ',
+  component :Activity  ,
+  meta: {requiresAuth:true ,  eleve:true}
+
+},
+// calendrie
+{
+  path : '/Administration/Calendr',
+  name :'Calendr',
+  component :Calendr ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+
+{
+  path : '/eleve/Calend',
+  name :'Calendri',
+  component :Calend ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+//Emploi temps 
+{
+  path : '/Administration/EmploisTemps',
+  name :'EmploisTemps',
+  component :EmploisTemps ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+{
+  path : '/eleve/Emploi',
+  name :'Emploi',
+  component :Emploi ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+
+
+// ************************************** professeur routing  *****************************************
 
 //Textbook
 {
-  path : '/textbookProf',
+  path : '/professeur/textbookProf',
   name :'texbookProf',
-  component :textbookProf
+  component :textbookProf,
+  meta: {requiresAuth:true ,  professeur: true}
+},
+{
+  path : '/parent/groupes',
+  name :'groupes',
+  component :Groupes,
+  meta: {requiresAuth:true ,  professeur: true}
 },
  
+//EmploiProf
 
+{
+  path : '/professeur/EmploiProf',
+  name :'emploiProf',
+  component :EmploiProf,
+  meta: {requiresAuth:true ,  professeur: true}
+},
+//calendrie 
+{
+  path : '/professeur/Calendrie',
+  name :'Calendrie',
+  component :Calendrie ,
+  meta: {requiresAuth:true , professeur:true}
+
+},
 
 ];
 
@@ -143,5 +265,49 @@ const router  =createRouter({
     history : createWebHistory(),
     routes
 });
+router.beforeEach((to, from, next) => {
+  // set document title
+  // document.title = `${to.meta.title} - ${store.getters['appName']}`
+  const user_type = store.getters['auth/user_type']
+  if(to.matched.some(route => route.meta.guest) && store.getters['auth/isLogged']) {
+    if(store.getters['auth/user_type'] ==='professeur') 
+        return next("/professeur").isLogged
+    if(store.getters['auth/user_type'] ==='admin') 
+        return next("/Administration").isLogged
+    if(store.getters['auth/user_type'] ==='eleve') 
+        return next("/Student").isLogged
+    if(store.getters['auth/user_type'] ==='parent') 
+        return next("/parent").isLogged
+  }
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    //  check if logged in if not, redirect to SignIn page.
+    if(!store.getters['auth/isLogged']) {
+      next({ name: 'Login' })
+    }else{ 
+      //check if page require admin user and user is admin
+      if(store.getters['auth/user_type'] !=='professeur' && to.matched.some(route => route.meta.professeur)){
+        return next('/login')
+      }  
+      //check if page require admin  user and user is admin
+      if(store.getters['auth/user_type'] !=='admin' && to.matched.some(route => route.meta.administration)){
+        return next('/login')
+      }   
+      if(store.getters['auth/user_type'] !=='eleve' && to.matched.some(route => route.meta.eleve)){
+        return next('/login')
+      }   
+      if(store.getters['auth/user_type'] !=='parent' && to.matched.some(route => route.meta.parent)){
+        return next('/login')
+      }   
+      // //check if page require livreur user and user is livreur
+      // if(store.getters['auth/user_type'] !=='livreur' && to.matched.some(route => route.meta.delivery)){
+      //   return next('/erxror/401')
+      // }
+    next()
+    }
+  } else {
+    next() 
+  }
+
+})
 
 export default router;
