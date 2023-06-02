@@ -260,15 +260,33 @@ if (columnIndex < columnHeaders.length) {
     .then(response => {
       // Handle the successful response
       this.relationExamEleve.exame_id = this.modelValue.exame_id;
-    this.relationExamEleve.eleve_id = eleveId;
-    console.log(this.relationExamEleve.exame_id);
-    this.showForm = false;
+      this.relationExamEleve.eleve_id = eleveId;
+      console.log(this.relationExamEleve.exame_id);
+
+      // Find the index of the active form in the activeForms array
+      const activeFormIndex = this.activeForms.findIndex(
+        form => form[0] === this.activeForms[0][0] && form[1] === this.activeForms[0][1] && form[2] === this.activeForms[0][2]
+      );
+
+      // Remove the active form from the activeForms array
+      if (activeFormIndex > -1) {
+        this.activeForms.splice(activeFormIndex, 1);
+      }
+
+      // Check if there are any remaining active forms
+      if (this.activeForms.length > 0) {
+        // Set the new active form using the first form in the activeForms array
+        const [groupeIndex, eleveIndex, examIndex] = this.activeForms[0];
+        this.showForm(groupeIndex, eleveIndex, examIndex);
+      } else {
+        // Reset currentNote to null
+        this.currentNote = null;
+      }
     })
     .catch(error => {
       // Handle the error
     });
 },
-
 
     
     
