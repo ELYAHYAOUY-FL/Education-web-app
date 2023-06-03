@@ -7,6 +7,12 @@ use App\Models\EleveExames;
 
 class EleveExamController extends Controller
 {
+    public function index()
+    {
+        $eleves =EleveExames ::all();
+        return response()->json($eleves);
+    }
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate([

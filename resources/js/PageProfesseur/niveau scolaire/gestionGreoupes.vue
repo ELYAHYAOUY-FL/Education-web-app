@@ -20,7 +20,7 @@
                 <td class="student-name">
                   {{ eleve.user.nom_francais }} {{ eleve.user.prenom_francais }}
                 </td>
-                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0)">
+                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0 , exam)">
                   <!-- Display first exam here -->
                   <div v-if="isActiveForm(groupeIndex, eleveIndex, 0)">
                     <template v-if="!currentNote">
@@ -47,7 +47,7 @@
                 
                 <!-- Repeat the same structure for other exams (1, 2, 3) -->
                 
-                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 1)">
+                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 1 , exam)">
   <!-- Display first exam here -->
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 1)">
     <template v-if="!currentNote">
@@ -74,7 +74,7 @@
 <!-- Repeat the same structure for other exams (1, 2, 3) -->
 
 
-<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2)">
+<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2 , exam)">
   <!-- Display first exam here -->
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 2)">
     <template v-if="!currentNote">
@@ -101,7 +101,7 @@
 <!-- Repeat the same structure for other exams (1, 2, 3) -->
 
 
-<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3)">
+<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3 , exam)">
   <!-- Display first exam here -->
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 3)">
     <template v-if="!currentNote">
@@ -120,8 +120,7 @@
     </template>
     <template v-else>
       <!-- Display the saved note -->
-      {{ currentNote }}
-    </template>
+      {{ exam.nom }}: {{ currentNote }}    </template>
   </div>
 </td>
 
@@ -186,23 +185,27 @@ export default {
     this.fetchProfesseur();
   },
   methods: {
-    handleExamClick(groupeIndex, eleveIndex, eleveId, examIndex) {
-    this.showForm(groupeIndex, eleveIndex, examIndex);
-    this.affectEleveId(eleveId);
-  },
-    showForm(groupeIndex, eleveIndex, examIndex) {
-      if (!this.isActiveForm(groupeIndex, eleveIndex, examIndex)) {
-        this.activeForms = [[groupeIndex, eleveIndex, examIndex]]; // Set the active forms for the specific group and student
-      }
-    },
-    isActiveForm(groupeIndex, eleveIndex, examIndex) {
-      return (
-        this.activeForms.length > 0 &&
-        this.activeForms[0][0] === groupeIndex &&
-        this.activeForms[0][1] === eleveIndex &&
-        this.activeForms[0][2] === examIndex
-      );
-    },
+    handleExamClick(groupeIndex, eleveIndex, eleveId, examIndex, examId) {
+  this.showForm(groupeIndex, eleveIndex, examIndex);
+  this.affectEleveId(eleveId);
+  this.modelValue.exame_id = examId; // Set the exam ID
+},
+showForm(groupeIndex, eleveIndex, examIndex, exam) {
+  if (!this.isActiveForm(groupeIndex, eleveIndex, examIndex)) {
+    this.activeForms = [[groupeIndex, eleveIndex, examIndex, exam]]; // Store the selected exam in activeForms
+  }
+},
+
+isActiveForm(groupeIndex, eleveIndex, examIndex, exam) {
+  return (
+    this.activeForms.length > 0 &&
+    this.activeForms[0][0] === groupeIndex &&
+    this.activeForms[0][1] === eleveIndex &&
+    this.activeForms[0][2] === examIndex &&
+    this.activeForms[0][3] === exam // Check if the selected exam matches the active form
+  );
+},
+
     fetchProfesseur() {
       axios
         .get('/professeurs/user/' + this.user.id)
@@ -220,6 +223,8 @@ export default {
         .then(response => {
           this.modelValue.note_id =  response.data.id;
           this.currentNote = response.data.valeur; 
+          this.modelValue.exame_id = this.modelValue.exame_id; // Set the exam ID
+
           this.addExamsNote(this.relationExamEleve.eleve_id); //    
             })
         .catch(error => {

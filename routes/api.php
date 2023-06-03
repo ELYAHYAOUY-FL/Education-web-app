@@ -60,6 +60,7 @@ Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
+Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNote']);
 
 
 //parent 
@@ -169,6 +170,7 @@ Route::put('/activities/{id}', [ActivityController::class, 'update']);
 // notess 
 // Route::post('/notes', [NoteController::class, 'store']);
 Route::post('/notes', [NoteController::class, 'store']);
+Route::post('/lastnotes/{eleveId}', [EleveController::class, 'getByIdlastNote']);
 
 //exams 
 Route::post('/exams', [ExamController::class, 'store']);

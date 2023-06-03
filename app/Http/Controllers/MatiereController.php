@@ -22,4 +22,33 @@ class MatiereController extends Controller
 
     return response()->json($matieres);
 }
+ 
+
+public function getAverageByMatiere(Request $request, $matiereId)
+{
+    $average = $this->calculateAverage($matiereId);
+
+    return response()->json(['average' => $average]);
+}
+
+private function calculateAverage($matiereId)
+{
+    $exams = Exam::where('matiere_id', $matiereId)->get();
+    $total = 0;
+    $count = $exams->count();
+
+    if ($count === 0) {
+        return 0; // Return 0 if there are no exams for the given matiere
+    }
+
+    foreach ($exams as $exam) {
+        $total += $exam->note;
+    }
+
+    $average = $total / $count;
+
+    return $average;
+}
+
+
 }
