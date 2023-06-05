@@ -1,7 +1,7 @@
 <template>
     <div>
     
-    <aside class="main-sidebar" style="background-color: rgb(7, 99, 99);">
+    <aside class="main-sidebar slideProf" >
     
     <router-link to="/Administration" class="brand-link">
     <img src="~admin-lte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -25,7 +25,7 @@
         <buttom   @click="logout" > 
                       <span>Logout</span>
             </buttom>
-    <router-link to="/Administration/NiveauScolaire" class="nav-link"  :class="{ active: $route.path === '/Administration/NiveauScolaire' }">
+    <router-link to="/Administration/NiveauScolaire" class="nav-link"  :class="{ active: $route.path === '/Administration/NiveauScolaire' }" >
        <i class="nav-icon fas fa-chalkboard" style="color: aliceblue;"></i>
     <p>
     Niveau Scolaire
@@ -131,7 +131,7 @@
     </a>
      <ul class="nav nav-treeview">
     <li class="nav-item">
-    <router-link to="/Administration/ActivitieyForm" class="nav-link" :class="{ 'active': $route.path === '/Administration/ActivitieyForm' }">
+    <router-link to="/Administration/ActivitieyForm" class="nav-link" :class="{ 'active': $route.path === '/Administration/ActivitieyForm' }" style="color: #4c9e9e;">
     <i class="far fa-circle nav-icon" style="color: aliceblue;"></i>
     <p> ActivityForm</p>
     </router-link>
@@ -182,3 +182,29 @@
    };
    </script>
    
+<style scoped>
+.slideProf{
+  background-color: rgb(0, 0, 0);
+}
+.nav-link{
+  color: #fff;
+}
+.nav-link :hover{
+  color: #4c9e9e;
+}
+.nav-item :hover{
+  color: #4c9e9e;
+}
+.active{
+  color: #4c9e9e;
+  background: #4c9e9e;
+}
+:root{
+--el-menu-active-color:   #4c9e9e;
+
+}
+.nav-item{
+  color: #4c9e9e;
+
+}
+</style>

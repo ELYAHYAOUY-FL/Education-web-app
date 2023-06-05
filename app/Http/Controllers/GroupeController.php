@@ -11,7 +11,24 @@ class GroupeController extends Controller
     
     public function index()
     {
-        $groupes = Groupe::with('niveau_scolaire','eleves')->get();
+        $groupes = Groupe::with('niveau_scolaire','eleves' ,'eleves.user')->get();
         return response()->json($groupes);
+    }
+    public function addGroupe(Request $request, $niveauScolaireId)
+    {
+        $validatedData = $request->validate([
+            'nom' => 'required',
+            'capacite' => 'required|integer',
+            'salle' => 'required',
+        ]);
+
+        $groupe = new Groupe();
+        $groupe->nom = $validatedData['nom'];
+        $groupe->capacity = $validatedData['capacite'];
+        $groupe->salle = $validatedData['salle'];
+        $groupe->niveau_scolaire_id = $niveauScolaireId;
+        $groupe->save();
+
+        return response()->json(['message' => 'Groupe ajouté avec succès'], 201);
     }
 }
