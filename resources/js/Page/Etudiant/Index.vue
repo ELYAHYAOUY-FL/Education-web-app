@@ -2,39 +2,37 @@
   <MainLayout>
     <h1 class="text-center">Liste des étudiants</h1>
     <div class="container row">
-      <div  class="col-md-4 mb-4 fade-in">
-       
-        <div class="ag-format-container" v-for="niveau_scolaire  in niveau_scolaires " :key="niveau_scolaire.id">
-  <div class="ag-courses_box">
-    <div class="ag-courses_item" :class="{ active: niveau_scolaire === selectedLevel }" @click="showGroups(niveau_scolaire)">
-      <a href="#" class="ag-courses-item_link">
-        <div class="ag-courses-item_bg"></div>
-
-        <div class="ag-courses-item_title">
-          {{ niveau_scolaire.nom}}
-        </div>
-
-        <div class="ag-courses-item_date-box">
-          {{ niveau_scolaire.description }}
-         
-        </div>
-      </a>
-    </div>
-</div>
-<div class="listgroupe" v-if="selectedLevel === niveau_scolaire">
-  <div class="listegroupe" v-for="groupe in selectedGroups" :key="groupe.id">
+      <div class="col-md-4 mb-4 fade-in">
+        <div class="ag-format-container" v-for="niveau_scolaire in niveau_scolaires" :key="niveau_scolaire.id">
+          <div class="ag-courses_box">
+            <div
+              class="ag-courses_item"
+              :class="{ active: niveau_scolaire === selectedLevel }"
+              @click="showGroups(niveau_scolaire)"
+            >
+              <a href="#" class="ag-courses-item_link">
+                <div class="ag-courses-item_bg"></div>
+                <div class="ag-courses-item_title">{{ niveau_scolaire.nom }}</div>
+                <div class="ag-courses-item_date-box">{{ niveau_scolaire.description }}</div>
+              </a>
+            </div>
+          </div>
+          <div v-if="selectedLevel === niveau_scolaire">
+  <div class="listgroupe" v-for="groupe in selectedGroups" :key="groupe.id">
     <ul class="ls">
-      <li>{{ groupe.nom }}</li>
-      <ul v-for="eleve in groupe.eleves" :key="eleve.id">
-             {{ eleve.user.id }}
+      <li @click="groupe.showStudents = !groupe.showStudents">
+        {{ groupe.nom }}
+      </li>
+      <ul v-if="groupe.showStudents">
+        <li v-for="eleve in groupe.eleves" :key="eleve.id">
+          {{ eleve.user.prenom_francais }} {{ eleve.user.nom_francais }}
+        </li>
       </ul>
     </ul>
   </div>
 </div>
 
-
-</div>
-      
+        </div>
       </div>
     </div>
   </MainLayout>
@@ -42,25 +40,23 @@
 
 
 <script>
-import moment from 'moment';
-
 import axios from 'axios';
 import MainLayout from '../../Layouts/MainLayout.vue';
 
 export default {
   components: { MainLayout },
   data() {
-  return {
-    eleves: [],
-    photo: null,
-    classes: [],
-    niveau_scolaires :[],
-    nouvellePhoto: null, 
-    selectedLevel: null,
-    selectedGroups: [],
-    
-  };
-},
+    return {
+      eleves: [],
+      photo: null,
+      classes: [],
+      niveau_scolaires: [],
+      nouvellePhoto: null,
+      selectedLevel: null,
+      selectedGroups: [],
+      selectedGroup: null,
+    };
+  },
 
   mounted() {
     this.fetchEtudiants();
@@ -69,57 +65,83 @@ export default {
   },
   methods: {
     fetchClasses() {
-      axios.get('/groupes')
-        .then(response => {
+      axios
+        .get('/groupes')
+        .then((response) => {
           this.classes = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
-    },  
-    showGroups(niveau_scolaire) {
-    if (this.selectedLevel === niveau_scolaire) {
-      this.selectedLevel = null;
-      this.selectedGroups = [];
-    } else {
-      this.selectedLevel = niveau_scolaire;
-      this.selectedGroups = niveau_scolaire.groupes;
-    }
-  },
-    affichera(){
-      try {
-      console.log('on mounted');
-      axios.get('/niveau_scolires').then((response) => {
-        console.log(response.data);
-        this.niveau_scolaires = response.data;
-      });
-    } catch (error) {
-      console.error(error);
-    }
     },
-   
+    showGroups(niveau_scolaire) {
+  if (this.selectedLevel === niveau_scolaire) {
+    this.selectedLevel = null;
+    this.selectedGroups = [];
+  } else {
+    this.selectedLevel = niveau_scolaire;
+    this.selectedGroups = niveau_scolaire.groupes;
+    this.selectedGroups.forEach(groupe => {
+      groupe.showStudents = false; // Add a new property to track student visibility
+    });
+  }
+},
+
+    affichera() {
+      try {
+        console.log('on mounted');
+        axios.get('/niveau_scolires').then((response) => {
+          console.log(response.data);
+          this.niveau_scolaires = response.data;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
     fetchEtudiants() {
       axios
         .get('/eleves')
-        .then(response => {
+        .then((response) => {
           this.eleves = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
     async deleteEleve(id) {
-  try {
-    const response = await axios.delete(`/api/eleves/${id}`);
-    this.eleves = this.eleves.filter(eleve => eleve.id !== id);
-  } catch (error) {
-    console.log(error);
-  }
-},
-
+      try {
+        const response = await axios.delete(`/api/eleves/${id}`);
+        this.eleves = this.eleves.filter((eleve) => eleve.id !== id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    showStudents(groupe) {
+      if (this.selectedGroup === groupe) {
+        this.selectedGroup = null;
+      } else {
+        this.selectedGroup = groupe;
+        this.fetchStudents(groupe.id);
+      }
+    },
+    fetchStudents(groupId) {
+      axios
+        .get(`/groupes/${groupId}/eleves`)
+        .then((response) => {
+          this.selectedGroup = { ...this.selectedGroup, eleves: response.data };
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
 };
 </script>
+
+<style scoped>
+/* Your CSS styles here */
+</style>
+
  
 <style scoped>
 .ag-format-container {

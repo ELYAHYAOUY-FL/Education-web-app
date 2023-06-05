@@ -91,6 +91,7 @@ Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
 Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
+Route::get('/groupes/{groupId}/eleves',  [GroupeController::class, 'getGroupStudents']);
 
 //payement
 Route::post('/payements', [PayementsdemoiController::class, 'store']);
