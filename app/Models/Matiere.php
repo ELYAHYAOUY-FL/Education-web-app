@@ -39,6 +39,8 @@ class Matiere extends Model
 	protected $fillable = [
 		'titre',
 		'coefficient',
+		'description',
+		'pdf',
 		 
 	];
 

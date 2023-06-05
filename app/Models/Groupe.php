@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Models\CarnetNote;
 use App\Models\Eleve;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -80,6 +81,10 @@ class Groupe extends Model
 	{
 		return $this->hasMany(Eleve::class, 'groupe_id');
 	}
+	public function carnetNotes()
+    {
+        return $this->hasMany(CarnetNote::class);
+    }
 	// public function matieres()
     // {
     //     return $this->belongsToMany(Matiere::class, 'groupe_matiere', 'groupe_id', 'matiere_id');

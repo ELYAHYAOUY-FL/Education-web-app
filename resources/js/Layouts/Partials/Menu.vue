@@ -32,6 +32,14 @@
     </p>
     </router-link>
     </li>
+    <li class="nav-item">
+    <router-link to="/Administration/NiveauScolaire" class="nav-link"  :class="{ active: $route.path === '/Administration/NiveauScolaire' }">
+       <i class="nav-icon fas fa-chalkboard" style="color: aliceblue;"></i>
+    <p>
+    Groupe
+    </p>
+    </router-link>
+    </li>
     
     <li class="nav-item menu-close "> 
     <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Student') }">
@@ -102,6 +110,12 @@
     </li>
     </ul> 
     </li>
+    <li class="nav-item">
+    <router-link to="/Administration/Matiere" class="nav-link" :class="{ 'active': $route.path === '/Administration/Matiere' }">
+    <i class="far fa-circle nav-icon"></i>
+    <p> Matiere </p>
+    </router-link>
+    </li>
     <li class="nav-item menu-close "> 
     <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Student') }">
         <i class="nav-icon fas fa-utensils" style="color: aliceblue;"></i>
@@ -155,7 +169,31 @@
       <i class="fas fa-calendar" style="color: aliceblue;"></i>
     <p color="black"> Emplois Temps </p>
     </router-link>
-    </li>       
+    </li>      
+    <li class="nav-item menu-close "> 
+    <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Student') }">
+        <i class="fas fa-futbol" style="color: aliceblue;"></i> <!-- Icône de ballon de football -->
+  <i class="fas fa-paint-brush" style="color: aliceblue;"></i>
+    <p>
+    Paiement
+    <i class="right fas fa-angle-left" style="color: aliceblue;"></i>
+    </p>
+    </a>
+     <ul class="nav nav-treeview">
+    <li class="nav-item">
+    <router-link to="/Administration/paiementparent" class="nav-link" :class="{ 'active': $route.path === '//Administration/paiementparent' }">
+    <i class="far fa-circle nav-icon" style="color: aliceblue;"></i>
+    <p> Paiement parent</p>
+    </router-link>
+    </li>
+    <li class="nav-item">
+    <router-link to="/Administration/paiementprofesseur" class="nav-link" :class="{ 'active': $route.path === '/Administration/paiementprofesseur' }">
+    <i class="far fa-circle nav-icon" style="color: aliceblue;"></i>
+    <p color="black"> Paiement professeur</p>
+    </router-link>
+    </li>    
+</ul> 
+    </li>     
 </ul>
     </nav>
     

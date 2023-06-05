@@ -26,6 +26,32 @@ class EleveController extends Controller
 }
 
 
+public function getContenuCahierNotes($userId)
+{
+    $eleve = Eleve::with('groupes.professeur.carnetNotes')->where('user_id', $userId)->first();
+
+    if (!$eleve) {
+        return response()->json(['error' => 'Eleve not found'], 404);
+    }
+
+    $contenusCahiersNotes = [];
+
+    foreach ($eleve->groupes as $groupe) {
+        $professeur = $groupe->professeur;
+        $carnetNote = $professeur->carnetNotes->last();
+
+        if ($carnetNote) {
+            $contenusCahiersNotes[] = [
+                'groupe' => $groupe,
+                'contenu' => $carnetNote->contenu
+            ];
+        }
+    }
+
+    return response()->json($contenusCahiersNotes);
+}
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -53,7 +79,7 @@ class EleveController extends Controller
     
         // Remove the professor's association with subjects
         $eleve->eleve_professuers()->update(['eleve_id' => null]);
-        $professeur->groups()->update(['group_id' => null]);
+        // $professeur->groups()->update(['group_id' => null]);
         // Delete the professor
         $eleve->delete();
     

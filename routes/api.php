@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Bankinformation_ParentController;
+use App\Http\Controllers\CarnetNoteController;
 use App\Http\Controllers\EmploiTempController;
 use App\Http\Controllers\PayementsdemoiController;
 use Illuminate\Http\Request;
@@ -28,7 +30,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParentEleveController;
-
+// use App\Http\Controllers\PayementsdemoiController;
 
 
 
@@ -67,12 +69,16 @@ Route::post('/parents/{parentId}/eleves', [ParentController::class, 'associateEl
 
 
 Route::get('/parents/eleves', [ParentEleveController::class, 'index']);
+Route::get('/payment/parent', [ParentController::class, 'index']);
 Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
 
 
 // matiers 
-Route::get('/matieres', [MatiereController::class, 'index']);
+Route::get('/matieres', [MatiereController::class, 'index']) ;
 Route::post('/matieres', [MatiereController::class, 'store']);
+Route::get('/matieres/{id}', [MatiereController::class, 'show']);
+Route::get('/matieres/{id}/download', [MatiereController::class, 'download']);
+
 
 
 
@@ -81,12 +87,31 @@ Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 // classes
 Route::get('/groupes', [GroupeController::class, 'index']);
 
+//carnet note de professeure
+Route::post('/carnetnotes', [CarnetNoteController::class, 'index']);
+// Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
+Route::get('/carnetnotes/create/{professeurId}', [CarnetNoteController::class, 'create']) ;
+// Route::post('/professeurs/{professeurId}/carnetnotes', [CarnetNoteController::class, 'store']) ;
+// Route::get('/carnetnotes', [CarnetNoteController::class,  'getCarnetNotes']);
+Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
+
+Route::post('/carnetnotes', [CarnetNoteController::class, 'store']) ;
+
+
+Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
+Route::get('/api/groupe/last-carnets-notes-for-prof', [CarnetNoteController::class, 'getLastCarnetsNotesForProf']);
+
+//eleve
+
+Route::get('/eleves/contenus-cahiers-notes/{userId}', [EleveController::class, 'getContenusCahiersNotes']);
 
 //payement
-Route::post('/payements', [PayementsdemoiController::class, 'store']);
-Route::get('/payements', [PayementsdemoiController::class, 'index']);
-
- 
+Route::post('/payments', [PayementsdemoiController::class, 'store']);
+// Route::get('/payement', [PayementsdemoiController::class, 'store']);
+// Route::get('/paiements/{parent}', [PayementsdemoiController::class, 'getPaiements']);
+Route::get('/payment/details', [PayementsdemoiController::class, 'index']);
+// Route::get('/paiements/{parent}', 'PayementsdemoiController@getPaiements');
+// Route::post('/paiements', 'PayementsdemoiController@enregistrerPaiement');
 
 //classes and matiers relation 
 Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
@@ -94,6 +119,7 @@ Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
 // vireemnet 
 Route::get('/bankinformations', [Bankinformation_ProfController ::class, 'index']);
 Route::post('/bankinformations', [Bankinformation_ProfController ::class, 'store']);
+Route::get('/payment/bank_information_parent', [Bankinformation_ParentController ::class, 'index']);
 
 Route::post('/virements', [VirementController ::class, 'store']);
 // use App\Http\Controllers\ProfessuerController ;
@@ -120,6 +146,7 @@ Route::get('/textbooks/getbyProf/{ProfId}', [TextbookController::class, 'gettext
 //users
 // Route::post('/users', [UserController::class, 'store']) ;
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/payment/user', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
 
 
@@ -141,7 +168,7 @@ Route::get('/emplois/groupe/{EmploiId}', [EmploiTempController::class, 'getEmplo
 
 
 // groupes
-Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
+// Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
 Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
 // Route::get('/matieres', [MatiereController::class, 'index']);
@@ -167,6 +194,8 @@ Route::post('/activities', [ActivityController::class, 'store']);
 
 
 
+
+Route::get('/parents/{parentId}/bankinfo_parent', [Bankinformation_ParentController::class, 'getBankInfoByParentId']);
 
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {

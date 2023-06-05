@@ -38,11 +38,15 @@ import Groupes from './PageProfesseur/niveau scolaire/gestionGreoupes.vue'
 import Calendrie from './PageProfesseur/calendarPag.vue'
 import Calend from './PageEleve/calendarEleve.vue'
 import Calendr from './src/pages/calendarAdmin.vue'
-
+//paiement 
+import paiementparent from './Page/Paiement/payementParent.vue'
+import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
 //Emploi Temps 
 import EmploisTemps from './Page/EmploiTemps/Emploicreate.vue'
 import Emploi from './PageEleve/Emploicreate.vue'
 import EmploiProf from './PageProfesseur/Emploi.vue'
+//matiere
+import Matiere from './Page/Matiere.vue'
 //login 
 import  LoginPage from './src/pages/Login.vue';
 import store  from '@/store';
@@ -120,6 +124,14 @@ component : NiveauListAdmin,
 meta: {requiresAuth:true , administration:true}
 
 },
+//matier
+{
+  path : '/Administration/Matiere',
+  name : 'MatiereAdmin',
+  component : Matiere,
+  meta: {requiresAuth:true , administration:true}
+  
+  },
 
 
 //  prof path 
@@ -224,7 +236,21 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , eleve:true}
 
 },
+//Paiement
+{
+  path : '/Administration/paiementparent',
+  name :'paiementparent',
+  component :paiementparent ,
+  meta: {requiresAuth:true , administration:true}
 
+},
+{
+  path : '/Administration/paiementprofesseur',
+  name :'paiementprofesseur',
+  component :paiementprofesseur ,
+  meta: {requiresAuth:true , administration:true}
+
+},
 
 // ************************************** professeur routing  *****************************************
 

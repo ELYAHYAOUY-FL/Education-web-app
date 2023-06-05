@@ -19,7 +19,7 @@ class ParentController extends Controller
     // }
     public function index()
     {
-        $parents = Parente::with('eleves')->get();
+        $parents = Parente::with('eleves','user')->get();
 
         return response()->json($parents);
     }

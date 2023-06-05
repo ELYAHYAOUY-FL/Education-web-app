@@ -71,7 +71,7 @@
                 :key="emploi.id"
                 :style="{ 'animation-delay': getAnimationDelay(emploi.id) }"
               >
-                {{ emploi.matiere.titre }} à {{ extractHourFromDate(emploi.heure_debut) }}
+                {{ emploi.matiere_titre }} à {{ extractHourFromDate(emploi.heure_debut) }}
               </div>
             </div>
           </div>
