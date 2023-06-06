@@ -1,37 +1,55 @@
 <template>
   <MainLayout>
     <h1 class="text-center">Liste des étudiants</h1>
-    <div class="container row">
-      <div class="col-md-4 mb-4 fade-in">
-        <div class="ag-format-container" v-for="niveau_scolaire in niveau_scolaires" :key="niveau_scolaire.id">
-          <div class="ag-courses_box">
-            <div
-              class="ag-courses_item"
-              :class="{ active: niveau_scolaire === selectedLevel }"
-              @click="showGroups(niveau_scolaire)"
-            >
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-                <div class="ag-courses-item_title">{{ niveau_scolaire.nom }}</div>
-                <div class="ag-courses-item_date-box">{{ niveau_scolaire.description }}</div>
-              </a>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 fade-in">
+          <div class="ag-format-container" v-for="niveau_scolaire in niveau_scolaires" :key="niveau_scolaire.id">
+            <div class="ag-courses_box">
+              <div
+                class="ag-courses_item"
+                :class="{ active: niveau_scolaire === selectedLevel }"
+                @click="showGroups(niveau_scolaire)"
+              >
+                <a href="#" class="ag-courses-item_link">
+                  <div class="ag-courses-item_bg"></div>
+                  <div class="ag-courses-item_title">{{ niveau_scolaire.nom }}</div>
+                  <div class="ag-courses-item_date-box">{{ niveau_scolaire.description }}</div>
+                </a>
+              </div>
+            </div>
+            <div v-if="selectedLevel === niveau_scolaire">
+              <div class="listgroupe">
+                <ol class="gradient-list groupe-list">
+                  <li v-for="groupe in selectedGroups" :key="groupe.id" >
+                    <div @click="groupe.showStudents = !groupe.showStudents" class="groupe-name">{{ groupe.nom }}</div>
+                    <table v-if="groupe.showStudents" class="eleves-table" >
+                      <thead>
+                        <tr>
+                          <th>Prénom</th>
+                          <th>Nom</th>
+                          <th>Nom Arabe</th>
+                          <th>CNE</th>
+                          <th>Photo</th>
+                          <th>Email</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="eleve in groupe.eleves" :key="eleve.id" class="eleve">
+                          <td>{{ eleve.user.prenom_francais }}</td>
+                          <td>{{ eleve.user.nom_francais }}</td>
+                          <td>{{ eleve.user.nom_arabe }}</td>
+                          <td>{{ eleve.CNE }}</td>
+                          <td><img :src="eleve.user.photo" alt="Photo" /></td>
+                          <td>{{ eleve.user.email }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                </ol>
+              </div>
             </div>
           </div>
-          <div v-if="selectedLevel === niveau_scolaire">
-  <div class="listgroupe" v-for="groupe in selectedGroups" :key="groupe.id">
-    <ul class="ls">
-      <li @click="groupe.showStudents = !groupe.showStudents">
-        {{ groupe.nom }}
-      </li>
-      <ul v-if="groupe.showStudents">
-        <li v-for="eleve in groupe.eleves" :key="eleve.id">
-          {{ eleve.user.prenom_francais }} {{ eleve.user.nom_francais }}
-        </li>
-      </ul>
-    </ul>
-  </div>
-</div>
-
         </div>
       </div>
     </div>
@@ -75,17 +93,17 @@ export default {
         });
     },
     showGroups(niveau_scolaire) {
-  if (this.selectedLevel === niveau_scolaire) {
-    this.selectedLevel = null;
-    this.selectedGroups = [];
-  } else {
-    this.selectedLevel = niveau_scolaire;
-    this.selectedGroups = niveau_scolaire.groupes;
-    this.selectedGroups.forEach(groupe => {
-      groupe.showStudents = false; // Add a new property to track student visibility
-    });
-  }
-},
+      if (this.selectedLevel === niveau_scolaire) {
+        this.selectedLevel = null;
+        this.selectedGroups = [];
+      } else {
+        this.selectedLevel = niveau_scolaire;
+        this.selectedGroups = niveau_scolaire.groupes;
+        this.selectedGroups.forEach((groupe) => {
+          groupe.showStudents = false; // Add a new property to track student visibility
+        });
+      }
+    },
 
     affichera() {
       try {
@@ -139,107 +157,230 @@ export default {
 </script>
 
 <style scoped>
-/* Your CSS styles here */
-</style>
 
- 
-<style scoped>
+@import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
+
+/*** STYLE ***/
+.groupe-list{
+  
+}
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.eleves-table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+.eleves-table thead {
+  background-color: #f5f5f5;
+}
+
+.eleves-table th,
+.eleves-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.eleves-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.eleves-table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.eleves-table img {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 50%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fafafa;
+  color: #1d1f20;
+  font-family: 'Raleway', sans-serif;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  max-width: 40rem;
+  padding: 1rem;
+}
+
+.listgroupe {
+  margin: 1.75rem 0;
+  padding-left: 1rem;
+}
+
+.listgroupe > ol.gradient-list {
+  counter-reset: gradient-counter;
+  list-style: none;
+}
+
+.listgroupe > ol.gradient-list > li {
+  background: white;
+  border-radius: 0 0.5rem 0.5rem 0.5rem;
+  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+  counter-increment: gradient-counter;
+  margin-top: 1rem;
+  min-height: 3rem;
+  padding: 1rem 1rem 1rem 3rem;
+  position: relative;
+}
+
+.listgroupe > ol.gradient-list > li::before,
+.listgroupe > ol.gradient-list > li::after {
+  background:  rgb(76, 158, 158) ;
+  border-radius: 1rem 1rem 0 1rem;
+  content: '';
+  height: 3rem;
+  left: -1rem;
+  overflow: hidden;
+  position: absolute;
+  top: -1rem;
+  width: 3rem;
+}
+
+.listgroupe > ol.gradient-list > li::before {
+  align-items: flex-end;
+  background-color: #fafafa;
+  box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+  content: counter(gradient-counter);
+  color: #1d1f20;
+  display: flex;
+  font: 900 1.5em/1 'Montserrat';
+  justify-content: flex-end;
+  padding: 0.125em 0.25em;
+  z-index: 1;
+}
+
+.listgroupe > ol.gradient-list > li:nth-child(10n + 1)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 2)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 3)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 4)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 5)::before {
+  background:  rgb(76, 158, 158) ;
+}
+
+.listgroupe > ol.gradient-list > li:nth-child(10n + 6)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 7)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 8)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 9)::before,
+.listgroupe > ol.gradient-list > li:nth-child(10n + 10)::before {
+  background:  rgb(76, 158, 158) ;
+}
+
+.listgroupe > ol.gradient-list > li + li {
+  margin-top: 2rem;
+}
+
+.listgroupe > ol.gradient-list > li .groupe-name {
+  cursor: pointer;
+}
+
+.listgroupe > ol.gradient-list > li .eleves-list {
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.listgroupe > ol.gradient-list > li .eleve {
+  cursor: pointer;
+}
+
+
+
 .ag-format-container {
   width: 1142px;
   margin: 0 auto;
 }
 
 .ag-courses_box {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: flex-start;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-
   padding: 20px 0;
 }
+
 .ag-courses_item {
-  -ms-flex-preferred-size: calc(33.33333% - 30px);
   flex-basis: calc(33.33333% - 30px);
-
   margin: 0 15px 30px;
-
   overflow: hidden;
-
   border-radius: 28px;
 }
+
 .ag-courses-item_link {
   display: block;
   padding: 30px 20px;
   background-color: #121212;
-
   overflow: hidden;
- position: relative;
+  position: relative;
 }
+
 .ag-courses-item_link:hover,
 .ag-courses-item_link:hover .ag-courses-item_date {
   text-decoration: none;
-  color: #FFF;
+  color: #fff;
 }
+
 .ag-courses-item_link:hover .ag-courses-item_bg {
-  -webkit-transform: scale(10);
-  -ms-transform: scale(10);
   transform: scale(10);
 }
+
 .ag-courses-item_title {
   min-height: 20px;
   margin: 0 0 25px;
-
   overflow: hidden;
-
   font-weight: bold;
   font-size: 30px;
-  color: #FFF;
-
+  color: #fff;
   z-index: 2;
   position: relative;
 }
+
 .ag-courses-item_date-box {
   font-size: 18px;
-  color: #FFF;
-
+  color: #fff;
   z-index: 2;
   position: relative;
 }
+
 .ag-courses-item_date {
   font-weight: bold;
   color: #f9b234;
-
-  -webkit-transition: color .5s ease;
-  -o-transition: color .5s ease;
-  transition: color .5s ease
+  transition: color 0.5s ease;
 }
+
 .ag-courses-item_bg {
   height: 128px;
   width: 128px;
   background-color: #4c9e9e;
-z-index: 1;
+  z-index: 1;
   position: absolute;
   top: -75px;
   right: -75px;
-border-radius: 50%;
- -webkit-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+  border-radius: 50%;
+  transition: all 0.5s ease;
 }
+
 .ag-courses_item.active {
   background-color: #4c9e9e;
 }
 
-
-
-
 @media only screen and (max-width: 979px) {
   .ag-courses_item {
-    -ms-flex-preferred-size: calc(50% - 30px);
     flex-basis: calc(50% - 30px);
   }
   .ag-courses-item_title {
@@ -251,17 +392,15 @@ border-radius: 50%;
   .ag-format-container {
     width: 96%;
   }
-
 }
+
 @media only screen and (max-width: 639px) {
   .ag-courses_item {
-    -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
   }
   .ag-courses-item_title {
     min-height: 72px;
     line-height: 1;
-
     font-size: 24px;
   }
   .ag-courses-item_link {
@@ -270,5 +409,18 @@ border-radius: 50%;
   .ag-courses-item_date-box {
     font-size: 16px;
   }
+}
+
+/* Additional Styles */
+.listgroupe {
+  margin-bottom: 20px;
+}
+
+.listgroupe li {
+  cursor: pointer;
+}
+
+.listgroupe ul {
+  margin-left: 20px;
 }
 </style>

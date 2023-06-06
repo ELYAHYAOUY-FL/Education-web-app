@@ -200,7 +200,7 @@
   background: #4c9e9e;
 }
 :root{
---el-menu-active-color:   #4c9e9e;
+--el-menu-active-color:   rgb(76, 158, 158);
 
 }
 .nav-item{
