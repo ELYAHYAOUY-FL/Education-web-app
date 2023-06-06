@@ -41,13 +41,14 @@ class Exam extends Model
 		'note_id'
 	];
 
+	
 	public function note()
 	{
-		return $this->belongsTo(Note::class, 'id');
+		return $this->belongsTo(Note::class, 'note_id');
 	}
 	public function matire()
 	{
-		return $this->belongsTo(Matiere::class, 'id');
+		return $this->belongsTo(Matiere::class, 'matiere_id');
 	}
 	public function eleves_exam()
     {
@@ -57,4 +58,5 @@ class Exam extends Model
     {
         return $this->hasMany(EleveExames::class, 'exame_id');
     }
+	
 }

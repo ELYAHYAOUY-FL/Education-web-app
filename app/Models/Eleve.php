@@ -73,4 +73,6 @@ class Eleve extends Model
     {
         return $this->hasMany(Retard::class, 'eleve_id');
     }
+  
+
 }

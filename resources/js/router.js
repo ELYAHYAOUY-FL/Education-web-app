@@ -50,6 +50,10 @@ import Matiere from './Page/Matiere.vue'
 //login 
 import  LoginPage from './src/pages/Login.vue';
 import store  from '@/store';
+
+//eleve
+import HomeELEVE from './PageEleve/home.vue'
+
 const routes =[ 
 
     {
@@ -282,6 +286,16 @@ meta: {requiresAuth:true , administration:true}
   name :'Calendrie',
   component :Calendrie ,
   meta: {requiresAuth:true , professeur:true}
+
+},
+
+
+//***************************************** eleve routing ************** */
+{
+  path : '/student/home',
+  name :'homeEleve',
+  component :HomeELEVE ,
+  meta: {requiresAuth:true , eleve:true}
 
 },
 

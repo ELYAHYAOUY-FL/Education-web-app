@@ -207,60 +207,6 @@ export default {
 this.affichera();
   },
   methods: {
-    toggleForm(formType) {
-      if (formType === 'niveauScolaire') {
-        this.showNiveauForm = !this.showNiveauForm;
-        this.showGroupeForm = false; // Assure que le formulaire de groupe est masqué
-      } else if (formType === 'groupe') {
-        this.showGroupeForm = !this.showGroupeForm;
-        this.showNiveauForm = false; // Assure que le formulaire de niveau scolaire est masqué
-      }
-    },
-    toggleGroupeForm(niveauId) {
-    if (this.activeNiveauId === niveauId && this.showForm2) {
-      this.showForm2 = false; // Cacher le formulaire si le bouton est cliqué à nouveau
-    } else {
-      this.activeNiveauId = niveauId; // Définir l'id du niveau actif
-      this.showForm2 = true; // Afficher le formulaire
-    }
-  },
-    // showGroupeForm(niveauId) {
-    //   this.activeNiveauId = niveauId;
-    //   this.groupe.niveau_scolaire_id = niveauId;
-    // },
-    addGroupe() {
-  // Vérifier si les champs requis sont renseignés
-  if (this.groupe.nom && this.groupe.capacite && this.groupe.salle) {
-    // Envoyer la requête POST à l'API backend
-    const niveauScolaireId = this.activeNiveauId;
-    const groupeData = {
-      nom: this.groupe.nom,
-      capacite: this.groupe.capacite,
-      salle: this.groupe.salle
-    };
-
-    axios.post(`/niveau-scolaire/${niveauScolaireId}`, groupeData)
-      .then(response => {
-        // Groupe ajouté avec succès, effectuer les actions nécessaires (par exemple, mettre à jour l'affichage)
-        console.log(response.data.message);
-        // Réinitialiser le formulaire
-        this.groupe = {
-          nom: '',
-          capacite: '',
-          salle: ''
-        };
-      })
-      .catch(error => {
-        // Une erreur s'est produite lors de l'ajout du groupe
-        console.error(error);
-        alert('Une erreur s\'est produite lors de l\'ajout du groupe.');
-      });
-  } else {
-    // Afficher un message d'erreur si les champs requis ne sont pas renseignés
-    alert('Veuillez remplir tous les champs requis.');
-  }
-},
-
     affichera(){
       try {
       console.log('on mounted');
@@ -322,8 +268,10 @@ this.affichera();
       axios.get('/niveau_scolires').then((response) => {
         console.log(response.data);
         this.niveau_scolaires = response.data;
+        this.affichera();
+
       });
-      this.affichera();
+      // this.affichera();
     } catch (error) {
       console.error(error);
     }

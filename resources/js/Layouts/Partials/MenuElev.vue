@@ -24,6 +24,12 @@
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">  
               <li class="nav-item">
+    <router-link to="/student/home" class="nav-link" :class="{ 'active': $route.path === '/student/home' }">
+      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+    <p color="black"> home </p>
+    </router-link>
+    </li> 
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-file-alt"></i>
                   <p>
@@ -49,6 +55,7 @@
     </p>
   </a>
 </li>
+  
   <li class="nav-item">
     <router-link to="/eleve/Calend" class="nav-link" :class="{ 'active': $route.path === '/eleve/Calend' }">
       <i class="fas fa-calendar" style="color: aliceblue;"></i>

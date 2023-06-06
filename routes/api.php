@@ -31,6 +31,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParentEleveController;
 // use App\Http\Controllers\PayementsdemoiController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\TextbookController;
+use App\Http\Controllers\CantineController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\EleveExamController;
+
+
 
 
 
@@ -54,6 +63,7 @@ Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
+Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNote']);
 
 
 //parent 
@@ -87,7 +97,6 @@ Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 Route::get('/groupes', [GroupeController::class, 'index']);
 
 //carnet note de professeure
-Route::post('/carnetnotes', [CarnetNoteController::class, 'index']);
 // Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
 Route::get('/carnetnotes/create/{professeurId}', [CarnetNoteController::class, 'create']) ;
 // Route::post('/professeurs/{professeurId}/carnetnotes', [CarnetNoteController::class, 'store']) ;
@@ -103,9 +112,10 @@ Route::get('/api/groupe/last-carnets-notes-for-prof', [CarnetNoteController::cla
 //eleve
 
 Route::get('/eleves/contenus-cahiers-notes/{userId}', [EleveController::class, 'getContenusCahiersNotes']);
+Route::post('/groupes', [GroupeController::class, 'store']);
+Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
 
 //payement
-Route::post('/payments', [PayementsdemoiController::class, 'store']);
 // Route::get('/payement', [PayementsdemoiController::class, 'store']);
 // Route::get('/paiements/{parent}', [PayementsdemoiController::class, 'getPaiements']);
 Route::get('/payment/details', [PayementsdemoiController::class, 'index']);
@@ -123,7 +133,6 @@ Route::get('/payment/bank_information_parent', [Bankinformation_ParentController
 Route::post('/virements', [VirementController ::class, 'store']);
 // use App\Http\Controllers\ProfessuerController ;
 
-use App\Http\Controllers\ActivityController;
 
 
 Route::post('/activities', [ActivityController::class, 'store']);
@@ -132,7 +141,6 @@ Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
 
 
-use App\Http\Controllers\TextbookController;
 //textbook prof
 // Route::post('/textbooks', [TextbookController::class, 'store']);
 Route::put('/textbooks/{id}', [TextbookController::class, 'update']);
@@ -151,7 +159,6 @@ Route::post('/users', [UserController::class, 'store']);
 
 
 //Calendrie
-use App\Http\Controllers\EventController;
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'store']);
 
@@ -174,7 +181,6 @@ Route::post('/groupes', [GroupeController::class, 'store']);
 
 
 
-use App\Http\Controllers\CantineController;
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
@@ -189,10 +195,13 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 // notess 
-Route::post('/activities', [ActivityController::class, 'store']);
+// Route::post('/notes', [NoteController::class, 'store']);
+Route::post('/notes', [NoteController::class, 'store']);
+Route::post('/lastnotes/{eleveId}', [EleveController::class, 'getByIdlastNote']);
 
-
-
+//exams 
+Route::post('/exams', [ExamController::class, 'store']);
+Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
 
 Route::get('/parents/{parentId}/bankinfo_parent', [Bankinformation_ParentController::class, 'getBankInfoByParentId']);
 
