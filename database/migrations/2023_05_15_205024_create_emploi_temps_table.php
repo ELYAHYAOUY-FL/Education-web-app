@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('emploi_temps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->time('heure_debut');
+            $table->time('heure_fin'); 
+            $table->text('description')->nullable();
             $table->string('jour');
             $table->string('annee');
             $table->unsignedBigInteger('matiere_id')->nullable()->index('emploi_temps_matiere_id_foreign');

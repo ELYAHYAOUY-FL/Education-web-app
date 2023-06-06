@@ -31,10 +31,11 @@ class Matiere extends Model
 {
 	protected $table = 'matieres';
 
-	protected $casts = [
-		'coefficient' => 'int',
-		 
-	];
+	// protected $casts = [
+	// 	'coefficient' => 'integer',
+    //     'pdf' => 'binary', // Définition du type de colonne pdf en tant que binary
+ 
+	// ];
 
 	protected $fillable = [
 		'titre',
@@ -43,6 +44,10 @@ class Matiere extends Model
 		'pdf',
 		 
 	];
+	public function getPdfPath()
+    {
+        return public_path('pdf/' . $this->id . '_' . $this->titre . '.pdf');
+    }
 
 	
 	// public function classes()
@@ -65,6 +70,10 @@ class Matiere extends Model
 // {
 //     return $this->belongsToMany(Professeur::class,'matiere_professeur', 'professeur_id', 'matiere_id');
 // }
+public function professeur()
+{
+    return $this->belongsTo(Professeur::class, 'professeur_id');
+}
 
 	
 

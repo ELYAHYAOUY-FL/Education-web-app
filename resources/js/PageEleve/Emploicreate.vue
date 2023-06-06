@@ -24,7 +24,14 @@
                 :key="emploi.id"
                 :style="{ 'animation-delay': getAnimationDelay(emploi.id) }">
                 
-                {{emploi.matiere.titre }} à {{ extractHourFromDate(emploi.heure_debut) }}
+                <div @click="toggleDescription(emploi.id)" class="matiere">{{ emploi.matiere_titre }}</div>
+          <div class="heure">
+            {{ emploi.heure_debut ? emploi.heure_debut.slice(0, 5) : '' }} à {{ emploi.heure_fin ? emploi.heure_fin.slice(0, 5) : '' }}
+
+          </div>
+          <div v-if="emploi.showDescription" class="description">
+            {{ emploi.description }}
+          </div>
               </div>
             </div>
           </div>
@@ -83,6 +90,12 @@
   },
 
     methods: {
+      toggleDescription(emploiId) {
+    const emploi = this.emploiTemps.find((emploi) => emploi.id === emploiId);
+    if (emploi) {
+      emploi.showDescription = !emploi.showDescription;
+    }
+  },
       getAnimationDelay(index) {
         const baseDelay = 100;
         const delay = index * baseDelay;

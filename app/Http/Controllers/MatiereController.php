@@ -21,75 +21,74 @@ class MatiereController extends Controller{
     // public function index()
     // {
     //     $matieres = Matiere::all();
-    //     foreach ($matieres as $matiere) {
-    //         $matiere->pdf_url = Storage::disk('public')->url($matiere->pdf);
-    //     }
     //     return response()->json($matieres);
     // }
-    // public function index()
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            'coefficient' => 'required',
+            'pdf' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        // Enregistrement du fichier PDF
+        $pdfPath = $request->file('pdf')->store('public/pdf');
+
+        $matiere = Matiere::create([
+            'titre' => $validatedData['titre'],
+            'description' => $validatedData['description'],
+            'coefficient' => $validatedData['coefficient'],
+            'pdf' => $pdfPath,
+        ]);
+
+        return response()->json($matiere, 201);
+    }
+    // public function downloadPdf(Matiere $matiere)
     // {
-    //     $matieres = Matiere::all();
-    //     return view('matieres.index', compact('matieres'));
+    //     $pdfPath = $matiere->getPdfPath();
+    //     return response()->download($pdfPath);
     // }
-
-    public function show($id)
-    {
-        $matiere = Matiere::find($id);
-
-        if (!$matiere) {
-            return response()->json(['error' => 'Matiere not found.'], 404);
-        }
-    
-        return response()->json($matiere);
-    }
-    
-    public function download($id)
-    {
-        $matiere = Matiere::findOrFail($id);
-        $path = $matiere->pdf;
-        return Storage::download($path);
-    }
-    
-// public function download($id)
-// {
-//     $matiere = Matiere::findOrFail($id);
-
-//     // Vérifier si le fichier PDF existe
-//     if (!Storage::exists($matiere->pdf)) {
-//         return response()->json(['error' => 'Le fichier PDF n\'existe pas.'], 404);
-//     }
-
-//     // Chemin complet du fichier PDF
-//     $pdfPath = storage_path('app/public/' . $matiere->pdf);
-
-//     // Télécharger le fichier PDF
-//     return response()->download($pdfPath, 'document.pdf');
-// }
-// public function store(Request $request)
-//     {
-//         $subject = Matiere::create($request->all());
-//         return response()->json($subject, 201);
-//     }
-
-public function store(Request $request)
+    public function downloadPdf($filename)
 {
-    $matiere = Matiere::create($request->all());
+    $filePath = storage_path('app/public/pdf/' . $filename);
 
-    if ($request->hasFile('pdf')) {
-        $path = $request->file('pdf')->store('pdfs');
-        $matiere->pdf = $path;
-        $matiere->save();
+    if (!Storage::exists($filePath)) {
+        abort(404);
     }
 
-    return redirect('/matieres');
+    return response()->download($filePath, $filename);
 }
+public function update(Request $request, Matiere $matiere)
+{
+    $validatedData = $request->validate([
+        'titre' => 'required',
+        'description' => 'required',
+        'coefficient' => 'required',
+        'pdf' => 'sometimes|mimes:pdf|max:2048',
+    ]);
 
+    // Mise à jour des champs titre et description
+    $matiere->titre = $validatedData['titre'];
+    $matiere->description = $validatedData['description'];
+    $matiere->coefficient = $validatedData['coefficient'];
 
-    // Autres opérations après l'enregistrement
+    // Vérification et mise à jour du fichier PDF
+    if ($request->hasFile('pdf')) {
+        // Suppression de l'ancien fichier PDF s'il existe
+        Storage::delete($matiere->pdf);
 
-    
+        // Enregistrement du nouveau fichier PDF
+        $pdfPath = $request->file('pdf')->store('pdf', 'public');
+        $matiere->pdf = $pdfPath;
+    }
 
+    // Sauvegarde de la matière mise à jour
+    $matiere->save();
 
+    return response()->json($matiere, 200);
+}
 
     
 }

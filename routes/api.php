@@ -77,10 +77,9 @@ Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
 Route::get('/matieres', [MatiereController::class, 'index']) ;
 Route::post('/matieres', [MatiereController::class, 'store']);
 Route::get('/matieres/{id}', [MatiereController::class, 'show']);
-Route::get('/matieres/{id}/download', [MatiereController::class, 'download']);
+Route::put('/matieres/{matiere}/update', [MatiereController::class, 'update']);
 
-
-
+Route::get('/download-pdf/{filename}', [MatiereController::class, 'downloadPdf']);
 
 Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 

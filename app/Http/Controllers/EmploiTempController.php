@@ -30,7 +30,7 @@ class EmploiTempController extends Controller
         // Charger les détails de la matière pour chaque emploi du temps
         foreach ($schedules as $schedule) {
             $matiere = Matiere::find($schedule->matiere_id);
-            $schedule->matiere_titre = $matiere ? $matiere->titre : 'N/A';
+            $schedule->matiere_titre = $matiere ? $matiere->titre : 'Matiere';
         }
 
         return response()->json($schedules);
@@ -59,7 +59,8 @@ public function getEmploiProf($MatiereId)
     $validatedData = $request->validate([
         'jour' => 'required',
         'heure_debut' => 'required',
-         
+        'heure_fin' => 'required',
+        'description' => 'required',
         'matiere_id' => 'required',
         'groupe_id' => 'required',
     ]);
