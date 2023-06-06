@@ -21,6 +21,14 @@
                   {{ eleve.user.nom_francais }} {{ eleve.user.prenom_francais }}
                 </td>
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0 , exam)">
+                  <div v-if="eleve.eleve_exams.length > 0">
+                        <div v-for="exam in eleve.eleve_exams" :key="exam.id">
+                          <div v-if="'First Exam' === exam.nom">
+                            <!-- Display the note if the exam name is 'Prof Note' -->
+                            {{ exam.note.valeur }}
+                          </div>
+                        </div>
+                        </div>
                   <!-- Display first exam here -->
                   <div v-if="isActiveForm(groupeIndex, eleveIndex, 0)">
                     <template v-if="!currentNote">
@@ -49,6 +57,14 @@
                 
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 1 , exam)">
   <!-- Display first exam here -->
+                <div v-if="eleve.eleve_exams.length > 0">
+                        <div v-for="exam in eleve.eleve_exams" :key="exam.id">
+                          <div v-if="'Second Exam' === exam.nom">
+                            <!-- Display the note if the exam name is 'Prof Note' -->
+                            {{ exam.note.valeur }}
+                          </div>
+                        </div>
+                        </div>
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 1)">
     <template v-if="!currentNote">
       <!-- Display the input form when no note is saved -->
@@ -75,6 +91,14 @@
 
 
 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2 , exam)">
+  <div v-if="eleve.eleve_exams.length > 0">
+                        <div v-for="exam in eleve.eleve_exams" :key="exam.id">
+                          <div v-if="'Third Exam' === exam.nom">
+                            <!-- Display the note if the exam name is 'Prof Note' -->
+                            {{ exam.note.valeur }}
+                          </div>
+                        </div>
+                        </div>
   <!-- Display first exam here -->
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 2)">
     <template v-if="!currentNote">
@@ -102,6 +126,14 @@
 
 
 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3 , exam)">
+  <div v-if="eleve.eleve_exams.length > 0">
+                        <div v-for="exam in eleve.eleve_exams" :key="exam.id">
+                          <div v-if="'Prof Note' === exam.nom">
+                            <!-- Display the note if the exam name is 'Prof Note' -->
+                            {{ exam.note.valeur }}
+                          </div>
+                        </div>
+                        </div>
   <!-- Display first exam here -->
   <div v-if="isActiveForm(groupeIndex, eleveIndex, 3)">
     <template v-if="!currentNote">
