@@ -60,7 +60,8 @@ Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
-Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNote']);
+Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNoteBYmatire']);
+Route::get('/eleves/user/notes/{userId}', [EleveController::class, 'getByIdlastNote']);
 
 
 //parent 
@@ -83,6 +84,9 @@ Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
 Route::get('/matieres', [MatiereController::class, 'index']);
 Route::post('/matieres', [MatiereController::class, 'store']);
 
+// moyen 
+Route::post('/averages', [AverageController::class, 'calculateAverages']);
+
 
 
 Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
@@ -92,6 +96,10 @@ Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
 Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
 Route::get('/groupes/{groupId}/eleves',  [GroupeController::class, 'getGroupStudents']);
+Route::get('/group/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
+Route::get('/group/{groupId}/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
+
+
 
 //payement
 Route::post('/payements', [PayementsdemoiController::class, 'store']);

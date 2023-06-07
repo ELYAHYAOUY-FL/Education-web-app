@@ -32,6 +32,12 @@
     </p>
     </router-link>
     </li>
+    <li class="nav-item">
+    <router-link to="/Administration/gestionDesNote" class="nav-link" :class="{ 'active': $route.path === '/Administration/gestionDesNote' }">
+      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+    <p color="black"> Gestion des notes </p>
+    </router-link>
+    </li> 
     
     <li class="nav-item menu-close "> 
     <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Student') }">

@@ -22,7 +22,8 @@ import CantinePageadmin from './Page/Cantine/index.vue'
 //parent
 import ParentListAdmin from './Page/Parent/index.vue';
 import ParentCreatAdmin from './Page/Parent/create.vue';
-
+// notes
+import GestionNoteEleveAdmin from './Page/gestion des note/Notes.vue'
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
 import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
@@ -49,6 +50,7 @@ import store  from '@/store';
 
 //eleve
 import HomeELEVE from './PageEleve/home.vue'
+import NoteELEVE from './PageEleve/note.vue'
 
 const routes =[ 
 
@@ -121,6 +123,13 @@ const routes =[
 path : '/Administration/NiveauScolaire',
 name : 'NiveauListAdmin',
 component : NiveauListAdmin,
+meta: {requiresAuth:true , administration:true}
+
+},
+{
+path : '/Administration/gestionDesNote',
+name : 'NotestAdmin',
+component :GestionNoteEleveAdmin ,
 meta: {requiresAuth:true , administration:true}
 
 },
@@ -269,6 +278,13 @@ meta: {requiresAuth:true , administration:true}
   path : '/student/home',
   name :'homeEleve',
   component :HomeELEVE ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+{
+  path : '/eleve/note',
+  name :'noteEleve',
+  component :NoteELEVE ,
   meta: {requiresAuth:true , eleve:true}
 
 },
