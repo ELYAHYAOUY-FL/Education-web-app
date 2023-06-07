@@ -50,7 +50,7 @@ class Parente extends User
 		 
 		'CNI',
 		 
-		'user_id'
+		'user_id' => 'int',
 	];
 
 	// public function payementsdemoi()
@@ -61,7 +61,6 @@ class Parente extends User
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 // 	public function eleve_parents()
 // {
 //     return $this->hasMany(EleveParent::class)->withTimestamps();

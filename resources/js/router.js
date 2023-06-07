@@ -53,6 +53,8 @@ import store  from '@/store';
 
 //eleve
 import HomeELEVE from './PageEleve/home.vue'
+//parent eleves
+import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
 
 const routes =[ 
 
@@ -298,6 +300,13 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , eleve:true}
 
 },
+{
+  path: '/dashboard/:eleveId',
+  name :'homeParent',
+  component: MenulayoutEleve,
+  // meta: {requiresAuth:true , parent:true}
+
+}
 
 ];
 

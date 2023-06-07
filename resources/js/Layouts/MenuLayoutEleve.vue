@@ -17,9 +17,22 @@
 <Footer/>
 </div>
   </template>
-  <script setup>
+  <script>
 import Footer from './Partials/Footer.vue';
 import Menu from './Partials/MenuElev.vue';
+export default {
+  mounted() {
+    this.$on('eleveSelected', (eleveId) => {
+      this.goToEleveDashboard(eleveId);
+    });
+  },
+  methods: {
+    goToEleveDashboard(eleveId) {
+      // Naviguez vers le tableau de bord de l'élève avec l'ID d'élève sélectionné
+      this.$router.push(`/dashboard/${eleveId}`);
+    }
+  }
+};
 </script>
   
   

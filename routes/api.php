@@ -133,7 +133,11 @@ Route::get('/payment/bank_information_parent', [Bankinformation_ParentController
 Route::post('/virements', [VirementController ::class, 'store']);
 // use App\Http\Controllers\ProfessuerController ;
 
-
+//parent 
+// Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
+Route::get('/parents/{parentId}/eleves', [ParentController::class,  'getStudents']);
+// Route::get('/current-parent', [ParentController::class, 'getCurrentParent']);
+Route::get('/parents/user/{userId}', [ParentController::class, 'getById']);
 
 Route::post('/activities', [ActivityController::class, 'store']);
 
