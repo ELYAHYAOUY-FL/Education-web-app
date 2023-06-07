@@ -39,4 +39,7 @@ class GroupeController extends Controller
 
         return response()->json(['message' => 'Groupe ajouté avec succès'], 201);
     }
+
+
+
 }

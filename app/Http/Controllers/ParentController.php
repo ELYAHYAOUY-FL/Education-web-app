@@ -24,17 +24,13 @@ class ParentController extends Controller
         return response()->json($parents);
     }
 
-    public function getByiId($userId)
-    {
-    $parent = Parente::all()->where('user_id', $userId)->first();
 
-    if (!$parent) {
-        return response()->json(['error' => 'Professeur not found'], 404);
-    }
-    return response()->json($parent);
-   }
    
-   public function getById($userId)
+
+
+
+    public function getById($userId)
+
 {
     $parent = Parente::with('eleves')->where('user_id', $userId)->first();
 

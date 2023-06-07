@@ -20,144 +20,115 @@
                 <td class="student-name">
                   {{ eleve.user.nom_francais }} {{ eleve.user.prenom_francais }}
                 </td>
+
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0 , exam)">
                   <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
                           <div v-if="'First Exam' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
-                            {{ exam.note.valeur }}
+                            {{ exam.note.valeur }} 
+                           {{ customF(groupeIndex,eleveIndex) }}
                           </div>
                         </div>
                         </div>
-                  <!-- Display first exam here -->
-                  <div v-if="isActiveForm(groupeIndex, eleveIndex, 0)">
-                    <template v-if="!currentNote">
-                      <!-- Display the input form when no note is saved -->
-                      <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
-                        <div class="form-group">
-                          <label for="note">Note</label>
-                          <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="date">Date d'exam</label>
-                          <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-                        </div>
-                        <button class="btn btn-primary">Save</button>
-                      </form>
-                    </template>
-                    <template v-else>
-                      <!-- Display the saved note -->
-                      {{ currentNote }}
-                    </template>
-                  </div>
-                </td>
-                
-                
-                <!-- Repeat the same structure for other exams (1, 2, 3) -->
-                
+                        <template v-if="first[2]==false || (first[1]!=eleveIndex || first[0]!=groupeIndex)">
+                            <div v-if="isActiveForm(groupeIndex, eleveIndex, 0)">
+                                  <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
+                                  <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="date">Date d'exam</label>
+                                    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
+                                  </div>
+                                  <button class="btn btn-primary">Save</button>
+                                </form>
+                             </div>
+                        </template>
+                  </td>
+
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 1 , exam)">
-  <!-- Display first exam here -->
-                <div v-if="eleve.eleve_exams.length > 0">
+                  <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
                           <div v-if="'Second Exam' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
-                            {{ exam.note.valeur }}
+                            {{ exam.note.valeur }} 
+                           {{ customS(groupeIndex,eleveIndex) }}
                           </div>
                         </div>
                         </div>
-  <div v-if="isActiveForm(groupeIndex, eleveIndex, 1)">
-    <template v-if="!currentNote">
-      <!-- Display the input form when no note is saved -->
-      <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
-        <div class="form-group">
-          <label for="note">Note</label>
-          <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
-        </div>
-        <div class="form-group">
-          <label for="date">Date d'exam</label>
-          <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-        </div>
-        <button class="btn btn-primary">Save</button>
-      </form>
-    </template>
-    <template v-else>
-      <!-- Display the saved note -->
-      {{ currentNote }}
-    </template>
-  </div>
-</td>
+                        <template v-if="second[2]==false || (second[1]!=eleveIndex || second[0]!=groupeIndex)">
+                            <div v-if="isActiveForm(groupeIndex, eleveIndex, 1)">
+                                  <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
+                                  <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="date">Date d'exam</label>
+                                    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
+                                  </div>
+                                  <button class="btn btn-primary">Save</button>
+                                </form>
+                             </div>
+                        </template>
+                  </td>
 
-<!-- Repeat the same structure for other exams (1, 2, 3) -->
-
-
-<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2 , exam)">
-  <div v-if="eleve.eleve_exams.length > 0">
+                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2 , exam)">
+                  <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
                           <div v-if="'Third Exam' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
-                            {{ exam.note.valeur }}
+                            {{ exam.note.valeur }} 
+                           {{ customT(groupeIndex,eleveIndex) }}
                           </div>
                         </div>
                         </div>
-  <!-- Display first exam here -->
-  <div v-if="isActiveForm(groupeIndex, eleveIndex, 2)">
-    <template v-if="!currentNote">
-      <!-- Display the input form when no note is saved -->
-      <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
-        <div class="form-group">
-          <label for="note">Note</label>
-          <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
-        </div>
-        <div class="form-group">
-          <label for="date">Date d'exam</label>
-          <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-        </div>
-        <button class="btn btn-primary">Save</button>
-      </form>
-    </template>
-    <template v-else>
-      <!-- Display the saved note -->
-      {{ currentNote }}
-    </template>
-  </div>
-</td>
+                        <template v-if="third[2]==false || (third[1]!=eleveIndex || third[0]!=groupeIndex)">
+                            <div v-if="isActiveForm(groupeIndex, eleveIndex, 2)">
+                                  <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
+                                  <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="date">Date d'exam</label>
+                                    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
+                                  </div>
+                                  <button class="btn btn-primary">Save</button>
+                                </form>
+                             </div>
+                        </template>
+                  </td>
 
-<!-- Repeat the same structure for other exams (1, 2, 3) -->
-
-
-<td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3 , exam)">
-  <div v-if="eleve.eleve_exams.length > 0">
+                <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3 , exam)">
+                  <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
                           <div v-if="'Prof Note' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
-                            {{ exam.note.valeur }}
+                            {{ exam.note.valeur }} 
+                           {{ customP(groupeIndex,eleveIndex) }}
                           </div>
                         </div>
                         </div>
-  <!-- Display first exam here -->
-  <div v-if="isActiveForm(groupeIndex, eleveIndex, 3)">
-    <template v-if="!currentNote">
-      <!-- Display the input form when no note is saved -->
-      <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
-        <div class="form-group">
-          <label for="note">Note</label>
-          <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
-        </div>
-        <div class="form-group">
-          <label for="date">Date d'exam</label>
-          <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
-        </div>
-        <button class="btn btn-primary">Save</button>
-      </form>
-    </template>
-    <template v-else>
-      <!-- Display the saved note -->
-      {{ exam.nom }}: {{ currentNote }}    </template>
-  </div>
-</td>
-
-<!-- Repeat the same structure for other exams (1, 2, 3) -->
-
+                        <template v-if="profNote[2]==false || (profNote[1]!=eleveIndex || profNote[0]!=groupeIndex)">
+                            <div v-if="isActiveForm(groupeIndex, eleveIndex, 3)">
+                                  <form @submit.prevent="addnote" enctype="multipart/form-data" class="afficher">
+                                  <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <input type="text" class="form-control" id="note" v-model="modelValue.valeur" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="date">Date d'exam</label>
+                                    <input type="date" class="form-control" id="date" v-model="modelValue.date" required>
+                                  </div>
+                                  <button class="btn btn-primary">Save</button>
+                                </form>
+                             </div>
+                        </template>
+                  </td>
+               
 
               </tr>
             </tbody>
@@ -183,6 +154,10 @@ export default {
   },
   data() {
     return {
+      first:[-1,-1,false],
+      second:[-1,-1,false],
+      third:[-1,-1,false],
+      profNote:[-1,-1,false],
       currentNote: null,
       groupes: [],
       matieres: [],
@@ -217,9 +192,22 @@ export default {
     this.fetchProfesseur();
   },
   methods: {
+    customF(groupeIndex,eleveIndex){
+      this.first=[groupeIndex,eleveIndex,true];
+    },
+    customS(groupeIndex,eleveIndex){
+      this.second=[groupeIndex,eleveIndex,true];
+    },
+    customT(groupeIndex,eleveIndex){
+      this.third=[groupeIndex,eleveIndex,true];
+    },
+    customP(groupeIndex,eleveIndex){
+      this.profNote=[groupeIndex,eleveIndex,true];
+    },
     handleExamClick(groupeIndex, eleveIndex, eleveId, examIndex, examId) {
   this.showForm(groupeIndex, eleveIndex, examIndex);
   this.affectEleveId(eleveId);
+  this.
   this.modelValue.exame_id = examId; // Set the exam ID
 },
 showForm(groupeIndex, eleveIndex, examIndex, exam) {
@@ -299,6 +287,7 @@ if (columnIndex < columnHeaders.length) {
       this.relationExamEleve.exame_id = this.modelValue.exame_id;
       this.relationExamEleve.eleve_id = eleveId;
       console.log(this.relationExamEleve.exame_id);
+      this.fetchProfesseur();
 
       // Find the index of the active form in the activeForms array
       const activeFormIndex = this.activeForms.findIndex(

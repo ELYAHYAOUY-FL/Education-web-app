@@ -1,14 +1,18 @@
 <template>
     <MenuLayoutEleve>
-        <div>
-            <div 
-                v-for="last in lasts"
-                :key="last.id"
-               >
-                
-                {{last.note.valeur }} à {{ last.matiere.titre}}
-              </div>
-        </div>
+      <div>
+    <div v-if="lastNote">
+      <h2>Last Note</h2>
+      <p>Matiere: {{ lastNote.matiere.titre }}</p>
+      <p>Note: {{ lastNote.note.valeur }}</p>
+      <router-link to="/eleve/note">details</router-link>
+    </div>
+    <div v-else>
+      <p>No last note available.</p>
+    </div>
+  </div>
+
+        
       <div class="containe"><h2> <i class="fas fa-sharp fa-solid fa-clock" style="color: #6e7b7c;"></i>Emploi Temps </h2> </div>
      
       <div class="centereziation">
@@ -65,6 +69,7 @@
             note:{},
             matiere:{}
         },
+       
       emploiTemps: [], // Initialize as an empty array
       groupes: [],
       groupId: '',
@@ -125,17 +130,28 @@
             console.error(error);
           });
       },
-    fetchlastNote() {
-        axios
-          .get('/eleves/user/note/'+  this.user.id)
-          .then(response => {
-            this.lasts = response.data;
-           
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
+
+      fetchlastNote() {
+  axios
+    .get('/eleves/user/notes/' + this.user.id)
+    .then(response => {
+      if (response.data && Array.isArray(response.data.last_notes)) {
+        const lastNotes = response.data.last_notes;
+        const lastNote = lastNotes[lastNotes.length - 1]; // Get the last note from the array
+
+        this.lastNote = lastNote; // Assign the last note to a data property (e.g., lastNote)
+       
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+},
+
+
+
+
+
       fetchMatieres() {
         axios
           .get('/matieres')

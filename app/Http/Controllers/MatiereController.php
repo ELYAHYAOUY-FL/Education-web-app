@@ -52,7 +52,9 @@ class MatiereController extends Controller{
     // }
     public function downloadPdf($filename)
 {
-    $filePath = storage_path('app/public/pdf/' . $filename);
+
+  $filePath = storage_path('app/public/pdf/' . $filename);
+
 
     if (!Storage::exists($filePath)) {
         abort(404);
@@ -92,6 +94,17 @@ public function update(Request $request, Matiere $matiere)
 
     
  
+public function downloadPdf($filename)
+{
+    $filePath = storage_path('app/public/pdf/' . $filename);
+    $matieres = Matiere::with('groupes')->get();
+
+    if (!Storage::exists($filePath)) {
+        abort(404);
+    }
+
+    return response()->download($filePath, $filename);
+}
 
 public function getAverageByMatiere(Request $request, $matiereId)
 {

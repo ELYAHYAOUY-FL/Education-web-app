@@ -22,7 +22,8 @@ import CantinePageadmin from './Page/Cantine/index.vue'
 //parent
 import ParentListAdmin from './Page/Parent/index.vue';
 import ParentCreatAdmin from './Page/Parent/create.vue';
-
+// notes
+import GestionNoteEleveAdmin from './Page/gestion des note/Notes.vue'
 //Activity
 import ActivitieyFormAdmin from './Page/Activitie/ActivityForm.vue'
 import ActvityListAdmin from './Page/Activitie/ActivityList.vue'
@@ -38,24 +39,21 @@ import Groupes from './PageProfesseur/niveau scolaire/gestionGreoupes.vue'
 import Calendrie from './PageProfesseur/calendarPag.vue'
 import Calend from './PageEleve/calendarEleve.vue'
 import Calendr from './src/pages/calendarAdmin.vue'
-//paiement 
-import paiementparent from './Page/Paiement/payementParent.vue'
-import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
+
 //Emploi Temps 
 import EmploisTemps from './Page/EmploiTemps/Emploicreate.vue'
 import Emploi from './PageEleve/Emploicreate.vue'
 import EmploiProf from './PageProfesseur/Emploi.vue'
-//matiere
-import Matiere from './Page/Matiere.vue'
 //login 
 import  LoginPage from './src/pages/Login.vue';
 import store  from '@/store';
 
 //eleve
 import HomeELEVE from './PageEleve/home.vue'
+import NoteELEVE from './PageEleve/note.vue'
+
 //parent eleves
 import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
-
 const routes =[ 
 
     {
@@ -120,7 +118,14 @@ const routes =[
   meta: {requiresAuth:true , administration:true}
 
   },
-
+//matier
+{
+  path : '/Administration/Matiere',
+  name : 'MatiereAdmin',
+  component : Matiere,
+  meta: {requiresAuth:true , administration:true}
+  
+  },
 
   // niveau Scolaire Path 
 {
@@ -130,14 +135,13 @@ component : NiveauListAdmin,
 meta: {requiresAuth:true , administration:true}
 
 },
-//matier
 {
-  path : '/Administration/Matiere',
-  name : 'MatiereAdmin',
-  component : Matiere,
-  meta: {requiresAuth:true , administration:true}
-  
-  },
+path : '/Administration/gestionDesNote',
+name : 'NotestAdmin',
+component :GestionNoteEleveAdmin ,
+meta: {requiresAuth:true , administration:true}
+
+},
 
 
 //  prof path 
@@ -242,21 +246,7 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , eleve:true}
 
 },
-//Paiement
-{
-  path : '/Administration/paiementparent',
-  name :'paiementparent',
-  component :paiementparent ,
-  meta: {requiresAuth:true , administration:true}
 
-},
-{
-  path : '/Administration/paiementprofesseur',
-  name :'paiementprofesseur',
-  component :paiementprofesseur ,
-  meta: {requiresAuth:true , administration:true}
-
-},
 
 // ************************************** professeur routing  *****************************************
 
@@ -301,12 +291,12 @@ meta: {requiresAuth:true , administration:true}
 
 },
 {
-  path: '/dashboard/:eleveId',
-  name :'homeParent',
-  component: MenulayoutEleve,
-  // meta: {requiresAuth:true , parent:true}
+  path : '/eleve/note',
+  name :'noteEleve',
+  component :NoteELEVE ,
+  meta: {requiresAuth:true , eleve:true}
 
-}
+},
 
 ];
 
