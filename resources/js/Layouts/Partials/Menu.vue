@@ -33,6 +33,14 @@
     </router-link>
     </li>
     <li class="nav-item">
+    <router-link to="/Administration/NiveauScolaire" class="nav-link"  :class="{ active: $route.path === '/Administration/NiveauScolaire' }">
+       <i class="nav-icon fas fa-chalkboard" style="color: aliceblue;"></i>
+    <p>
+    Groupe
+    </p>
+    </router-link>
+    </li>
+    <li class="nav-item">
     <router-link to="/Administration/gestionDesNote" class="nav-link" :class="{ 'active': $route.path === '/Administration/gestionDesNote' }">
       <i class="fas fa-calendar" style="color: aliceblue;"></i>
     <p color="black"> Gestion des notes </p>

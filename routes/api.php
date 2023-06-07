@@ -87,6 +87,7 @@ Route::post('/matieres', [MatiereController::class, 'store']);
 // moyen 
 Route::post('/averages', [AverageController::class, 'calculateAverages']);
 
+Route::get('/download-pdf/{filename}', [MatiereController::class, 'downloadPdf']);
 
 
 Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);

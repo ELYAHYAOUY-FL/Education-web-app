@@ -52,6 +52,8 @@ import store  from '@/store';
 import HomeELEVE from './PageEleve/home.vue'
 import NoteELEVE from './PageEleve/note.vue'
 
+//parent eleves
+import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
 const routes =[ 
 
     {
@@ -116,7 +118,14 @@ const routes =[
   meta: {requiresAuth:true , administration:true}
 
   },
-
+//matier
+{
+  path : '/Administration/Matiere',
+  name : 'MatiereAdmin',
+  component : Matiere,
+  meta: {requiresAuth:true , administration:true}
+  
+  },
 
   // niveau Scolaire Path 
 {
