@@ -16,7 +16,7 @@ class EleveController extends Controller
 
     public function getById($userId)
 {
-    $eleves= Eleve::with('groupe', 'groupe.emploiTemp')->where('user_id', $userId)->first();
+    $eleves= Eleve::with('eleve_exams.note', 'eleve_exams.matire','groupe','user', 'groupe.matieres.exams.note','groupe.emploiTemp','eleve_exams.note')->where('user_id', $userId)->first();
 
     if (!$eleves) {
         return response()->json(['error' => 'elevesnot found'], 404);
@@ -24,6 +24,75 @@ class EleveController extends Controller
 
     return response()->json($eleves);
 }
+
+public function getByIdlastNoteBYmatire($userId)
+{
+    $eleve = Eleve::with(['eleve_exams.note', 'eleve_exams.matire'])
+        ->where('user_id', $userId)
+        ->first();
+
+        if (!$eleve) {
+            return response()->json(['error' => 'Eleve not found'], 404);
+        }
+    
+        $lastNotes = [];
+
+        foreach ($eleve->eleve_exams as $eleveExam) {
+            $matiereId = $eleveExam->matiere_id;
+            $note = $eleveExam->note;
+            $matiere = $eleveExam->matire;
+    
+            if ($note) {
+                if (!isset($lastNotes[$matiereId]) || $note['created_at'] > $lastNotes[$matiereId]['note']['created_at']) {
+                    $lastNotes[$matiereId] = [
+                        'note' => $note,
+                        'matiere' => $matiere
+                    ];
+                }
+            }
+        }
+    
+        $eleve->last_notes = $lastNotes;
+    
+        return response()->json($eleve->last_notes);
+
+}
+
+
+
+public function getByIdlastNote($userId)
+{
+    $eleve = Eleve::with(['eleve_exams.note', 'eleve_exams.matire'])
+        ->where('user_id', $userId)
+        ->first();
+
+    if (!$eleve) {
+        return response()->json(['error' => 'Eleve not found'], 404);
+    }
+
+    $lastNotes = [];
+
+    foreach ($eleve->eleve_exams as $eleveExam) {
+        $matiereId = $eleveExam->matiere_id;
+        $note = $eleveExam->note;
+        $matiere = $eleveExam->matire;
+
+        if ($note) {
+            if (!isset($lastNotes[$matiereId]) || $note['created_at'] > $lastNotes[$matiereId]['note']['created_at']) {
+                $lastNotes[$matiereId] = [
+                    'note' => $note,
+                    'matiere' => $matiere
+                ];
+            }
+        }
+    }
+
+    $lastNotes = array_values($lastNotes); // Convert associative array to indexed array
+
+    return response()->json(['last_notes' => $lastNotes]);
+}
+
+
 
 
     public function store(Request $request)

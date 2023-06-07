@@ -37,10 +37,7 @@ class Note extends Model
 		
 	];
 
-	public function eleve_note()
-	{
-		return $this->hasOne(EleveNote::class);
-	}
+	
 
 	public function exam()
 	{

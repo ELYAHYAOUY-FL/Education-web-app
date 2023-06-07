@@ -12,15 +12,19 @@
 /* .flexnavbar{
   
 } */
+:root{
+  --el-color-primary: #4c9e9e;
+  --el-menu-active-color: var(--el-color-primary);
 
+}
 
 .navbar1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2px 20px ;
-  
-    margin-bottom: 0;
+     margin-bottom: 0;
+   
   }
     /* background-color:#1c1d1c; */
     /* height: 30%; */

@@ -60,6 +60,8 @@ Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
+Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNoteBYmatire']);
+Route::get('/eleves/user/notes/{userId}', [EleveController::class, 'getByIdlastNote']);
 
 
 //parent 
@@ -76,11 +78,14 @@ Route::post('/parents/{parentId}/eleves', [ParentController::class, 'associateEl
 
 Route::get('/parents/eleves', [ParentEleveController::class, 'index']);
 Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
-
+Route::get('/parents/user/{userId}', [ParentController::class, 'getById']);
 
 // matiers 
 Route::get('/matieres', [MatiereController::class, 'index']);
 Route::post('/matieres', [MatiereController::class, 'store']);
+
+// moyen 
+Route::post('/averages', [AverageController::class, 'calculateAverages']);
 
 
 
@@ -88,6 +93,12 @@ Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 
 // classes
 Route::get('/groupes', [GroupeController::class, 'index']);
+Route::post('/groupes', [GroupeController::class, 'store']);
+Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
+Route::get('/groupes/{groupId}/eleves',  [GroupeController::class, 'getGroupStudents']);
+Route::get('/group/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
+Route::get('/group/{groupId}/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
+
 
 
 //payement
@@ -167,14 +178,14 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 
 // notess 
+// Route::post('/notes', [NoteController::class, 'store']);
 Route::post('/notes', [NoteController::class, 'store']);
-
-
+Route::post('/lastnotes/{eleveId}', [EleveController::class, 'getByIdlastNote']);
 
 //exams 
 Route::post('/exams', [ExamController::class, 'store']);
+Route::get('/exams/moyenne/{GroupeId}', [ExamController::class, 'calculerMoyenneParMatiere']);
 Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
-
 
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'v1'], function () {

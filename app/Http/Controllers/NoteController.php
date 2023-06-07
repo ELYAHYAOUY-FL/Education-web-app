@@ -8,6 +8,12 @@ use App\Models\Note;
 
 class NoteController extends Controller
 {
+  public function index()
+  {
+      $eleves = Note::all();
+      return response()->json($eleves);
+  }
+
     //
     public function store(Request $request)
   {

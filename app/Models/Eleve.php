@@ -44,10 +44,7 @@ class Eleve extends Model
         return $this->hasMany(Absence::class, 'eleve_id');
     }
 
-    public function eleve_notes()
-    {
-        return $this->hasMany(EleveNote::class, 'eleve_id');
-    }
+ 
 
     public function eleve_exams()
     {
@@ -73,4 +70,6 @@ class Eleve extends Model
     {
         return $this->hasMany(Retard::class, 'eleve_id');
     }
+  
+
 }
