@@ -18,17 +18,20 @@ class EmploiTemp extends Model
 {
 	protected $table = 'emploi_temps';
 
-	protected $casts = [
-		'heure_debut' => 'datetime',
-		 
-		'jour' => 'string',
-		'groupe_id' => 'int',
-		'matiere_id' => 'int',
-	];
+	// protected $casts = [
+	// 	// 'heure_debut' => 'datetime',
+	// 	// 'heure_fin' => 'datetime',
+	// 	// 'description' => 'text',
+	// 	// 'jour' => 'string',
+	// 	'groupe_id' => 'int',
+	// 	'matiere_id' => 'int',
+	// 	'description' => 'text',
+	// ];
 
 	protected $fillable = [
 		'heure_debut',
-		 
+		'heure_fin',
+		'description' ,
 		'jour',
 		'matiere_id',
 		'groupe_id',
@@ -47,4 +50,20 @@ class EmploiTemp extends Model
 	 
 
 	 
+
+	/**
+	 * @return mixed
+	 */
+	public function getFillable() {
+		return $this->fillable;
+	}
+	
+	/**
+	 * @param mixed $fillable 
+	 * @return self
+	 */
+	public function setFillable($fillable): self {
+		$this->fillable = $fillable;
+		return $this;
+	}
 }

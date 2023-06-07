@@ -19,26 +19,18 @@ class ParentController extends Controller
     // }
     public function index()
     {
-        $parents = Parente::with('eleves')->get();
+        $parents = Parente::with('eleves','user')->get();
 
         return response()->json($parents);
     }
 
-  
-    public function getByiId($userId)
-    {
-    $parent = Parente::all()->where('user_id', $userId)->first();
 
-    if (!$parent) {
-        return response()->json(['error' => 'Professeur not found'], 404);
-    }
-    return response()->json($parent);
-   }
    
-   
+
 
 
     public function getById($userId)
+
 {
     $parent = Parente::with('eleves')->where('user_id', $userId)->first();
 
@@ -59,6 +51,26 @@ class ParentController extends Controller
         $parent = Parente::create($validatedData);
         return response()->json(['parent_id' => $parent->id]);
     }
+// public function getStudents($parentId)
+// {
+//     $parent = Parente::findOrFail($parentId);
+//     $students = $parent->eleves;
+//     return response()->json($students);
+// }
+
+
+// public function getCurrentParent()
+// {
+//     $user = auth()->user(); // Récupérez l'utilisateur actuellement authentifié
+
+//     if ($user && $user instanceof Parente) {
+//         $parentId = $user->id;
+//         return response()->json(['id' => $parentId]);
+//     }
+
+//     return response()->json(['message' => 'Unauthorized'], 401);
+// }
+
     
     // public function create(Request $request)
     // {

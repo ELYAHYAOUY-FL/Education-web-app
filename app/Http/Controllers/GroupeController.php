@@ -14,6 +14,7 @@ class GroupeController extends Controller
         $groupes = Groupe::with('niveau_scolaire','eleves' ,'eleves.user')->get();
         return response()->json($groupes);
     }
+
     public function getGroupStudents($groupId)
     {
         $group = Groupe::findOrFail($groupId);

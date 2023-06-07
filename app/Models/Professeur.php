@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Models\CarnetNote;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -83,7 +84,10 @@ class Professeur extends Model
 	{
 		return $this->hasMany(EleveProfessuer::class);
 	}
-
+	public function carnetNotes()
+    {
+        return $this->hasMany(CarnetNote::class);
+    }
 	
 
     // public function groupes()

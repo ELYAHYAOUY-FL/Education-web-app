@@ -29,6 +29,10 @@
           <label>Heure de début:</label>
           <input type="time" v-model="heureDebut" required>
         </div>
+        <div>
+          <label>Heure de fin:</label>
+          <input type="time" v-model="heureFin" required>
+        </div>
 
         <div>
           <label>Matière:</label>
@@ -36,6 +40,10 @@
             <option value="">Sélectionner une matière</option>
             <option v-for="matiere in matieres" :key="matiere.id" :value="matiere.id">{{ matiere.titre }}</option>
           </select>
+        </div>
+        <div>
+          <label>description:</label>
+          <input type="text" v-model="description" required>
         </div>
         <div>
           <label>Groupe:</label>
@@ -59,24 +67,33 @@
       </div>
 
       <div class="emploi-temps" v-if="emploiTemps.length > 0">
-        <template v-for="(emplois, jour) in emploiTempsGroupedByJour" :key="jour">
-          <div class="jour-container">
-            <div class="jour-header">
-              <strong>{{ jour }}</strong>
-            </div>
-            <div class="emplois-container">
-              <div
-                class="emploi"
-                v-for="emploi in emplois"
-                :key="emploi.id"
-                :style="{ 'animation-delay': getAnimationDelay(emploi.id) }"
-              >
-                {{ emploi.matiere.titre }} à {{ extractHourFromDate(emploi.heure_debut) }}
-              </div>
-            </div>
+       <template v-for="(emplois, jour) in emploiTempsGroupedByJour" :key="jour">
+    <div class="jour-container">
+      <div class="jour-header">
+        <strong>{{ jour }}</strong>
+      </div>
+      <div class="emplois-container">
+        <div
+          class="emploi"
+          v-for="emploi in emplois"
+          :key="emploi.id"
+          :style="{ 'animation-delay': getAnimationDelay(emploi.id) }"
+        >
+     <div @click="toggleDescription(emploi.id)" class="matiere">{{ emploi.matiere_titre }}</div>
+          <div class="heure">
+            {{ emploi.heure_debut ? emploi.heure_debut.slice(0, 5) : '' }} à {{ emploi.heure_fin ? emploi.heure_fin.slice(0, 5) : '' }}
+
           </div>
-        </template>
+          <div v-if="emploi.showDescription" class="description">
+            {{ emploi.description }}
+          </div>
+          
        </div>
+      </div>
+       </div>
+       </template>
+    </div>
+
       <p v-else class="p-no-emploi">Aucun emploi du temps disponible pour ce groupe.</p>
     </div>
   </MainLayout>
@@ -94,12 +111,16 @@ export default {
     return {
       jour: "",
       heureDebut: "",
+      heureFin: "",
+      description: "",
       matiereId: "",
       groupeId: "",
       matieres: [], // Liste des matières
       groupes: [], // Liste des groupes
       selectedGroupe: null,
       emploiTemps: {},
+      emploiTemps: [],
+        
       successMessage: "",
       errorMessage: "" ,
       showForm: false,
@@ -123,6 +144,12 @@ export default {
     },
   },
   methods: {
+    toggleDescription(emploiId) {
+    const emploi = this.emploiTemps.find((emploi) => emploi.id === emploiId);
+    if (emploi) {
+      emploi.showDescription = !emploi.showDescription;
+    }
+  },
     getAnimationDelay(index) {
       const baseDelay = 100;
       const delay = index * baseDelay;
@@ -174,6 +201,8 @@ export default {
       const emploiTemps = {
         jour: this.jour,
         heure_debut: this.heureDebut,
+        heure_fin: this.heureFin,
+        description: this.description,
         matiere_id: this.matiereId,
         groupe_id: this.groupeId
       };
@@ -221,6 +250,8 @@ export default {
     resetForm() {
       this.jour = "";
       this.heureDebut = "";
+      this.heureFin = "";
+      this.description = "";
       this.matiereId = "";
       this.groupeId = "";
     }

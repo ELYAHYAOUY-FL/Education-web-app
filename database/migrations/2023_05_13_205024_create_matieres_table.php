@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('titre');
             $table->integer('coefficient');
+            $table->text('description')->nullable();
+            $table->binary('pdf')->nullable();
             // $table->unsignedBigInteger('professeur_id')->nullable();
             // $table->foreign('professeur_id')->references('id')->on('professeurs');
 
