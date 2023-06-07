@@ -40,37 +40,5 @@ class GroupeController extends Controller
     }
 
 
-  public function calculateGroupAverage($groupId, $examId)
-{
-    $group = Groupe::with(['eleves.eleve_exams' => function ($query) use ($examId) {
-        $query->where('exam_id', $examId);
-    }])->find($groupId);
-
-    if (!$group) {
-        return response()->json(['error' => 'Group not found'], 404);
-    }
-
-    $totalNotes = 0;
-    $totalEleves = 0;
-
-    foreach ($group->eleves as $eleve) {
-        foreach ($eleve->eleve_exams as $eleveExam) {
-            if ($eleveExam->exam_id == $examId && $eleveExam->note) {
-                $totalNotes += $eleveExam->note->valeur;
-                $totalEleves++;
-                break; // Only consider the first exam of the specified ID for each student
-            }
-        }
-    }
-
-    if ($totalEleves > 0) {
-        $groupAverage = $totalNotes / $totalEleves;
-    } else {
-        $groupAverage = 0;
-    }
-
-    return response()->json(['group_average' => $groupAverage]);
-}
-
 
 }

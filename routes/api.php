@@ -78,7 +78,7 @@ Route::post('/parents/{parentId}/eleves', [ParentController::class, 'associateEl
 
 Route::get('/parents/eleves', [ParentEleveController::class, 'index']);
 Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
-
+Route::get('/parents/user/{userId}', [ParentController::class, 'getById']);
 
 // matiers 
 Route::get('/matieres', [MatiereController::class, 'index']);
@@ -184,6 +184,7 @@ Route::post('/lastnotes/{eleveId}', [EleveController::class, 'getByIdlastNote'])
 
 //exams 
 Route::post('/exams', [ExamController::class, 'store']);
+Route::get('/exams/moyenne/{GroupeId}', [ExamController::class, 'calculerMoyenneParMatiere']);
 Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
 
 
