@@ -14,7 +14,7 @@
               <form @submit.prevent="login">
                 <div class="form-group">
                   <label class="form-control-label">USERNAME</label>
-                  <input type="text" placeholder="Email or Phone" id="username" v-model="email" class="form-control">
+                  <input type="text" placeholder="Email or Phone" id="username" v-model="email" class="form-control email">
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">PASSWORD</label>
@@ -130,7 +130,7 @@ body {
     text-align: left;
 }
 
-input[type=text] {
+ .email {
     background-color: #1A2226;
     border: none;
     border-bottom: 2px solid #0DB8DE;

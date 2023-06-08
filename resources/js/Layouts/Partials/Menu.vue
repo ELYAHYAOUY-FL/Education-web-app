@@ -48,7 +48,9 @@
     </li>
     <li class="nav-item">
     <router-link to="/Administration/Matiere" class="nav-link" :class="{ 'active': $route.path === '/Administration/Matiere' }">
-    <i class="far fa-circle nav-icon"></i>
+       
+  <i class="fas fa-globe-americas icon-small" style="color: aliceblue;"></i> 
+  <i class="fas fa-scroll icon-x-large" style="color: aliceblue;"></i> 
     <p> Matiere </p>
     </router-link>
     </li> 
@@ -181,9 +183,8 @@
       
     <li class="nav-item menu-close "> 
     <a href="#" class="nav-link " :class="{ 'active': $route.path.startsWith('/Student') }">
-        <i class="fas fa-futbol" style="color: aliceblue;"></i> <!-- Icône de ballon de football -->
-  <i class="fas fa-paint-brush" style="color: aliceblue;"></i>
-    <p>
+      <i class=" fas fa-solid fa-credit-card" style="color: #b5b7ba;"></i>
+        <p>
     Paiement
     <i class="right fas fa-angle-left" style="color: aliceblue;"></i>
     </p>
@@ -205,7 +206,7 @@
     </li>       
     <li class="nav-item">
     <router-link to="/Administration/EmploisTemps" class="nav-link" :class="{ 'active': $route.path === '/Administration/EmploisTemps' }">
-      <i class="fas fa-calendar" style="color: aliceblue;"></i>
+      <i class="fas fa-sharp fa-solid fa-clock" style="color: aliceblue;"></i>
     <p color="black"> Emplois Temps </p>
     </router-link>
     </li>       

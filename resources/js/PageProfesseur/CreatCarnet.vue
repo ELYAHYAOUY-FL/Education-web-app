@@ -65,9 +65,7 @@
       return {
         carnetNotes: [], // Vos données de carnets de notes
         showForm: false,          // Nombre d'éléments à afficher par page
-        carnetNotes: {
-        
-        },
+        carnetNotes: {},
         form:{
             contenu:'',
             professeur_id :'',
