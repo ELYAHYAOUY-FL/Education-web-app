@@ -1,32 +1,56 @@
 <template>
-  <div class="interface ">
-    <div class="background">
-      <div class="shape"></div>
-      <div class="shape"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 login-box">
+        <div class="col-lg-12 login-key">
+          <i class="fa fa-key" aria-hidden="true"></i>
+        </div>
+        <div class="col-lg-12 login-title">
+          Bienvenue
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="col-lg-12 login-form">
+              <form @submit.prevent="login">
+                <div class="form-group">
+                  <label class="form-control-label">USERNAME</label>
+                  <input type="text" placeholder="Email or Phone" id="username" v-model="email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">PASSWORD</label>
+                  <input type="password" placeholder="Password" id="password" v-model="password" class="form-control">
+                </div>
+
+                <div class="col-lg-12 loginbttm">
+                  <div class="col-lg-6 login-btm login-text">
+                    <!-- Error Message -->
+                    <p v-if="error" class="text-danger">Email ou mot de passe incorrect.</p>
+                  </div>
+                  <div class="col-lg-6 login-btm login-button">
+                    <button type="submit" class="btn btn-outline-primary">LOGIN</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img :src="logine" alt="" width="400" height="300" />
+          </div>
+        </div>
+      </div>
     </div>
-    <form @submit.prevent="login">
-      <h3>Login Here</h3>
-      <label for="username">Username</label>
-  <input type="text" placeholder="Email or Phone" id="username"  v-model="email">
-
-  <label for="password">Password</label>
-  <input type="password" placeholder="Password" id="password"  v-model="password">
-
-  <button>Log In</button>
-  <div class="social">
-    <div class="go"><i class="fab fa-google"></i> Google</div>
-    <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
   </div>
-</form>
-</div>
 </template>
 
 <script>
+ import Cantine from "../assest/images/login.png"
 export default {
     data() {
     return {
+      logine : Cantine,
       email: '',
-   password:''
+   password:'',
+   error: false
     }
   },
     // name: 'LoginForm'
@@ -55,6 +79,8 @@ methods: {
                 
           }).catch(error => {
           console.log(error)
+          this.error = true
+
           })
 console.log(  this.email)
 console.log(  this.password)
@@ -67,139 +93,133 @@ console.log(  this.password)
 </script>
 
 <style>
-/* 
-
-*,
-*:before,
-*:after {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+body {
+    background: #ffffff;
+    font-family: 'Roboto', sans-serif;
 }
 
-.interface{
-  background-color: #080710;
+.login-box {
+    margin-top: 75px;
+    height: auto;
+    background: #f7fafa;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.background {
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 50%;
+.login-key {
+    height: 100px;
+    font-size: 80px;
+    line-height: 100px;
+    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
+.login-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #5f6061;
 }
 
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: -80px;
+.login-form {
+    margin-top: 25px;
+    text-align: left;
 }
 
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -30px;
-  bottom: -80px;
+input[type=text] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
 }
 
-form {
-  height: 520px;
-  width: 400px;
-  background-color: rgba(255, 255, 255, 0.13);
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+input[type=password] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    color: #ECF0F5;
 }
 
-form * {
-  font-family: 'Poppins', sans-serif;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
+.form-group {
+    margin-bottom: 40px;
+    outline: 0px;
 }
 
-form h3 {
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 42px;
-  text-align: center;
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #0DB8DE;
+    outline: 0;
+    background-color: #1A2226;
+    color: #ECF0F5;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
 }
 
 label {
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
+    margin-bottom: 0px;
 }
 
-input {
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.07);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
+.form-control-label {
+    font-size: 10px;
+    color: #6C6C6C;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-::placeholder {
-  color: #e5e5e5;
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-button {
-  margin-top: 50px;
-  width: 100%;
-  background-color: #ffffff;
-  color: #080710;
-  padding: 15px 0;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
+.btn-outline-primary:hover {
+    background-color: #0DB8DE;
+    right: 0px;
 }
 
-.social {
-  margin-top: 30px;
-  display: flex;
+.login-btm {
+    float: left;
 }
 
-.social div {
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255, 255, 255, 0.27);
-  color: #eaf0fb;
-  text-align: center;
+.login-button {
+    padding-right: 0px;
+    text-align: right;
+    margin-bottom: 25px;
 }
 
-.social div:hover {
-  background-color: rgba(255, 255, 255, 0.47);
+.login-text {
+    text-align: left;
+    padding-left: 0px;
+    color: #A2A4A4;
 }
 
-.social .fb {
-  margin-left: 25px;
+.loginbttm {
+    padding: 0px;
 }
-
-.social i {
-  margin-right: 4px;
-} */
    
 </style>
 <style></style>

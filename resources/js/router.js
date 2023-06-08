@@ -52,7 +52,13 @@ import store  from '@/store';
 import HomeELEVE from './PageEleve/home.vue'
 import NoteELEVE from './PageEleve/note.vue'
 
- import Matiere from './Page/Matiere.vue'
+//paiement 
+import paiementparent from './Page/Paiement/payementParent.vue'
+import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
+//  import Matiere from './Page/Matiere.vue'
+ //matiere
+import Matiere from './Page/Matiere.vue'
+
 //parent eleves
 import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
 const routes =[ 
@@ -128,12 +134,38 @@ const routes =[
   
   },
 
+//   //matier
+// {
+//   path : '/Administration/Matiere',
+//   name : 'MatiereAdmin',
+//   component : Matiere,
+//   meta: {requiresAuth:true , administration:true}
+
+//   },
+
   // niveau Scolaire Path 
 {
 path : '/Administration/NiveauScolaire',
 name : 'NiveauListAdmin',
 component : NiveauListAdmin,
 meta: {requiresAuth:true , administration:true}
+
+},
+
+//Paiement
+{
+  path : '/Administration/paiementparent',
+  name :'paiementparent',
+  component :paiementparent ,
+  meta: {requiresAuth:true , administration:true}
+
+
+},
+{
+  path : '/Administration/paiementprofesseur',
+  name :'paiementprofesseur',
+  component :paiementprofesseur ,
+  meta: {requiresAuth:true , administration:true}
 
 },
 {
@@ -160,6 +192,7 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , administration:true}
 
 },
+
 
 // ParentAdmin
 {
