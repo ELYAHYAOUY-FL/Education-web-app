@@ -72,7 +72,7 @@ class Matiere extends Model
 // }
 public function professeur()
 {
-    return $this->belongsTo(Professeur::class, 'professeur_id');
+    return $this->belongsTo(Professeur::class, 'matiere_id');
 }
 
 	

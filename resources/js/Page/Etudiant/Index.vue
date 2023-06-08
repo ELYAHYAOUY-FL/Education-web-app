@@ -22,8 +22,12 @@
               <div class="listgroupe">
                 <ol class="gradient-list groupe-list">
                   <li v-for="groupe in selectedGroups" :key="groupe.id" >
-                    <div @click="groupe.showStudents = !groupe.showStudents" class="groupe-name">{{ groupe.nom }}</div>
-                    <table v-if="groupe.showStudents" class="eleves-table" >
+                    <div @click="groupe.showStudents = !groupe.showStudents" class="groupe-name">{{ groupe.nom }}
+                     
+                    </div>
+                    <div  v-if="groupe.showStudents">
+                   
+                    <table class="eleves-table" >
                       <thead>
                         <tr>
                           <th>Prénom</th>
@@ -45,6 +49,7 @@
                         </tr>
                       </tbody>
                     </table>
+                  </div>
                   </li>
                 </ol>
               </div>

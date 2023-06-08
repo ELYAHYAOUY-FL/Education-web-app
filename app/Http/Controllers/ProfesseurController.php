@@ -28,6 +28,33 @@ public function getById($userId)
     return response()->json($professeur);
 }
 
+public function getByIdlastcarnetBYgroupe($userId)
+{
+    $professeur = Professeur::with(['carnetNotes', 'groupes'])
+        ->where('user_id', $userId)
+        ->first();
+
+    if (!$professeur) {
+        return response()->json(['error' => 'Professor not found'], 404);
+    }
+
+    $lastNotes = [];
+
+    foreach ($professeur->groupes as $groupe) {
+        $lastNote = $groupe->carnetNotes()
+            ->orderByDesc('created_at')
+            ->first();
+
+        if ($lastNote) {
+            $lastNotes[$groupe->id] = [
+                'groupe' => $groupe,
+                'lastNote' => $lastNote,
+            ];
+        }
+    }
+
+    return response()->json($lastNotes);
+}
 
 public function store(Request $request)
   {
