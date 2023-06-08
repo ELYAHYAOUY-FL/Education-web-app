@@ -8,7 +8,7 @@
 </li>
 </ul>
 </nav>
-      <Menu/>
+      <MenuLayoutEle/>
 <div class="content-wrapper"> 
 <!-- le contenu de la page  -->
 <slot/> 
@@ -17,22 +17,9 @@
 <Footer/>
 </div>
   </template>
-  <script>
+
+  <script setup>
 import Footer from './Partials/Footer.vue';
-import Menu from './Partials/MenuElev.vue';
-export default {
-  mounted() {
-    this.$on('eleveSelected', (eleveId) => {
-      this.goToEleveDashboard(eleveId);
-    });
-  },
-  methods: {
-    goToEleveDashboard(eleveId) {
-      // Naviguez vers le tableau de bord de l'élève avec l'ID d'élève sélectionné
-      this.$router.push(`/dashboard/${eleveId}`);
-    }
-  }
-};
+import MenuLayoutEle from './Partials/MenuElev.vue';
 </script>
-  
   

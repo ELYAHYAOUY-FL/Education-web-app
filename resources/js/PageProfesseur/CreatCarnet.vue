@@ -47,54 +47,7 @@
     
   </template>
   
-  <style>
-   .note-card {
-    background-color: #f8faf9;
-    border: 1px solid #dee2e6;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    width: calc(50% - 10px);
-    height: auto;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  /* Animation on hover for note cards */
-  .note-card:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Center the carousel and note cards */
-  #carouselExampleIndicators {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Center the content inside carousel items */
-  .carousel-item .note-card {
-    margin: auto;
-  }
-  
-  .carousel-item {
-    height: 200px; /* Ajustez la hauteur selon vos besoins */
-  }
-  
-  .carousel-control-prev,
-  .carousel-control-next {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: #000; /* Couleur de l'icône de navigation */
-  }
-  
-  .carousel-indicators li {
-    background-color: #000; /* Couleur de l'indicateur actif */
-  }
-  </style>
+ 
   
 
   
@@ -218,3 +171,51 @@ resetForm() {
   };
   </script>
   
+  <style>
+   .note-card {
+    background-color: #f8faf9;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    width: calc(50% - 10px);
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Animation on hover for note cards */
+  .note-card:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Center the carousel and note cards */
+  #carouselExampleIndicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Center the content inside carousel items */
+  .carousel-item .note-card {
+    margin: auto;
+  }
+  
+  .carousel-item {
+    height: 200px; /* Ajustez la hauteur selon vos besoins */
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: #000; /* Couleur de l'icône de navigation */
+  }
+  
+  .carousel-indicators li {
+    background-color: #000; /* Couleur de l'indicateur actif */
+  }
+  </style>

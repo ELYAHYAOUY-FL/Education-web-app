@@ -50,18 +50,18 @@ class MatiereController extends Controller{
     //     $pdfPath = $matiere->getPdfPath();
     //     return response()->download($pdfPath);
     // }
-    public function downloadPdf($filename)
-{
+//     public function downloadPdf($filename)
+// {
 
-  $filePath = storage_path('app/public/pdf/' . $filename);
+//   $filePath = storage_path('app/public/pdf/' . $filename);
 
 
-    if (!Storage::exists($filePath)) {
-        abort(404);
-    }
+//     if (!Storage::exists($filePath)) {
+//         abort(404);
+//     }
 
-    return response()->download($filePath, $filename);
-}
+//     return response()->download($filePath, $filename);
+// }
 public function update(Request $request, Matiere $matiere)
 {
     $validatedData = $request->validate([

@@ -52,6 +52,7 @@ import store  from '@/store';
 import HomeELEVE from './PageEleve/home.vue'
 import NoteELEVE from './PageEleve/note.vue'
 
+ import Matiere from './Page/Matiere.vue'
 //parent eleves
 import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
 const routes =[ 

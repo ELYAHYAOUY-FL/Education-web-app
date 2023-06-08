@@ -22,6 +22,8 @@ class GroupeController extends Controller
         return response()->json($students);
     }
     
+
+    
     public function addGroupe(Request $request, $niveauScolaireId)
     {
         $validatedData = $request->validate([

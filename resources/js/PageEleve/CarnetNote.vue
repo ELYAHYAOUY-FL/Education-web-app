@@ -19,20 +19,7 @@
         derniersCahiers: []
       };
     },
-    mounted() {
-      this.getContenusCahiersNotes();
-    },
-    methods: {
-      getContenusCahiersNotes() {
-        axios.get('/eleves/contenus-cahiers-notes/' + this.userId)
-          .then(response => {
-            this.derniersCahiers = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
-    }
+  
   };
   </script>
   
