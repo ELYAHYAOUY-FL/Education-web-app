@@ -55,6 +55,7 @@ Route::delete('/professeurs/{id}', [ProfesseurController::class, 'destroy']);
 Route::put('/professeurs/{id}', [ProfesseurController::class, 'update']);
 Route::get('/professeurs/user/{userId}', [ProfesseurController::class, 'getById']);
 Route::get('/professuer/user/carnetnotes/{userId}', [ProfesseurController::class, 'getByIdlastcarnetBYgroupe']);
+Route::get('/eleves/user/carnetnotes/{userId}', [EleveController::class, 'getLastCarentByProf']);
 
 
 //Eleve

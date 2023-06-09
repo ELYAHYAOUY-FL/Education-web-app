@@ -50,6 +50,10 @@ class Eleve extends Model
     {
         return $this->belongsToMany(Exam::class, 'eleve_exams', 'eleve_id', 'exame_id');
     }
+    // public function eleve_prof()
+    // {
+    //     return $this->belongsToMany(Profess::class, 'eleve_exams', 'eleve_id', 'exame_id');
+    // }
 
     public function eleve_parent()
     {

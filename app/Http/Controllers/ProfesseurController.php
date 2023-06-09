@@ -6,6 +6,7 @@ use App\Models\Matiere;
 
 use Illuminate\Http\Request;
 use App\Models\Professeur;
+use App\Models\User;
 
 class ProfesseurController extends Controller
 {
@@ -56,14 +57,31 @@ public function getByIdlastcarnetBYgroupe($userId)
     return response()->json($lastNotes);
 }
 
+
 public function store(Request $request)
-  {
+{
+    $validatedDatauser = $request->validate([
+        'nom_francais' => 'required|string',
+        'nom_arabe' => 'required|string',
+        'prenom_francais' => 'required|string',
+        'prenom_arabe' => 'required|string',
+        'date_naissance' => 'required|date',
+        'lieu_naissance' => 'required|string',
+        'sex' => 'required|string',
+        'email' => 'required|string',
+        'password' => 'required|string',
+        'username' => 'required|string',
+        'user_type' => 'required|string',
+        'adresse' => 'required|string',
+    ]);
+
+    $user = User::create($validatedDatauser);
+
     $validatedData = $request->validate([
-      'CNI' => 'required|string|unique:professeurs,CNI',
-      'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-      'diplom' => 'required',
-      'tel' => 'required',
-      'user_id' => 'required',
+        'CNI' => 'required|string',
+        'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'diplom' => 'required',
+        'tel' => 'required',
     ]);
 
     if ($request->hasFile('photo')) {
@@ -73,13 +91,29 @@ public function store(Request $request)
 
         $validatedData['photo'] = $photoName;
     }
-    $professeur = Professeur::create($validatedData);
 
-    return response()->json(['professeur_id' => $professeur->id]);
-  }
+    $professeur = new Professeur($validatedData);
+    $professeur->user()->associate($user);
+
+    $matiereId = $request->input('matier_id');
+    try {
+        $matiere = Matiere::findOrFail($matiereId);
+        $professeur->matiere()->associate($matiere);
+    } catch (ModelNotFoundException $exception) {
+        return response()->json(['error' => 'Matiere not found'], 404);
+    }
+
+    $professeur->save();
+
+    $groupes = $request->input('groupe_ids', []);
+    $professeur->groupes()->attach($groupes);
+
+    return response()->json(['professeur_id' => $user->id]);
+}
 
 
-public function destroy($id)
+
+  public function destroy($id)
 {
     $professeur = Professeur::findOrFail($id);
 

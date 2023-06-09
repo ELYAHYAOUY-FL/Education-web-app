@@ -5,7 +5,7 @@
         <h2>Ajouter des élèves:</h2>
       
 
-        <form @submit.prevent="addUser" enctype="multipart/form-data">
+        <form @submit.prevent="addProfesseur" enctype="multipart/form-data">
           <div class="form-group">
             <label for="nom_francais">Nom en français</label>
             <input type="text" class="form-control" id="nom_francais" v-model="modelValue.nom_francais" required>
@@ -40,12 +40,14 @@
             
           </div>
           <div class="form-group">
-        <label for="photo">Photo</label>
-        <input type="file" accept="image/*" class="form-control" id="photo" @change="handlePhotoChange" required>
-        <div>
-          <img src="" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
-        </div>
-      </div>
+            <label for="photo">Photo</label>
+            <input type="file" accept="image/*" class="form-control" id="photo" @change="handlePhotoChange" required>
+            <div>
+              <img :src="previewPhoto" alt="" id="image-preview" style="width:30%; height:30%; border-radius:15px; display:none;">
+            </div>
+            <div v-if="errors && errors.photo" class="text-danger">{{ errors.photo[0] }}</div>
+          </div>
+      
         <div class="form-group">
             <label for="adresse">Adress</label>
             <input type="text" class="form-control" id="adresse" v-model="modelValue.adresse" required>
@@ -91,6 +93,25 @@
             <label for="diplom">Diplom</label>
             <input type="text" class="form-control" id="diplom" v-model="modelValue.diplom" required>
           </div>
+          <div>
+          <label for="matier_id">Matiere:</label>
+          <select id="matier_id" v-model="modelValue.matier_id">
+            <option v-for="matiere in matieres" :key="matiere.id" :value="matiere.id">{{ matiere.titre }}</option>
+          </select>
+        </div>
+
+        <div v-for="groupe in groupes" :key="groupe.id">
+  <label>
+    <input type="checkbox" v-model="modelValue.groupe_ids" :value="groupe.id">
+    {{ groupe.nom }}
+  </label>
+</div>
+
+
+
+
+
+
           <!-- <div class="form-group">
             <label for="numero_compte">numero_compte</label>
             <input type="text" class="form-control" id="numero_compte" v-model="modelValue.numero_compte" required>
@@ -125,6 +146,7 @@
 import MainLayout from "../../Layouts/MainLayout.vue";
 import axios from "axios";
 
+
 export default {
   components: { MainLayout },
   data() {
@@ -148,45 +170,73 @@ export default {
         diplom: "",
         rib: "",
         type_bank:"",
+        user_id:"",
+        groupe_ids: [],
+        matier_id: null, // variable to store selected matiere ID
+ 
         numero_compte:""
 
       },
       professeurs: [],
       // groupes: [],
+      groupes: [],
       previewPhoto: null,
       successMessage: "",
     };
   },
   mounted() {
-    // this.fetchEtudiants();
-    // this.fetchClasses();
+    this.fetchmatires();
+    this.fetchGroupes(); // Call the fetchGroupes method when the component is mounted
   },
 
  methods: {
+  fetchGroupes() {
+    // Fetch the groupes from the server or any other data source
+    // Assign the fetched groupes to the groupes property
+    axios.get('/groupes') // Replace '/api/groupes' with the actual endpoint to fetch the groupes
+      .then(response => {
+        this.groupes = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
 
-
-  addUser() {
-  axios.post('/users', this.modelValue)
+  fetchmatires() {
+  // Fetch the dynamic array from the server and assign it to the groupes property
+  axios.get('/matieres') // Replace '/fetch-groupes' with the actual endpoint to fetch the groupes array
     .then(response => {
-          const userId = response.data.user_id;
-          this.modelValue.user_id = userId;
-          this.addProfesseur();
-          this.successMessage = "Form submitted successfully";
-          this.clearForm();
-        })
-        .catch(error => {
-          console.log(error.response.data);
-          this.errors = error.response.data.errors;
-        });
-    },
+      this.matieres = response.data;
+    })
+    .catch(error => {
+      console.log(error.response.data);
+    });
+},
 
 addProfesseur() {
   const formData = new FormData();
-  formData.append('photo', this.modelValue.photo); // Append the photo file to the form data
-  formData.append('diplom', this.modelValue.diplom);
-  formData.append('CNI', this.modelValue.CNI);
-  formData.append('tel', this.modelValue.tel);
+  formData.append("nom_francais", this.modelValue.nom_francais);
+      formData.append("nom_arabe", this.modelValue.nom_arabe);
+      formData.append("prenom_francais", this.modelValue.prenom_francais);
+      formData.append("prenom_arabe", this.modelValue.prenom_arabe);
+      formData.append("date_naissance", this.modelValue.date_naissance);
+      formData.append("lieu_naissance", this.modelValue.lieu_naissance);
+      formData.append("sex", this.modelValue.sex);
+      formData.append("email", this.modelValue.email);
+      formData.append("password", this.modelValue.password);
+      formData.append("username", this.modelValue.username);
+      formData.append("user_type", this.modelValue.user_type);
+      formData.append("adresse", this.modelValue.adresse);
+      formData.append("CNI", this.modelValue.CNI);
+      formData.append("tel", this.modelValue.tel);
+      formData.append("diplom", this.modelValue.diplom);
+      formData.append("photo", this.modelValue.photo); // Append the photo file to the form data
+      // Append other form fields
+  formData.append('matier_id', this.modelValue.matier_id);
   formData.append('user_id', this.modelValue.user_id);
+  this.modelValue.groupe_ids.forEach((groupId) => {
+    formData.append('groupe_ids[]', groupId);
+  });
 
  axios.post('/professeurs', formData, {
     headers: {
@@ -222,30 +272,27 @@ addBankinfo(){
 },
 
    
-
-    handlePhotoChange(event) {
+handlePhotoChange(event) {
       this.modelValue.photo = event.target.files[0];
       this.previewImage(event);
     },
-
     previewImage(event) {
-  const file = event.target.files[0];
-  if (!file) {
-    return;
-  }
+      const file = event.target.files[0];
+      if (!file) {
+        return;
+      }
 
-  const reader = new FileReader();
+      const reader = new FileReader();
 
-  reader.onload = (event) => {
-    const img = document.getElementById('image-preview');
-    if (img) {
-      img.src = event.target.result;
-      img.style.display = 'block';
-    }
-  };
+      reader.onload = (event) => {
+        const img = document.getElementById("image-preview");
+        img.style.display = "block";
+        img.src = event.target.result;
+      };
 
-  reader.readAsDataURL(file);
-},
+      reader.readAsDataURL(file);
+    },
+
 clearForm() {
   this.modelValue = {
     nom_francais: "",

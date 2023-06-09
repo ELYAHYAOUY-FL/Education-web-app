@@ -64,6 +64,7 @@ fetchlastNote() {
           .then(response => {
             this.lasts = response.data;
            console.log(this.lasts)
+           console.log(this.user.id)
           })
           .catch(error => {
             console.error(error);

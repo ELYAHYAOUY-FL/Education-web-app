@@ -93,6 +93,37 @@ public function getByIdlastNote($userId)
 }
 
 
+public function getLastCarentByProf($userId)
+{
+    $eleve = Eleve::with(['groupe.carnetNotes', 'eleve_professuers.professeur'])
+        ->where('user_id', $userId)
+        ->first();
+
+    if (!$eleve) {
+        return response()->json(['error' => 'eleve not found'], 404);
+    }
+
+    $lastNotes = [];
+    foreach ($eleve->eleve_professuers as $eleveProfessuer) {
+        $professeur = $eleveProfessuer->professeur;
+        $groupe = $eleveProfessuer->groupe;
+        $lastNote = $groupe->carnetNotes()
+            ->orderByDesc('created_at')
+            ->first();
+
+        if ($lastNote) {
+            $lastNotes[$professeur->id] = [
+                'professeur' => $professeur,
+                'lastNote' => $lastNote,
+            ];
+        }
+    }
+
+    return response()->json($lastNotes);
+}
+
+
+
 
 
 public function getContenuCahierNotes($userId)
