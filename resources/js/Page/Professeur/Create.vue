@@ -112,7 +112,7 @@
 
 
 
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label for="numero_compte">numero_compte</label>
             <input type="text" class="form-control" id="numero_compte" v-model="modelValue.numero_compte" required>
           </div>
@@ -123,13 +123,9 @@
           <div class="form-group">
             <label for="rib">RIB</label>
             <input type="text" class="form-control" id="rib" v-model="modelValue.rib" required>
-          </div> -->
-          <!-- <div>
-  <label for="groupe_id">Group:</label>
-  <select id="groupe_id" v-model="modelValue.groupe_id">
-    <option v-for="groupe in groupes" :key="groupe.id" :value="groupe.id">{{ groupe.nom }}</option>
-  </select>
-</div> -->
+          </div>
+          
+
           <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
         <div v-if="successMessage" class="alert alert-success text-center">
@@ -231,6 +227,9 @@ addProfesseur() {
       formData.append("tel", this.modelValue.tel);
       formData.append("diplom", this.modelValue.diplom);
       formData.append("photo", this.modelValue.photo); // Append the photo file to the form data
+      formData.append("rib", this.modelValue.rib); // Append the photo file to the form data
+      formData.append("type_bank", this.modelValue.type_bank); // Append the photo file to the form data
+      formData.append("numero_compte", this.modelValue.numero_compte); // Append the photo file to the form data
       // Append other form fields
   formData.append('matier_id', this.modelValue.matier_id);
   formData.append('user_id', this.modelValue.user_id);

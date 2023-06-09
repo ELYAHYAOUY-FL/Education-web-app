@@ -7,6 +7,7 @@ use App\Models\Matiere;
 use Illuminate\Http\Request;
 use App\Models\Professeur;
 use App\Models\User;
+use App\Models\Bankinformation_Prof;
 
 class ProfesseurController extends Controller
 {
@@ -108,6 +109,16 @@ public function store(Request $request)
     $groupes = $request->input('groupe_ids', []);
     $professeur->groupes()->attach($groupes);
 
+    $validatedDataProfessorInfoBank = $request->validate([
+    
+        'rib' => 'required',
+        'numero_compte' => 'required',
+            'type_bank' => 'required',
+        ]);
+
+        $bankinfo = new Bankinformation_Prof($validatedDataProfessorInfoBank);
+        $bankinfo->professeur()->associate($professeur);
+        $bankinfo->save();
     return response()->json(['professeur_id' => $user->id]);
 }
 
