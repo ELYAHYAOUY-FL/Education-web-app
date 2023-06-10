@@ -124,18 +124,15 @@ public function store(Request $request)
 
 
 
-  public function destroy($id)
+public function destroy($id)
 {
     $professeur = Professeur::findOrFail($id);
-
-    // Remove the professor's association with subjects
-    $professeur->matieres()->update(['professeur_id' => null]);
-
-    // Delete the professor
     $professeur->delete();
 
     return response()->json(['message' => 'prof deleted successfully']);
 }
+
+
 
 
 // public function store(Request $request)

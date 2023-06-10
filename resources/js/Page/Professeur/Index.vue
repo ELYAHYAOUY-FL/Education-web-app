@@ -24,11 +24,11 @@
                   <p class="card-text">Diplome :  {{ professuer.diplom }}</p>
                   <p class="card-text"> Matire :   {{ professuer.matiere.titre}}</p>
                   <ul  class="card-text">
-    <li v-for="groupe in professuer.groupes" :key="groupe.id">
-      groupes:  {{ groupe.nom }}
-      
-    </li>
-  </ul>
+                  <li v-for="groupe in professuer.groupes" :key="groupe.id">
+                    groupes:  {{ groupe.nom }}
+                    
+                  </li>
+                </ul>
 
     </div>
               </transition>
