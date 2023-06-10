@@ -79,6 +79,12 @@
         </select>
       </div>
 
+      <div>
+    <input type="hidden" v-model="modelValue.user_type">
+    <!-- Other code -->
+  </div>
+
+
         <div>
           <label for="existe">si parent existe </label>
           <input type="radio" id="existe" name="parent" value="1" v-model="parentcheck" >
@@ -161,7 +167,10 @@
             <label for="type_bank">type_bank</label>
             <input type="text" class="form-control" id="type_bank" v-model="modelValue.type_bank" required>
           </div>
-              
+          <div>
+    <input type="hidden" v-model="modelValue.user_type_parent">
+    <!-- Other code -->
+  </div>              
  </div>
 
           <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -291,6 +300,7 @@ export default {
       formData.append('nom_arabe_parent', this.modelValue.nom_arabe_parent);
       formData.append("type_bank", this.modelValue.type_bank); // Append the photo file to the form data
       formData.append("numero_compte", this.modelValue.numero_compte); // Append the photo file to the form data
+      formData.append('parentcheck', this.parentcheck);
       
       this.modelValue.parents_ids.forEach((parentId) => {
     formData.append('parents_ids[]', parentId);
@@ -348,7 +358,7 @@ clearForm() {
     email: "",
     password: "",
     username: "",
-    user_type: "",
+    user_type: "eleve",
     adresse: "",
     photo: null,
     CNE: "",

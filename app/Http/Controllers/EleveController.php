@@ -156,7 +156,7 @@ public function getContenuCahierNotes($userId)
 
 
     public function store(Request $request)
-    {
+ {
         $validatedData = $request->validate([
             'CNE' => 'required|string|unique:eleves,CNE',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -175,6 +175,16 @@ public function getContenuCahierNotes($userId)
     
         $eleve = Eleve::create($validatedData);
 
+        $parentCheck = $request->input('parentcheck');
+        
+        if ($parentCheck == 1) {
+            // Parent exists, attach parents to the student
+            $parents = $request->input('parents_ids', []);
+            $eleve->parents()->attach($parents);
+    
+     } elseif($parentCheck==0) {
+            // Parent doesn't exist, create a new parent entry
+            
         $validatedDatauser = $request->validate([
             'nom_francais_parent' => 'required|string',
             'nom_arabe_parent' => 'required|string',
@@ -211,29 +221,24 @@ public function getContenuCahierNotes($userId)
         'tel_parent' => 'required',
        
     ]);
+            $parent = new Parente();
+           $parent->CNI = $validatedDataParent['CNI_parent'];
+                $parent->tel = $validatedDataParent['tel_parent'];
+                $parent->user()->associate($user);
+                $parent->save();
+                $eleve->parents()->attach($parent->id);
+                $validatedDataParentInfoBank = $request->validate([
+                    'numero_compte' => 'required',
+                   'type_bank' => 'required',
+               ]);
+               $bankinfo = new Bankinformation_Parent($validatedDataParentInfoBank);
+               $bankinfo->parent()->associate($parent);
+               $bankinfo->save();
+       
+        }
+        
+
     
-
-    $parent = new Parente();
-   $parent->CNI = $validatedDataParent['CNI_parent'];
-   $parent->tel = $validatedDataParent['tel_parent'];
-   $parent->user()->associate($user);
-   $parent->save();
-   $eleve->parents()->attach($parent->id);
-
-
-        // $parents = $request->input('parents_ids', []);
-        // $eleve->parents()->attach($parents);
-
-
-          $validatedDataParentInfoBank = $request->validate([
-             'numero_compte' => 'required',
-            'type_bank' => 'required',
-        ]);
-
-        $bankinfo = new Bankinformation_Parent($validatedDataParentInfoBank);
-        $bankinfo->parent()->associate($parent);
-        $bankinfo->save();
-
         return response()->json(['eleve_id' => $eleve->id]);
         
     }
@@ -248,7 +253,9 @@ public function getContenuCahierNotes($userId)
         $eleve->delete();
     
         return response()->json(['message' => 'prof deleted successfully']);
-    }
+}
+
+
     public function update(Request $request, $id)
     {
         // Valider les données du formulaire de modification

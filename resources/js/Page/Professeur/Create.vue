@@ -94,7 +94,10 @@
   </label>
 </div>
 
-
+<div>
+    <input type="hidden" v-model="modelValue.user_type">
+    <!-- Other code -->
+  </div>
 
 
 
@@ -291,7 +294,7 @@ clearForm() {
     email: "",
     password: "",
     username: "",
-    user_type: "",
+    user_type: "professeur",
     adresse: "",
     photo: null,
     CNI: "",
