@@ -14,7 +14,7 @@ class ProfesseurController extends Controller
  
 public function index()
 {
-  $professors = Professeur::with('groupes','matiere')->get();
+  $professors = Professeur::with('groupes','matiere','user')->get();
 
     return response()->json($professors);
 }

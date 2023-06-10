@@ -4,39 +4,32 @@
     <div class="container row">
       <div  v-for="(professuer, index) in professuers" :key="index" class="col-md-4 mb-4 fade-in">
         <div class="card-header">
-          <h5 class="card-title">{{ professuer.nom }}</h5>
+          <h5 class="card-title" v-if="professuer.user">{{ professuer.user.nom_francais }}</h5>
         </div>
         <div class="card-body">
           <div class="row">
             <div class="col-md-3">
-              <img :src="'/photos/' + professuer. photo" alt="Photo" class="professuer-photo img-fluid rounded-circle">
+              <img :src="'/photos/' + professuer.photo" alt="Photo" class="professuer-photo img-fluid rounded-circle">
             </div>
             <div class="col-md-9">
-              <p class="card-text"  @click="toggleDetails(professuer)" style="padding: 20px;">
-                Prénom: {{ professuer.prenom }}
+              <p class="card-text"  @click="toggleDetails(professuer)" style="padding: 20px;" v-if="professuer.user">
+                Prénom: {{professuer.user.prenom_francais }}
               </p>
-              <p class="card-text"  @click="toggleDetails(professuer)"  >
-                Nom: {{ professuer.nom }}
+              <p class="card-text"  @click="toggleDetails(professuer)" v-if="professuer.user" >
+                Nom: {{professuer.user.nom_francais }}
               </p>
               <transition name="fade">
                 <div v-if="professuer.detailsVisible">
                   <p class="card-text">telephone :  {{ professuer.tel }}</p>
                   <p class="card-text">Diplome :  {{ professuer.diplom }}</p>
-                  <p class="card-text"> Salaire :   {{ professuer.virement.salaire }}</p>
+                  <p class="card-text"> Matire :   {{ professuer.matiere.titre}}</p>
                   <ul  class="card-text">
-    <li v-for="matiere in professuer.matieres" :key="matiere.id">
-      Matiere:  {{ matiere.titre }}
+    <li v-for="groupe in professuer.groupes" :key="groupe.id">
+      groupes:  {{ groupe.nom }}
       
     </li>
   </ul>
-  <ul class="card-text">
-               <li v-for="matiere in professuer.matieres" :key="matiere.id">
-              <ul>
-           <li v-for="classe in matiere.classes" :key="classe.id">
-          {{ classe.nom }}
-        </li>
-      </ul>
-      </li></ul>
+
     </div>
               </transition>
             </div>
@@ -55,7 +48,77 @@
                     
   </MainLayout>
 </template>
-<style scoped>
+
+      
+      <script>
+      import MainLayout from '../../Layouts/MainLayout.vue';
+      import axios from 'axios';
+      export default {
+        components : { MainLayout},
+        data() {
+          return {
+            professuers: [],
+            showForm: false,
+            photo: null,
+            
+            nom : '',
+            prenom : '',
+            tel : '',
+            diplom : '',
+        salaire : '',
+        diplome : '',
+        virement: '',
+        matiere: '',
+        groupes: [],
+        classe_matiere :'',
+        salaire : '',
+        classe_id : '',
+        titre : ''
+            };
+        },
+     
+mounted() {
+  this.fetchProfesseur();
+  this.fetchGroupes();
+
+  }, 
+  methods: {
+    fetchProfesseur(){
+      axios.get('/professeurs')
+        .then(response => {
+          this.professuers = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    fetchGroupes(){
+      axios.get('/groupes')
+        .then(response => {
+          this.groupes = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+    async deleteProfesseur(id) {
+  try {
+    const response = await axios.delete(`/professuers/${id}`);
+    this.professuers = this.professuers.filter(professuer => professuer.id !== id);
+  } catch (error) {
+    console.log(error);
+  }
+},
+toggleDetails(professuer) {
+      professuer.detailsVisible = !professuer.detailsVisible;
+    },
+
+  } 
+      };
+      </script>
+      
+
+      <style scoped>
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -98,59 +161,3 @@
   cursor: pointer;
 }
 </style>
-      
-      <script>
-      import MainLayout from '../../Layouts/MainLayout.vue';
-      import axios from 'axios';
-      export default {
-        components : { MainLayout},
-        data() {
-          return {
-            professuers: [],
-            showForm: false,
-            photo: null,
-            
-            nom : '',
-            prenom : '',
-            tel : '',
-            diplom : '',
-        salaire : '',
-        diplome : '',
-        virement: '',
-        matiere: '',
-        classes: [],
-        classe_matiere :'',
-        salaire : '',
-        classe_id : '',
-        titre : ''
-            };
-        },
-     
-mounted() {
-    try {
-      console.log('on mounted');
-      axios.get('/api/professuers').then((response) => {
-        console.log(response.data);
-        this.professuers = response.data;
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }, 
-  methods: {
-    async deleteProfesseur(id) {
-  try {
-    const response = await axios.delete(`/api/professuers/${id}`);
-    this.professuers = this.professuers.filter(professuer => professuer.id !== id);
-  } catch (error) {
-    console.log(error);
-  }
-},
-toggleDetails(professuer) {
-      professuer.detailsVisible = !professuer.detailsVisible;
-    },
-
-  } 
-      };
-      </script>
-      
