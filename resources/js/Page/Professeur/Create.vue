@@ -65,21 +65,8 @@
             <input type="text" class="form-control" id="username" v-model="modelValue.username" required>
           </div>
          
-          <!-- <div class="form-group">
-            <label for="user_type"></label>
-            <input type="text" class="form-control" id="user_type" v-model="modelValue.user_type" required>
-          </div> -->
-          <div class="form-group">
-            <label for="user_type">Type d'utilisateur :</label>
-            <select  class="form-control" id="user_type" v-model="modelValue.user_type" required>
-              <option value=""></option>
-              <!-- <option value="F">eleve</option> -->
-             <option value="professeur">professeur</option>
-               <!-- <option value="M">admin</option>
-              <option value="M">parent</option> -->
-            </select>
-            
-          </div>
+         
+        
           <div class="form-group">
             <label for="CNI">CNI</label>
             <input type="text" class="form-control" id="CNI" v-model="modelValue.CNI" required>
@@ -158,19 +145,19 @@ export default {
         email: "",
         password: "",
         username: "",
-        user_type: "",
+        user_type: "professeur",
         adresse: "",
         photo: null,
         CNI: "",
         tel: "",
         diplom: "",
         rib: "",
-        type_bank:"",
         user_id:"",
         groupe_ids: [],
         matier_id: null, // variable to store selected matiere ID
- 
+        type_bank:"",
         numero_compte:""
+ 
 
       },
       professeurs: [],

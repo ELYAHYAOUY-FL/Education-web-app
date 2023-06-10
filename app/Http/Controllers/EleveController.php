@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleve;
+use App\Models\User;
 use App\Models\Groupe;
+use App\Models\Parente;
+use App\Models\Bankinformation_Parent;
 use Illuminate\Http\Request;
 
 class EleveController extends Controller
@@ -161,6 +164,7 @@ public function getContenuCahierNotes($userId)
             'user_id' => 'required',
             'groupe_id' => 'required',
         ]);
+
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $photoName = time() . '.' . $photo->getClientOriginalExtension();
@@ -170,6 +174,66 @@ public function getContenuCahierNotes($userId)
         }
     
         $eleve = Eleve::create($validatedData);
+
+        $validatedDatauser = $request->validate([
+            'nom_francais_parent' => 'required|string',
+            'nom_arabe_parent' => 'required|string',
+            'prenom_francais_parent' => 'required|string',
+            'prenom_arabe_parent' => 'required|string',
+            'date_naissance_parent' => 'required|date',
+            'lieu_naissance_parent' => 'required|string',
+            'sex_parent' => 'required|string',
+            'email_parent' => 'required|string',
+            'password_parent' => 'required|string',
+            'username_parent' => 'required|string',
+            'user_type_parent' => 'required|string',
+            'adresse_parent' => 'required|string',
+        ]);
+        
+        $user=new User();
+        $user->nom_francais= $validatedDatauser['nom_francais_parent'];
+        $user->nom_arabe= $validatedDatauser['nom_arabe_parent'];
+        $user->prenom_francais= $validatedDatauser['prenom_francais_parent'];
+        $user->prenom_arabe= $validatedDatauser['prenom_arabe_parent'];
+        $user->date_naissance= $validatedDatauser['date_naissance_parent'];
+        $user->lieu_naissance= $validatedDatauser['lieu_naissance_parent'];
+        $user->sex= $validatedDatauser['sex_parent'];
+        $user->email= $validatedDatauser['email_parent'];
+        $user->password= $validatedDatauser['password_parent'];
+        $user->username= $validatedDatauser['username_parent'];
+        $user->user_type= $validatedDatauser['user_type_parent'];
+        $user->adresse= $validatedDatauser['adresse_parent'];
+       
+
+      $user->save();
+      $validatedDataParent = $request->validate([
+        'CNI_parent' => 'required|string|unique:parents,CNI',
+        'tel_parent' => 'required',
+       
+    ]);
+    
+
+    $parent = new Parente();
+   $parent->CNI = $validatedDataParent['CNI_parent'];
+   $parent->tel = $validatedDataParent['tel_parent'];
+   $parent->user()->associate($user);
+   $parent->save();
+   $eleve->parents()->attach($parent->id);
+
+
+        // $parents = $request->input('parents_ids', []);
+        // $eleve->parents()->attach($parents);
+
+
+          $validatedDataParentInfoBank = $request->validate([
+             'numero_compte' => 'required',
+            'type_bank' => 'required',
+        ]);
+
+        $bankinfo = new Bankinformation_Parent($validatedDataParentInfoBank);
+        $bankinfo->parent()->associate($parent);
+        $bankinfo->save();
+
         return response()->json(['eleve_id' => $eleve->id]);
         
     }
