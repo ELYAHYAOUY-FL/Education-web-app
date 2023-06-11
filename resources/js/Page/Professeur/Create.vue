@@ -2,7 +2,7 @@
   <MainLayout>
     <div class="content-header">
       <div class="container-fluid">
-        <h2>Ajouter des élèves:</h2>
+        <h2>Ajouter des professeurs:</h2>
       
 
         <form @submit.prevent="addProfesseur" enctype="multipart/form-data">

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Eleve;
 use App\Models\Parente  ;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\Bankinformation_Parent;
 // use App\Models\Parent;
 use App\Models\EleveParent;
 use Illuminate\Support\Facades\Auth;
@@ -55,17 +59,60 @@ class ParentController extends Controller
 
 
 
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'CNI' => 'required|string|unique:parents,CNI',
+    //         'tel' => 'required',
+    //         'user_id' => 'required',
+    //     ]);
+
+    //     $parent = Parente::create($validatedData);
+    //     return response()->json(['parent_id' => $parent->id]);
+    // }
+
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'CNI' => 'required|string|unique:parents,CNI',
-            'tel' => 'required',
-            'user_id' => 'required',
+{
+    $validatedDatauser = $request->validate([
+        'nom_francais' => 'required|string',
+        'nom_arabe' => 'required|string',
+        'prenom_francais' => 'required|string',
+        'prenom_arabe' => 'required|string',
+        'date_naissance' => 'required|date',
+        'lieu_naissance' => 'required|string',
+        'sex' => 'required|string',
+        'email' => 'required|string',
+        'password' => 'required|string',
+        'username' => 'required|string',
+        'user_type' => 'required|string',
+        'adresse' => 'required|string',
+    ]);
+    $validatedDatauser['password'] = Hash::make($validatedDatauser['password']);
+
+    $user = User::create($validatedDatauser);
+
+    $validatedData = $request->validate([
+        'CNI' => 'required|string',
+        'tel' => 'required',
+    ]);
+    $parent= new Parente($validatedData);
+    $parent->user()->associate($user);
+    $parent->save();
+     $eleves = $request->input('eleve_ids', []);
+    $parent->eleves()->attach($eleves);
+
+    $validatedDataProfessorInfoBank = $request->validate([
+    
+     
+        'numero_compte' => 'required',
+            'type_bank' => 'required',
         ]);
 
-        $parent = Parente::create($validatedData);
-        return response()->json(['parent_id' => $parent->id]);
-    }
+        $bankinfo = new Bankinformation_Parent($validatedDataProfessorInfoBank);
+        $bankinfo->parent()->associate($parent);
+        $bankinfo->save();
+    return response()->json(['professeur_id' => $user->id]);
+}
 // public function getStudents($parentId)
 // {
 //     $parent = Parente::findOrFail($parentId);

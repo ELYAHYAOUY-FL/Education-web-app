@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bankinformation_Parent extends Model
 {
     use HasFactory;
+  
     protected $table = 'bankinformation_parents';
 
     protected $fillable = [
@@ -19,8 +20,9 @@ class Bankinformation_Parent extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Parente::class, 'parent_id');
+        return $this->belongsTo(Parente::class);
     }
+
     public function payementsdemois()
     {
         return $this->hasMany(Payementsdemois::class);
