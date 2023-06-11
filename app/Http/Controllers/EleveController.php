@@ -18,6 +18,12 @@ class EleveController extends Controller
         $eleves = Eleve::with('groupe','user' , 'eleve_exams')->get();
         return response()->json($eleves);
     }
+    public function show($id)
+    {
+        $eleves = Eleve::with('groupe','user' , 'eleve_exams')->where('id', $id)->first();
+        return response()->json($eleves);
+    }
+
 
     public function getById($userId)
 {

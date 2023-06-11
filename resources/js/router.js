@@ -59,6 +59,10 @@ import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
  //matiere
 import Matiere from './Page/Matiere.vue'
 import ParenteleveDEtails from './PageParent/EleveDetails.vue'
+import ParentElevenote from './PageParent/note.vue'
+import ParentElevecantine from './PageParent/cantine.vue'
+import ParentEleveactivities from './PageParent/actyvitypara.vue'
+import ParentElevecalendrier from './PageParent/calendrier.vue'
 
 //parent eleves
 import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
@@ -339,6 +343,34 @@ meta: {requiresAuth:true , administration:true}
   path : '/parentEleveDetails/:eleveId',
   name :'parenteleveDEtails',
   component :ParenteleveDEtails ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevenote/:eleveId',
+  name :'parentElevenote',
+  component :ParentElevenote ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevecantine/:eleveId',
+  name :'parentElevecantine',
+  component :ParentElevecantine ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentEleveactivities/:eleveId',
+  name :'parentEleveactivities',
+  component :ParentEleveactivities ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevecalendrier/:eleveId',
+  name :'parentElevecalendrier',
+  component :ParentElevecalendrier ,
   meta: {requiresAuth:true , parent:true}
 
 },

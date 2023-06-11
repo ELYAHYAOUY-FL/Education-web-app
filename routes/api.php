@@ -63,6 +63,7 @@ Route::get('/eleves/user/carnetnotes/{userId}', [EleveController::class, 'getLas
 Route::post('/eleves', [EleveController::class, 'store']);
 Route::get('/eleves', [EleveController::class, 'index']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
+Route::get('/eleves/{id}', [EleveController::class, 'show']);
 Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
 Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNoteBYmatire']);
