@@ -70,6 +70,7 @@ Route::get('/eleves/user/notes/{userId}', [EleveController::class, 'getByIdlastN
 
 
 //parent 
+Route::get('/parent', [ParentController::class, 'showparent']);
 Route::get('/parents', [ParentController::class, 'index']);
 Route::post('/parents', [ParentController::class, 'store']);
 Route::get('/parents/create', [ParentController::class, 'create']);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleve;
+use Illuminate\Support\Facades\Hash;
+
 use App\Models\User;
 use App\Models\Groupe;
 use App\Models\Parente;
@@ -199,28 +201,30 @@ public function getContenuCahierNotes($userId)
             'user_type_parent' => 'required|string',
             'adresse_parent' => 'required|string',
         ]);
-        
-        $user=new User();
-        $user->nom_francais= $validatedDatauser['nom_francais_parent'];
-        $user->nom_arabe= $validatedDatauser['nom_arabe_parent'];
-        $user->prenom_francais= $validatedDatauser['prenom_francais_parent'];
-        $user->prenom_arabe= $validatedDatauser['prenom_arabe_parent'];
-        $user->date_naissance= $validatedDatauser['date_naissance_parent'];
-        $user->lieu_naissance= $validatedDatauser['lieu_naissance_parent'];
-        $user->sex= $validatedDatauser['sex_parent'];
-        $user->email= $validatedDatauser['email_parent'];
-        $user->password= $validatedDatauser['password_parent'];
-        $user->username= $validatedDatauser['username_parent'];
-        $user->user_type= $validatedDatauser['user_type_parent'];
-        $user->adresse= $validatedDatauser['adresse_parent'];
-       
+        // $validatepassword = Hash::make($validatedDatauser['password_parent']);
 
-      $user->save();
+        
+        $user = new User();
+        $user->nom_francais = $validatedDatauser['nom_francais_parent'];
+        $user->nom_arabe = $validatedDatauser['nom_arabe_parent'];
+        $user->prenom_francais = $validatedDatauser['prenom_francais_parent'];
+        $user->prenom_arabe = $validatedDatauser['prenom_arabe_parent'];
+        $user->date_naissance = $validatedDatauser['date_naissance_parent'];
+        $user->lieu_naissance = $validatedDatauser['lieu_naissance_parent'];
+        $user->sex = $validatedDatauser['sex_parent'];
+        $user->email = $validatedDatauser['email_parent'];
+        $user->password = Hash::make($validatedDatauser['password_parent']); // Hash the password
+        $user->username = $validatedDatauser['username_parent'];
+        $user->user_type = $validatedDatauser['user_type_parent'];
+        $user->adresse = $validatedDatauser['adresse_parent'];
+        
+        $user->save();
+
       $validatedDataParent = $request->validate([
         'CNI_parent' => 'required|string|unique:parents,CNI',
         'tel_parent' => 'required',
        
-    ]);
+       ]);
             $parent = new Parente();
            $parent->CNI = $validatedDataParent['CNI_parent'];
                 $parent->tel = $validatedDataParent['tel_parent'];
@@ -241,7 +245,7 @@ public function getContenuCahierNotes($userId)
     
         return response()->json(['eleve_id' => $eleve->id]);
         
-    }
+}
     public function destroy($id)
     {
           $eleve = Eleve::findOrFail($id);

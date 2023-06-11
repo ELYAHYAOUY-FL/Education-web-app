@@ -5,7 +5,7 @@ use App\Models\Eleve;
 use App\Models\Parente  ;
 // use App\Models\Parent;
 use App\Models\EleveParent;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ParentController extends Controller
@@ -17,6 +17,8 @@ class ParentController extends Controller
 
     //     return response()->json($parents);
     // }
+
+
     public function index()
     {
         $parents = Parente::with('eleves','user')->get();
@@ -24,21 +26,34 @@ class ParentController extends Controller
         return response()->json($parents);
     }
 
+    public function getById($userId)
+    {
+        $parents= Parente::with('eleves.eleve_exams.note', 'eleves.eleve_exams.matire','eleves.groupe','user', 'eleves.groupe.matieres.exams.note','eleves.groupe.emploiTemp','eleves.eleve_exams.note')->where('user_id', $userId)->first();
+    
+        if (!$parents) {
+            return response()->json(['error' => 'elevesnot found'], 404);
+        }
+    
+        return response()->json($eleves);
+    }
+
+    // public function showparent()
+    // {
+    //     $user =Auth::user();
+    //     // dd($user);
+    //     $parent=$user->parent();
+    //     $eleves= $parent->eleves();
+    //     // $ = Parente::with('eleves','user')->get();
+
+    
+    //     return response()->json([$user,$parent,$eleves]);
+    // }
+
 
    
 
 
 
-    public function getById($userId)
-
-{
-    $parent = Parente::with('eleves')->where('user_id', $userId)->first();
-
-    if (!$parent) {
-        return response()->json(['error' => 'parents not found'], 404);
-    }
-     return response()->json($parent);
-}
 
     public function store(Request $request)
     {

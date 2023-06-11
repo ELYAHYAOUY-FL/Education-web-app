@@ -168,6 +168,7 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , administration:true}
 
 },
+
 {
 path : '/Administration/gestionDesNote',
 name : 'NotestAdmin',

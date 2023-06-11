@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div>
      <h1>hello perent </h1>
      <buttom   @click="logout" > 
@@ -13,6 +14,7 @@
       </li>
     </ul>
   </div>
+</div>
   </template>
   
   <script>
@@ -27,22 +29,13 @@
   },
   data() {
     return {
-      eleves: [], // Liste des élèves
+      eleves: [],
+      user:{},
+      parent:{}
     };
   },
   mounted() {
-    axios.get('/parents/user/' + this.user.id)
-      .then(response => {
-        console.log(this.user.id)
-        const parentId = response.data.id;
-        this.parents=response.data
-        console.log(this.parents.CNI)
-        // Faites une autre requête API pour récupérer les élèves associés au parent
-        
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.fetchParent();
   },
   methods: {
     logout() {
@@ -52,7 +45,19 @@
     },
     goToDashboard(eleveId) {
     this.$router.push(`/dashboard/${eleveId}`);
-  }
+  },
+
+  fetchParent() {
+      axios
+        .get('/parents/user/' + this.user.id)
+        .then(response => {
+          const { data } = response;
+         
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
   },
    
   }
