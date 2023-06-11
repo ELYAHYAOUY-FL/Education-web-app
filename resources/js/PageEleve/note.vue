@@ -58,6 +58,7 @@
       console.error(error);
     });
 },
+
 fetchlastNote() {
         axios
           .get('/eleves/user/note/'+  this.user.id)

@@ -77,12 +77,19 @@
             <input type="text" class="form-control" id="tel" v-model="modelValue.tel" required>
           </div>
         
-        
+          <div class="form-group">
+            <label for="numero_compte">numero_compte</label>
+            <input type="text" class="form-control" id="numero_compte" v-model="modelValue.numero_compte" required>
+          </div>
+          <div class="form-group">
+            <label for="type_bank">type_bank</label>
+            <input type="text" class="form-control" id="type_bank" v-model="modelValue.type_bank" required>
+          </div>
 
         <div v-for="eleve in eleves" :key="eleve.id">
   <label>
     <input type="checkbox" v-model="modelValue.eleve_ids" :value="eleve.id">
-    {{ eleve.id }}
+    {{ eleve.user.nom_francais }}  {{ eleve.user.prenom_francais }}
   </label>
 </div>
 
@@ -94,14 +101,7 @@
 
 
 
-          <div class="form-group">
-            <label for="numero_compte">numero_compte</label>
-            <input type="text" class="form-control" id="numero_compte" v-model="modelValue.numero_compte" required>
-          </div>
-          <div class="form-group">
-            <label for="type_bank">type_bank</label>
-            <input type="text" class="form-control" id="type_bank" v-model="modelValue.type_bank" required>
-          </div>
+          
          
           
 

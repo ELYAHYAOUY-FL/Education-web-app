@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <div>
-     <h1>hello perent </h1>
-     <buttom   @click="logout" > 
-                      <span>Logout</span>
-            </buttom>
+  <div class="parent-container">
+    <div class="header">
+      <button @click="logout">
+        <span>Logout</span>
+      </button>
     </div>
-    <div>
-    <h1>Liste des élèves</h1>
-    <ul>
-      <li v-for="eleve in eleves" :key="eleve.id" @click="goToDashboard(eleve.id)">
-        {{ eleve.nom }}
-      </li>
-    </ul>
+    <div class="card">
+      <ul>
+        <li v-for="eleve in eleves" :key="eleve.id" @click="goToDashboard(eleve.id)">
+          {{ eleve.user.prenom_francais }} {{ eleve.user.nom_francais }}
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
-  </template>
+</template>
   
   <script>
   import { mapGetters } from 'vuex'
@@ -30,7 +28,7 @@
   data() {
     return {
       eleves: [],
-      user:{},
+    
       parent:{}
     };
   },
@@ -44,7 +42,7 @@
       })
     },
     goToDashboard(eleveId) {
-    this.$router.push(`/dashboard/${eleveId}`);
+    this.$router.push(`/eleveParent/${eleveId}`);
   },
 
   fetchParent() {
@@ -52,6 +50,9 @@
         .get('/parents/user/' + this.user.id)
         .then(response => {
           const { data } = response;
+          this.eleves = data.eleves;
+
+          console.log(this.user.id)
          
         })
         .catch(error => {

@@ -32,13 +32,13 @@ class ParentController extends Controller
 
     public function getById($userId)
     {
-        $parents= Parente::with('eleves.eleve_exams.note', 'eleves.eleve_exams.matire','eleves.groupe','user', 'eleves.groupe.matieres.exams.note','eleves.groupe.emploiTemp','eleves.eleve_exams.note')->where('user_id', $userId)->first();
+        $parents= Parente::with('eleves.user', 'eleves.eleve_exams.note', 'eleves.eleve_exams.matire','eleves.groupe','eleves.groupe.matieres.exams.note','eleves.groupe.emploiTemp','eleves.eleve_exams.note')->where('user_id', $userId)->first();
     
         if (!$parents) {
-            return response()->json(['error' => 'elevesnot found'], 404);
+            return response()->json(['error' => 'eleves not found'], 404);
         }
     
-        return response()->json($eleves);
+        return response()->json($parents);
     }
 
     // public function showparent()
