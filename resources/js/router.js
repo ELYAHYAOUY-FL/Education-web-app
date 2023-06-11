@@ -58,6 +58,7 @@ import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
 //  import Matiere from './Page/Matiere.vue'
  //matiere
 import Matiere from './Page/Matiere.vue'
+import ParenteleveDEtails from './PageParent/EleveDetails.vue'
 
 //parent eleves
 import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
@@ -332,6 +333,16 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , eleve:true}
 
 },
+
+// *************************************** parent routing ***************/ 
+{
+  path : '/parentEleveDetails/:eleveId',
+  name :'parenteleveDEtails',
+  component :ParenteleveDEtails ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+
 
 ];
 

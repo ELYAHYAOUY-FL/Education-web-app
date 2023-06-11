@@ -6,7 +6,7 @@
         <li v-for="eleve in eleves" :key="eleve.id" @click="goToDashboard(eleve.id)" class="cardul">
           <div class="flex_cards">
             <span>
-          {{ eleve.user.prenom_francais }} {{ eleve.user.nom_francais }}
+          {{ eleve.user.prenom_francais }} {{ eleve.user.nom_francais }} {{ eleve.id }}
           </span>
           <div class="cold-3">
               <img :src="'/photos/' + eleve.photo" alt="Photo" class="eleve_photo">
@@ -45,8 +45,8 @@
       })
     },
     goToDashboard(eleveId) {
-    this.$router.push(`/eleveParent/${eleveId}`);
-  },
+  this.$router.push(`/parentEleveDetails/${eleveId}`);
+},
 
   fetchParent() {
       axios
