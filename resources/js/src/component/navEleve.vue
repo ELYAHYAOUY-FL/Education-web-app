@@ -13,22 +13,21 @@
         <!-- Navigation Menus -->
         <div class="menu">
           <li>
-            <a :href="`/parentEleveDetails/${eleveId}`">Accueille</a>
+            <router-link :to="`/parentEleveDetails/${eleveId}`">Accueille</router-link>
           </li>
-          <li><a href="/"></a></li>
   
           <li class="services">
-            <a :href="`/parentElevecantine/${eleveId}`">cantine</a>
+            <router-link :to="`/parentElevecantine/${eleveId}`">cantine</router-link>
           </li>
   
           <li>
-            <a :href="`/parentElevenote/${eleveId}`">suivre de notes</a>
+            <router-link :to="`/parentElevenote/${eleveId}`">suivre de notes</router-link>
           </li>
           <li>
-            <a :href="`/parentElevecalendrier/${eleveId}`">calenderier </a>
+            <router-link :to="`/parentElevecalendrier/${eleveId}`">calenderier </router-link>
           </li>
           <li>
-            <a :href="`/parentEleveactivities/${eleveId}`">les activities parascolaire </a>
+            <router-link :to="`/parentEleveactivities/${eleveId}`">les activities parascolaire </router-link>
           </li>
         </div>
       </ul>
@@ -42,3 +41,4 @@ export default {
   props: ['eleveId'],
 };
 </script>
+
