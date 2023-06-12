@@ -22,8 +22,12 @@
               <div class="listgroupe">
                 <ol class="gradient-list groupe-list">
                   <li v-for="groupe in selectedGroups" :key="groupe.id" >
-                    <div @click="groupe.showStudents = !groupe.showStudents" class="groupe-name">{{ groupe.nom }}</div>
-                    <table v-if="groupe.showStudents" class="eleves-table" >
+                    <div @click="groupe.showStudents = !groupe.showStudents" class="groupe-name">{{ groupe.nom }}
+                     
+                    </div>
+                    <div  v-if="groupe.showStudents">
+                   
+                    <table class="eleves-table" >
                       <thead>
                         <tr>
                           <th>Prénom</th>
@@ -40,11 +44,12 @@
                           <td>{{ eleve.user.nom_francais }}</td>
                           <td>{{ eleve.user.nom_arabe }}</td>
                           <td>{{ eleve.CNE }}</td>
-                          <td><img :src="eleve.user.photo" alt="Photo" /></td>
+                          <td>                          <img :src="'/photos/' + eleve.photo" alt="Photo" class="eleve_photo"/></td>
                           <td>{{ eleve.user.email }}</td>
                         </tr>
                       </tbody>
                     </table>
+                  </div>
                   </li>
                 </ol>
               </div>
@@ -184,6 +189,7 @@ export default {
 .eleves-table td {
   padding: 10px;
   text-align: left;
+  color:#121212;
   border-bottom: 1px solid #ddd;
 }
 

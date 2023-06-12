@@ -1,18 +1,18 @@
 <template>
   <MainLayout>
     <div class="content-header">
-      <span class="user-name">{{ user.nom_francais }}</span>
+      <span class="user-name"> bienvenue notre professeur {{ user.nom_francais }}</span>
       <ul v-for="(groupe, groupeIndex) in professeur.groupes" :key="groupe.id">
         <li class="group-item">
-          <div class="group-name">{{ groupe.nom }}</div>
+          <div class="group-name"> groupe : {{ groupe.nom }}</div>
           <table class="student-table">
             <thead>
               <tr>
                 <th class="table-header">Eleve</th>
-                <th class="table-header"> First Exam </th>
-                <th class="table-header"> Second Exam </th>
-                <th class="table-header"> Third Exam </th>
-                <th class="table-header"> Prof Note </th>
+                <th class="table-header">Exam 1</th>
+                <th class="table-header">Exam 2</th>
+                <th class="table-header">Exam 3</th>
+                <th class="table-header">la note du professeur</th>
               </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0 , exam)">
                   <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
-                          <div v-if="'First Exam' === exam.nom">
+                          <div v-if="'Exam 1' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
                             {{ exam.note.valeur }} 
                            {{ customF(groupeIndex,eleveIndex) }}
@@ -51,7 +51,7 @@
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 1 , exam)">
                   <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
-                          <div v-if="'Second Exam' === exam.nom">
+                          <div v-if="'Exam 2' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
                             {{ exam.note.valeur }} 
                            {{ customS(groupeIndex,eleveIndex) }}
@@ -78,7 +78,7 @@
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 2 , exam)">
                   <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
-                          <div v-if="'Third Exam' === exam.nom">
+                          <div v-if="'Exam 3' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
                             {{ exam.note.valeur }} 
                            {{ customT(groupeIndex,eleveIndex) }}
@@ -105,7 +105,7 @@
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 3 , exam)">
                   <div v-if="eleve.eleve_exams.length > 0">
                         <div v-for="exam in eleve.eleve_exams" :key="exam.id">
-                          <div v-if="'Prof Note' === exam.nom">
+                          <div v-if="'la note du professeur' === exam.nom">
                             <!-- Display the note if the exam name is 'Prof Note' -->
                             {{ exam.note.valeur }} 
                            {{ customP(groupeIndex,eleveIndex) }}
@@ -207,7 +207,7 @@ export default {
     handleExamClick(groupeIndex, eleveIndex, eleveId, examIndex, examId) {
   this.showForm(groupeIndex, eleveIndex, examIndex);
   this.affectEleveId(eleveId);
-  this.
+  // this.
   this.modelValue.exame_id = examId; // Set the exam ID
 },
 showForm(groupeIndex, eleveIndex, examIndex, exam) {
@@ -255,7 +255,7 @@ isActiveForm(groupeIndex, eleveIndex, examIndex, exam) {
   this.exams.date = this.modelValue.date;
   this.exams.matiere_id = this.professeur.matiere;
   this.exams.note_id = this.modelValue.note_id;
-  const columnHeaders = ['First Exam', 'Second Exam', 'Third Exam', 'Prof Note'];
+  const columnHeaders = ['Exam 1', 'Exam 2', 'Exam 3', 'la note du professeur'];
   const columnIndex = this.activeForms[0][2]; // Get the column index of the active form
 if (columnIndex < columnHeaders.length) {
     this.exams.nom = columnHeaders[columnIndex]; // Assign the corresponding column header
@@ -342,11 +342,16 @@ if (columnIndex < columnHeaders.length) {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
+  color:#121212;
+
 }
 
 .student-table {
   width: 100%;
   border-collapse: collapse;
+  color:#121212;
+
+  
 }
 
 .table-header {

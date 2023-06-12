@@ -58,12 +58,14 @@
       console.error(error);
     });
 },
+
 fetchlastNote() {
         axios
           .get('/eleves/user/note/'+  this.user.id)
           .then(response => {
             this.lasts = response.data;
            console.log(this.lasts)
+           console.log(this.user.id)
           })
           .catch(error => {
             console.error(error);

@@ -88,7 +88,10 @@ class Professeur extends Model
     {
         return $this->hasMany(CarnetNote::class);
     }
-	
+	public function banck()
+{
+    return $this->belongsTo(Bankinformation_Prof::class, 'professeur_id');
+}
 
     // public function groupes()
     // {

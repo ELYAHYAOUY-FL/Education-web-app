@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleve;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\User;
 use App\Models\Groupe;
+use App\Models\Parente;
+use App\Models\Bankinformation_Parent;
+use App\Models\Professeur;
 use Illuminate\Http\Request;
 
 class EleveController extends Controller
@@ -13,6 +19,12 @@ class EleveController extends Controller
         $eleves = Eleve::with('groupe','user' , 'eleve_exams')->get();
         return response()->json($eleves);
     }
+    public function show($id)
+    {
+        $eleves = Eleve::with('groupe','user' , 'eleve_exams')->where('id', $id)->first();
+        return response()->json($eleves);
+    }
+
 
     public function getById($userId)
 {
@@ -93,6 +105,37 @@ public function getByIdlastNote($userId)
 }
 
 
+public function getLastCarentByProf($userId)
+{
+    $eleve = Eleve::with(['groupe.carnetNotes', 'eleve_professuers.professeur'])
+        ->where('user_id', $userId)
+        ->first();
+
+    if (!$eleve) {
+        return response()->json(['error' => 'eleve not found'], 404);
+    }
+
+    $lastNotes = [];
+    foreach ($eleve->eleve_professuers as $eleveProfessuer) {
+        $professeur = $eleveProfessuer->professeur;
+        $groupe = $eleveProfessuer->groupe;
+        $lastNote = $groupe->carnetNotes()
+            ->orderByDesc('created_at')
+            ->first();
+
+        if ($lastNote) {
+            $lastNotes[$professeur->id] = [
+                'professeur' => $professeur,
+                'lastNote' => $lastNote,
+            ];
+        }
+    }
+
+    return response()->json($lastNotes);
+}
+
+
+
 
 
 public function getContenuCahierNotes($userId)
@@ -120,30 +163,124 @@ public function getContenuCahierNotes($userId)
     return response()->json($contenusCahiersNotes);
 }
 
+// public function getLastCarnetDeNoteByEleveAndGroupe($id, $groupeId)
+// {
+//     $eleve = Eleve::with(['groupe.professeurs.carnetNotes'])
+//         ->where('user_id', $id)
+//         ->where('groupe_id', $groupeId)
+//         ->first();
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'CNE' => 'required|string|unique:eleves,CNE',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+//     if (!$eleve) {
+//         return response()->json(['error' => 'Eleve not found'], 404);
+//     }
 
-            'user_id' => 'required',
-            'groupe_id' => 'required',
-        ]);
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoName = time() . '.' . $photo->getClientOriginalExtension();
-            $photo->move(public_path('photos'), $photoName);
+//     $lastCarnets = [];
 
-            $validatedData['photo'] = $photoName;
-        }
-    
-        $eleve = Eleve::create($validatedData);
-        return response()->json(['eleve_id' => $eleve->id]);
-        
-    }
+//     foreach ($eleve->groupe->professeurs as $professeur) {
+//         $lastCarnet = $professeur->carnetNotes()
+//             ->where('groupe_id', $groupeId)
+//             ->orderByDesc('created_at')
+//             ->first();
+
+//         $lastCarnets[$professeur->id] = $lastCarnet;
+//     }
+
+//     return response()->json($lastCarnets);
+// }
+
+
+
+public function store(Request $request)
+{
+       $validatedData = $request->validate([
+           'CNE' => 'required|string|unique:eleves,CNE',
+           'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+           'user_id' => 'required',
+           'groupe_id' => 'required',
+       ]);
+
+       if ($request->hasFile('photo')) {
+           $photo = $request->file('photo');
+           $photoName = time() . '.' . $photo->getClientOriginalExtension();
+           $photo->move(public_path('photos'), $photoName);
+
+           $validatedData['photo'] = $photoName;
+       }
+   
+       $eleve = Eleve::create($validatedData);
+
+       $parentCheck = $request->input('parentcheck');
+       
+       if ($parentCheck == 1) {
+           // Parent exists, attach parents to the student
+           $parents = $request->input('parents_ids', []);
+           $eleve->parents()->attach($parents);
+   
+    } elseif($parentCheck==0) {
+           // Parent doesn't exist, create a new parent entry
+           
+       $validatedDatauser = $request->validate([
+           'nom_francais_parent' => 'required|string',
+           'nom_arabe_parent' => 'required|string',
+           'prenom_francais_parent' => 'required|string',
+           'prenom_arabe_parent' => 'required|string',
+           'date_naissance_parent' => 'required|date',
+           'lieu_naissance_parent' => 'required|string',
+           'sex_parent' => 'required|string',
+           'email_parent' => 'required|string',
+           'password_parent' => 'required|string',
+           'username_parent' => 'required|string',
+           'user_type_parent' => 'required|string',
+           'adresse_parent' => 'required|string',
+       ]);
+       // $validatepassword = Hash::make($validatedDatauser['password_parent']);
+
+       
+       $user = new User();
+       $user->nom_francais = $validatedDatauser['nom_francais_parent'];
+       $user->nom_arabe = $validatedDatauser['nom_arabe_parent'];
+       $user->prenom_francais = $validatedDatauser['prenom_francais_parent'];
+       $user->prenom_arabe = $validatedDatauser['prenom_arabe_parent'];
+       $user->date_naissance = $validatedDatauser['date_naissance_parent'];
+       $user->lieu_naissance = $validatedDatauser['lieu_naissance_parent'];
+       $user->sex = $validatedDatauser['sex_parent'];
+       $user->email = $validatedDatauser['email_parent'];
+       $user->password = Hash::make($validatedDatauser['password_parent']); // Hash the password
+       $user->username = $validatedDatauser['username_parent'];
+       $user->user_type = $validatedDatauser['user_type_parent'];
+       $user->adresse = $validatedDatauser['adresse_parent'];
+       
+       $user->save();
+
+     $validatedDataParent = $request->validate([
+       'CNI_parent' => 'required|string|unique:parents,CNI',
+       'tel_parent' => 'required',
+      
+      ]);
+           $parent = new Parente();
+          $parent->CNI = $validatedDataParent['CNI_parent'];
+               $parent->tel = $validatedDataParent['tel_parent'];
+               $parent->user()->associate($user);
+               $parent->save();
+               $eleve->parents()->attach($parent->id);
+               $validatedDataParentInfoBank = $request->validate([
+                   'numero_compte' => 'required',
+                  'type_bank' => 'required',
+              ]);
+              $bankinfo = new Bankinformation_Parent($validatedDataParentInfoBank);
+              $bankinfo->parent()->associate($parent);
+              $bankinfo->save();
+      
+       }
+       
+
+   
+       return response()->json(['eleve_id' => $eleve->id]);
+       
+}
     public function destroy($id)
-    {
+{
           $eleve = Eleve::findOrFail($id);
     
         // Remove the professor's association with subjects
@@ -153,7 +290,9 @@ public function getContenuCahierNotes($userId)
         $eleve->delete();
     
         return response()->json(['message' => 'prof deleted successfully']);
-    }
+}
+
+
     public function update(Request $request, $id)
     {
         // Valider les données du formulaire de modification

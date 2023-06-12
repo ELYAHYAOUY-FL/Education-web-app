@@ -5,13 +5,13 @@
           <br><br><br> 
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li v-for="(carnetNote, index) in carnetNotes" :key="carnetNote.id" :data-target="'#carouselExampleIndicators'" :data-slide-to="index" :class="{ active: index === 0 }"></li>
+          <li v-for="(carnetNote, index) in lastcarnets" :key="carnetNote.id" :data-target="'#carouselExampleIndicators'" :data-slide-to="index" :class="{ active: index === 0 }"></li>
         </ol>
         <div class="carousel-inner">
-          <div v-for="(carnetNote, index) in carnetNotes" :key="carnetNote.id" :class="{ 'carousel-item': true, active: index === 0 }">
+          <div v-for="(carnetNote, index) in lastcarnets" :key="carnetNote.id" :class="{ 'carousel-item': true, active: index === 0 }">
             <div class="note-card">
               <strong>Groupe :</strong> {{ carnetNote.groupe.nom }}<br>
-              <strong>Contenu :</strong> {{ carnetNote.contenu }}
+              <strong>Contenu :</strong> {{ carnetNote.lastNote.contenu }}
             </div>
           </div>
         </div>
@@ -25,6 +25,7 @@
         </a>
       </div>
       <div>
+        
       <form v-show="showForm" @submit.prevent="addcarnetbook" class="mt-3">
                  <div class="form-group">
             <label for="groupe">Sélectionner le groupe :</label>
@@ -43,8 +44,6 @@
         </form>
       </div>
     </div>
-
-    
   </template>
   
  
@@ -63,7 +62,7 @@
     },
     data() {
       return {
-        carnetNotes: [], // Vos données de carnets de notes
+       // carnetNotes: [], // Vos données de carnets de notes
         showForm: false,          // Nombre d'éléments à afficher par page
         carnetNotes: {},
         form:{
@@ -72,6 +71,8 @@
             groupe_id: '',
 
         },
+        lastcarnets: [],
+
         selectedGroupe: null,
         groupes: [],
         professeur: {
@@ -85,13 +86,14 @@
     mounted() {
     //  this.fetchGroupes();
       this.fetchProfesseur();
-      this.getCarnetbook();
+      this.getlastCarnetbook();
     //  this.fetchCarnetNotes();
     },
     methods: {
       toggleForm() {
       this.showForm = !this.showForm;
     },
+
          // Aller à une page spécifique
         fetchProfesseur() {
         axios
@@ -102,7 +104,7 @@
 
             console.log(this.user.id)
             console.log(this.carnetbookId)
-            this.getCarnetbook();
+          
            this.professeur.groupes = data.groupes;
            
           })
@@ -110,18 +112,20 @@
             console.error(error);
           });
       },
-    getCarnetbook() {
-      axios.get('/carnetnotes/getbyProf/' + this.carnetbookId)
-        .then(response => {
-          console.log('hfffy')
-            this.carnetNotes = response.data;
-            console.log('hy')
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
+ 
    
+      getlastCarnetbook() {
+          axios
+            .get('/professuer/user/carnetnotes/' + this.user.id)
+            .then(response => {
+              this.lastcarnets = Object.values(response.data); // Assign the values of the object to an array
+              console.log(this.lastcarnets);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        },
+    
       addcarnetbook() {
 
       this.form.professeur_id= this.carnetbookId
@@ -132,7 +136,7 @@
       axios.post('/carnetnotes', this.form)
         .then(response => {
           
-          this.getCarnetbook();
+          this.getlastCarnetbook();
           this.resetForm();
           this.showForm = false;
         })
@@ -140,7 +144,23 @@
           console.log(error);
         });
     },
- 
+
+//       submitForm() {
+//   const carnetNoteData = {
+//     contenu: this.contenu,
+//   };
+
+//   const professeurId = this.user.id; // Utilisez l'ID du professeur connecté à partir de votre application ou de votre système d'authentification
+
+//   axios.post(`/professeurs/${professeurId}/carnetnotes`, carnetNoteData)
+//     .then(response => {
+//       const carnetNote = response.data.carnetNote;
+//       console.log('Carnet de notes créé avec succès:', carnetNote);
+//     })
+//     .catch(error => {
+//       console.log('Erreur lors de la création du carnet de notes:', error);
+//     });
+// },
 resetForm() {
       this.form = {
         contenu: '',
