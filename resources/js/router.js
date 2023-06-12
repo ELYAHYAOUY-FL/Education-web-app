@@ -40,6 +40,11 @@ import Calendrie from './PageProfesseur/calendarPag.vue'
 import Calend from './PageEleve/calendarEleve.vue'
 import Calendr from './src/pages/calendarAdmin.vue'
 
+//cours
+import coursProf from './PageProfesseur/cours.vue'
+
+//devoir
+import DevoirsProf from './PageProfesseur/Devoirs.vue'
 //Emploi Temps 
 import EmploisTemps from './Page/EmploiTemps/Emploicreate.vue'
 import Emploi from './PageEleve/Emploicreate.vue'
@@ -191,6 +196,21 @@ meta: {requiresAuth:true , administration:true}
   component : ProfesseurcreateAdmin ,
   meta: {requiresAuth:true , administration:true}
 
+},
+//Cours 
+{
+  path : '/professeur/coursProf',
+  name :'coursProf',
+  component :coursProf,
+  meta: {requiresAuth:true ,  professeur: true}
+},
+//devoirs
+
+{
+  path : '/professeur/DevoirsProf',
+  name :'DevoirsProf',
+  component :DevoirsProf,
+  meta: {requiresAuth:true ,  professeur: true}
 },
 
 

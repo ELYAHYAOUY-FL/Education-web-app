@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DevoirController;
 use App\Http\Controllers\EmploiTempController;
 use App\Http\Controllers\PayementsdemoiController;
+use App\Http\Controllers\SalaireController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +40,7 @@ use App\Http\Controllers\CantineController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\EleveExamController;
+use App\Http\Controllers\CoursDevoirsController;
 
 
 
@@ -70,14 +74,14 @@ Route::get('/eleves/user/notes/{userId}', [EleveController::class, 'getByIdlastN
 Route::get('/parents', [ParentController::class, 'index']);
 Route::post('/parents', [ParentController::class, 'store']);
 Route::get('/parents/create', [ParentController::class, 'create']);
-// Route::post('/parents', [ParentController::class, 'create']);
 Route::post('/parents/{parentId}/eleves', [ParentController::class, 'associateEleve']);
 
 // 
 // routes/api.php
+Route::get('/dashboard', [DashboardController::class, 'getDashboardData']);
 
-
-
+//prof
+Route::get('/professeurs', [ProfesseurController::class, 'index']);
 Route::get('/parents/eleves', [ParentEleveController::class, 'index']);
 Route::post('/parents/eleves', [ParentEleveController::class, 'store']);
 Route::get('/parents/user/{userId}', [ParentController::class, 'getById']);
@@ -89,10 +93,7 @@ Route::get('/matieres/{id}', [MatiereController::class, 'show']);
 Route::get('/matieres/{id}/download', [MatiereController::class, 'download']);
 // moyen 
 Route::post('/averages', [AverageController::class, 'calculateAverages']);
-
 Route::get('/download-pdf/{filename}', [MatiereController::class, 'downloadPdf']);
-
-
 Route::get('/professeurs/{id}', [ProfesseurController::class, 'getById']);
 
 // classes
@@ -100,16 +101,13 @@ Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
 Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
 Route::get('/groupes/{groupId}/eleves',  [GroupeController::class, 'getGroupStudents']);
-// Route::get('/group/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
-// Route::get('/group/{groupId}/average/{examId}', [GroupeController::class, 'calculateGroupAverage']);
-
-
 
 //payement
 Route::post('/payements', [PayementsdemoiController::class, 'store']);
 Route::get('/payements', [PayementsdemoiController::class, 'index']);
-
 Route::get('/payment/parent', [ParentController::class, 'index']);
+Route::get('/payment-rates', [PayementsdemoiController::class, 'fetchPaymentRates']);
+
 
 //classes and matiers relation 
 Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
@@ -117,20 +115,13 @@ Route::get('/classe_matiere', [ClasseMatiereController ::class, 'index']);
 // vireemnet 
 Route::get('/bankinformations', [Bankinformation_ProfController ::class, 'index']);
 Route::post('/bankinformations', [Bankinformation_ProfController ::class, 'store']);
-
 Route::post('/virements', [VirementController ::class, 'store']);
-// use App\Http\Controllers\ProfessuerController ;
-
-
-
 Route::post('/activities', [ActivityController::class, 'store']);
-
 Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
 
 
 //textbook prof
-// Route::post('/textbooks', [TextbookController::class, 'store']);
 Route::put('/textbooks/{id}', [TextbookController::class, 'update']);
 Route::delete('/textbooks/{id}', [TextbookController::class, 'destroy']);
 Route::get('/textbooks', [TextbookController::class, 'index']);
@@ -138,8 +129,8 @@ Route::get('/textbooks/{id}', [TextbookController::class, 'show']);
 Route::post('/textbooks', [TextbookController::class, 'store']) ;
 Route::get('/textbooks/getbyProf/{ProfId}', [TextbookController::class, 'gettextbookbyidprof']) ;
 
+
 //users
-// Route::post('/users', [UserController::class, 'store']) ;
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
 
@@ -149,47 +140,53 @@ Route::post('/users', [UserController::class, 'store']);
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/events', [EventController::class, 'store']);
 
+
+
 //emploi temps
 Route::post('/emplois', [EmploiTempController::class, 'store']);
-// Route::get('/professeurs/user/{userId}', [ProfesseurController::class, 'getProfById']);
 Route::get('/emplois/Professeur/{MatiereId}', [EmploiTempController::class, 'getEmploiProf']);
-
 Route::get('/emplois', [ EmploiTempController::class, 'getSchedulesByGroup']);
-// Route::get('/emplois', [EmploiTempController::class, 'getEmplois']);
 Route::get('/emplois/groupe/{EmploiId}', [EmploiTempController::class, 'getEmplois']);
 
 
 
 // groupes
-// Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
 Route::get('/groupes', [GroupeController::class, 'index']);
 Route::post('/groupes', [GroupeController::class, 'store']);
-// Route::get('/matieres', [MatiereController::class, 'index']);
 Route::post('/niveau-scolaire/{niveauScolaireId}', [GroupeController::class, 'addGroupe']);
 Route::get('/api/groupe/last-carnets-notes-for-prof', [CarnetNoteController::class, 'getLastCarnetsNotesForProf']);
 
 
 
-//payement	Route::post('/carnetnotes', [CarnetNoteController::class, 'store']) ;
+
+//salaire
+Route::get('/table-mois-salaires', [SalaireController::class, 'index']);
 Route::post('/payements', [PayementsdemoiController::class, 'store']);	
 Route::get('/payements', [PayementsdemoiController::class, 'index']);
-
-
+Route::get('/payements', [SalaireController::class, 'index']);
 Route::get('/eleves/contenus-cahiers-notes/{userId}', [EleveController::class, 'getContenusCahiersNotes']);
+
+
+//devoir
+// Route::get('/devoirs', [DevoirController::class, 'index'])->name('devoir.index');
+// Route::post('/devoirs', [DevoirController::class, 'store'])->name('devoir.store');
+// Route::put('/devoirs/{id}/valider', [DevoirController::class, 'validerDevoir'])->name('devoir.valider');
+
+
 
 //payement
 Route::post('/payments', [PayementsdemoiController::class, 'store']);
-// Route::get('/payement', [PayementsdemoiController::class, 'store']);
-// Route::get('/paiements/{parent}', [PayementsdemoiController::class, 'getPaiements']);
+Route::post('/salaires', [SalaireController::class, 'store']);
 Route::get('/payment/details', [PayementsdemoiController::class, 'index']);
-// Route::get('/paiements/{parent}', 'PayementsdemoiController@getPaiements');
-// Route::post('/paiements', 'PayementsdemoiController@enregistrerPaiement');
-
-Route::get('/payment/bank_information_parent', [Bankinformation_ParentController ::class, 'index']);
-
-Route::get('/payment/user', [UserController::class, 'index']);
-// Route::get('/groupes/{groupeId}', [GroupeController::class, 'show']);
 Route::get('/parents/{parentId}/bankinfo_parent', [Bankinformation_ParentController::class, 'getBankInfoByParentId']);
+Route::get('/payment/bank_information_parent', [Bankinformation_ParentController ::class, 'index']);
+Route::get('/ salaire/bank_information_prof', [Bankinformation_ProfController::class, 'index']);
+Route::get('/salaire/details', [SalaireController::class, 'index']);
+Route::get('/payment/user', [UserController::class, 'index']);
+Route::get('/salaire/user', [UserController::class, 'index']);
+Route::get('/professeurs/{ProfesseurId}/bankinfo_prof', [Bankinformation_ProfController::class, 'getBankInfoByProfesseurId']);
+
+
 //cantine 
 Route::get('/programme-semaine', [CantineController::class, 'getProgrammeSemaine']);
 Route::put('/menu-jour/{nom}', [CantineController::class, 'updateMenuJour']);
@@ -202,9 +199,21 @@ Route::get('/activities', [ActivityController::class, 'index']);
 Route::post('/activities', [ActivityController::class, 'store']);
 Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
+//cours
+Route::get('/cours/getbyProf/{ProfId}', [CoursDevoirsController::class, 'getcoursbyidprof']) ;
+Route::post('/coursEE', [CoursDevoirsController::class, 'store']) ;
+Route::get('/carnetnotes/create/{professeurId}', [CoursDevoirsController::class, 'create']);
+Route::get('/telecharger-fichier//{id}/{nomFichier}', [CoursDevoirsController::class, 'telechargerFichier']) ;
 
+
+
+//devoir
+Route::get('/devoirs/getbyProf/{ProfId}', [DevoirController::class, 'getcoursbyidprof']) ;
+Route::post('/devoirEE', [DevoirController::class, 'store']) ;
+Route::get('/carnetnotes/create/{professeurId}', [DevoirController::class, 'create']);
+Route::get('/telecharger-fichier//{id}/{nomFichier}', [DevoirController::class, 'telechargerFichier'])->name('telecharger.fichier');
+  
 // notess 
-// Route::post('/notes', [NoteController::class, 'store']);
 Route::post('/notes', [NoteController::class, 'store']);
 Route::post('/lastnotes/{eleveId}', [EleveController::class, 'getByIdlastNote']);
 
@@ -214,12 +223,8 @@ Route::get('/exams/moyenne/{GroupeId}', [ExamController::class, 'calculerMoyenne
 Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
 
 // carnet 
-// Route::post('/carnetnotes', [CarnetNoteController::class, 'index']);
-// Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
-Route::get('/carnetnotes/create/{professeurId}', [CarnetNoteController::class, 'create']) ;
-// Route::post('/professeurs/{professeurId}/carnetnotes', [CarnetNoteController::class, 'store']) ;
-// Route::get('/carnetnotes', [CarnetNoteController::class,  'getCarnetNotes']);
-Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
+ Route::get('/carnetnotes/create/{professeurId}', [CarnetNoteController::class, 'create']) ;
+ Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
 Route::post('/carnetnotes', [CarnetNoteController::class, 'store']) ;
 Route::post('/payements', [PayementsdemoiController::class, 'store']);
 

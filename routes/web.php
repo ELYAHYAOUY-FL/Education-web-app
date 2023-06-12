@@ -16,7 +16,7 @@ Route::post('/admin/professeur', [ProfesseurController::class, 'store']);
 Route::get('/professuers', [ProfessuerController::class, 'index']);
 
 
-Route::get('/dashboard', [DashboardController::class, 'getDashboardData']);
+
 
 //*************************************************** */
 

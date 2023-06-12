@@ -223,7 +223,7 @@ export default {
   margin-bottom: 20px;
   width: 200px;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #c7f1e0;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;

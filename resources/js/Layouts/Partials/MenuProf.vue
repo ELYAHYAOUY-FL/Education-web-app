@@ -33,33 +33,6 @@
                   </p>
                 </router-link>
               </li>
-  
-              <li class="nav-item menu-open ">
-                <a href="#" class="nav-link " :class="{ active: $route.path.startsWith('/Etudiant') }">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Etudiant
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-
-                <ul class="nav nav-treeview">
-                    
-                  <li class="nav-item">
-                    <router-link to="" class="nav-link " :class="{ 'active': $route.path === '' }">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Tous</p>
-                    </router-link>
-                  </li>
-                  <li class="nav-item">
-                    <router-link to="" class="nav-link" :class="{ 'active': $route.path === '' }">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Nouveau</p>
-                    </router-link>
-                  </li>
-                </ul>
-              </li>
-  
               <li class="nav-item">
                 <a href="#" class="nav-link " :class="{ active: $route.path.startsWith('/Etudiant') }">
                   <i class="nav-icon fas fa-book"></i>
@@ -83,23 +56,23 @@
                     </li>
                   </ul>
               </li>
-  
+            
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/professeur/coursProf" class="nav-link " :class="{ 'active': $route.path === '/coursProf' }">
                   <i class="nav-icon fas fa-file-alt"></i>
                   <p>
-                    Devoir
+                     Cours
                   </p>
-                </a>
+              </router-link>
             </li>
 
 <li class="nav-item">
-  <a href="#" class="nav-link">
+  <router-link to="/professeur/DevoirsProf" class="nav-link " :class="{ 'active': $route.path === '/DevoirsProf' }">
     <i class="nav-icon fas fa-clipboard-list"></i>
     <p>
-      Projet
+      Devoirs
     </p>
-  </a>
+  </router-link>
 </li>
 
 <li class="nav-item">

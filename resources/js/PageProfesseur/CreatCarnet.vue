@@ -122,8 +122,6 @@
         });
     },
    
-  
-    
       addcarnetbook() {
 
       this.form.professeur_id= this.carnetbookId
@@ -142,22 +140,7 @@
           console.log(error);
         });
     },
-//       submitForm() {
-//   const carnetNoteData = {
-//     contenu: this.contenu,
-//   };
-
-//   const professeurId = this.user.id; // Utilisez l'ID du professeur connecté à partir de votre application ou de votre système d'authentification
-
-//   axios.post(`/professeurs/${professeurId}/carnetnotes`, carnetNoteData)
-//     .then(response => {
-//       const carnetNote = response.data.carnetNote;
-//       console.log('Carnet de notes créé avec succès:', carnetNote);
-//     })
-//     .catch(error => {
-//       console.log('Erreur lors de la création du carnet de notes:', error);
-//     });
-// },
+ 
 resetForm() {
       this.form = {
         contenu: '',
