@@ -16,15 +16,7 @@
         <div class="containe"><h2> <i class="fas fa-sharp fa-solid fa-clock" style="color: #6e7b7c;"></i>Emploi Temps </h2> </div>
    
    <div class="centereziation">
-   <div class="content-header">
-     <div class="content-header">
-         <ul>
-     <li v-if="user.eleve && eleve.groupe">
-       {{ eleve.groupe.nom }}
-     </li>
-   </ul>
- </div>
-   </div>
+   
    <div class="emploi-temps" v-if="emploiTemps.length > 0">
      <div v-for="(emplois, jour) in groupedEmploiTemps" :key="jour">
        <div class="jour-container">
@@ -51,9 +43,9 @@
      </div>
    </div>
  </div>
-      <!-- <h1>Eleve ID: {{ eleve.id }}</h1>
-      <h1>Eleve nom: {{ eleve.user.nom_francais }}</h1>
-      <h1>Eleve groupe: {{ eleve.groupe.nom }}</h1> -->
+     <div>
+      
+     </div>
     </div>
   </template>
   

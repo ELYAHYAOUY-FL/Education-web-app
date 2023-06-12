@@ -44,7 +44,7 @@
                           <td>{{ eleve.user.nom_francais }}</td>
                           <td>{{ eleve.user.nom_arabe }}</td>
                           <td>{{ eleve.CNE }}</td>
-                          <td><img :src="eleve.user.photo" alt="Photo" /></td>
+                          <td>                          <img :src="'/photos/' + eleve.photo" alt="Photo" class="eleve_photo"/></td>
                           <td>{{ eleve.user.email }}</td>
                         </tr>
                       </tbody>
@@ -189,6 +189,7 @@ export default {
 .eleves-table td {
   padding: 10px;
   text-align: left;
+  color:#121212;
   border-bottom: 1px solid #ddd;
 }
 

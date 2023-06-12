@@ -258,7 +258,7 @@ export default {
           this.modelValue.user_id = userId;
           this.addEleve();
           this.successMessage = "Form submitted successfully";
-          this.clearForm();
+        
         })
         .catch(error => {
           console.log(error.response.data);
@@ -312,6 +312,7 @@ export default {
         },
       }).then(response => {
         const eleveId = response.data.eleve_id;
+        this.clearForm();
         // Handle the response
       }).catch(error => {
         console.log(error.response.data);
@@ -362,6 +363,8 @@ clearForm() {
     adresse: "",
     photo: null,
     CNE: "",
+    user_type_parent: "parent",
+
     groupe_id: ""
   };
   this.previewPhoto = null;
