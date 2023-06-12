@@ -87,8 +87,9 @@
           </select>
         </div>
 
-        <div v-for="groupe in groupes" :key="groupe.id">
-  <label>
+        <div >
+          <div> groupe : </div>
+  <label v-for="groupe in groupes" :key="groupe.id">
     <input type="checkbox" v-model="modelValue.groupe_ids" :value="groupe.id">
     {{ groupe.nom }}
   </label>

@@ -64,13 +64,13 @@
                         <th>capacité</th>
                       </tr>
                       <tr>
-                        <td> <ul>
+                        <td> <ul class="felextable">
                           <li v-for="groupe in niveau_scolaire.groupes" :key="groupe.id">{{ groupe.nom }} </li>
                         </ul></td>
-                        <td> <ul>
+                        <td> <ul class="felextable">
                           <li v-for="groupe in niveau_scolaire.groupes" :key="groupe.id">   {{ groupe.salle }}  </li>
                         </ul></td>
-                        <td> <ul>
+                        <td> <ul class="felextable">
                           <li v-for="groupe in niveau_scolaire.groupes" :key="groupe.id">  {{ groupe.capacity}}</li>
                         </ul></td>
                       </tr>
@@ -119,6 +119,10 @@
 </template>
 
 <style>
+.felextable{
+  display: flex;
+  flex-direction: column;
+}
   .button {
     background-color: #4CAF50;
     border: none;

@@ -92,14 +92,22 @@
           <input type="radio" id="nom_existe" name="parent" value="0" v-model="parentcheck" >
 
         </div>
-        <div v-if="parentcheck==1">
-          <div v-for="parent in parents" :key="parent.id">
-          <label>
-            <input type="checkbox" v-model="modelValue.parents_ids" :value="parent.id">
-            {{ parent.user.nom_arabe }} {{ parent.user.id }}
-          </label>
-        </div>
-        </div>
+        <div v-if="parentcheck == 1">
+  <div v-for="parent in parents" :key="parent.id">
+    <label>
+      <input type="checkbox" v-model="modelValue.parents_ids" :value="parent.id">
+      <span
+        v-if="parent.user && parent.user.nom_francais"
+        :class="{ 'selected': modelValue.parents_ids.includes(parent.id) }"
+        @click="selectParent(parent.id)"
+      >
+        {{ parent.user.nom_francais }} {{ parent.user.prenom_francais }}
+      </span>
+      <span v-else>Unknown Parent</span>
+    </label>
+  </div>
+</div>
+
         <div v-if="parentcheck==0">
   
           <div class="form-group">
@@ -231,7 +239,9 @@ export default {
       previewPhoto: null,
       successMessage: "",
       parentcheck:"",
-      parents:[]
+      parents:[],
+      selectedParents: [],
+
     };
   },
   mounted() {
@@ -241,6 +251,14 @@ export default {
   },
 
  methods: {
+  selectParent(parentId) {
+    if (this.selectedParents.includes(parentId)) {
+      // Parent is already selected, so deselect it
+      this.selectedParents = this.selectedParents.filter((id) => id !== parentId);
+    } else {
+      // Parent is not selected, so select it
+      this.selectedParents.push(parentId);
+    }},
   fetchClasses() {
       axios.get('/groupes')
         .then(response => {
@@ -271,6 +289,7 @@ export default {
     axios.get('/parents') // Replace '/api/groupes' with the actual endpoint to fetch the groupes
       .then(response => {
         this.parents = response.data;
+
       })
       .catch(error => {
         console.log(error);
@@ -377,3 +396,8 @@ clearForm() {
 ;
 </script>
 
+<style scoped>
+.selected {
+  background-color: #4c9e9e;
+}
+</style>

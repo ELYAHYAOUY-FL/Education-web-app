@@ -53,7 +53,7 @@
   <i class="fas fa-globe-americas icon-small"></i> 
   <i class="fas fa-scroll icon-x-large"></i>  
     </div>
-    <p class="cookieHeading" @click="toggleDescription(matiere)"><h3>{{ matiere.titre }}</h3></p>
+    <p class="cookieHeading" @click="toggleDescription(matiere)"><h3>{{ matiere.titre }}</h3> </p>
     <div v-if="matiere.showDescription">
     <p class="cookieDescription" >{{ matiere.description }}</p>
       <h3>Coefficient :{{ matiere.coefficient }}</h3>
