@@ -1,7 +1,8 @@
 <template>
   <MainLayoutProf>
     <div>
-      <h2>Déposer un cours</h2>
+      <br> 
+     <h2>  <i class="fas fa-book"></i> Déposer un cour</h2>
       <button @click="toggleForm" class="btn btn-primary mt-3">{{ showForm ? 'Masquer le formulaire' : 'Afficher le formulaire' }}</button>
       <br><br><br> 
       <form v-show="showForm" @submit.prevent="addCourbook" class="mt-3">
@@ -28,24 +29,29 @@
         <button type="submit" class="btn btn-primary">Enregistrer</button>
       </form>
     </div>
-    <div v-for="cour in cours" :key="cour.id" class="note-card">
-      <div class="card-header">
-        <strong>Groupe :</strong> {{ cour.groupe.nom }}
-      </div>
-      <div class="card-body">
-        <div class="card-content">
-          <strong>Titre :</strong> <h1>{{ cour.titre }} </h1><br>
-          <strong>Contenu :</strong> {{ cour.contenu }}
-        </div>
-        <div class="card-footer">
-         
-          <strong>Fichier :</strong> <a :href="telechargerUrl(cour.id, cour.fichier)" download>Télécharger le fichier</a>
+    <div class="row">
+      <div v-for="cour in cours" :key="cour.id" class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <strong>Groupe :</strong> {{ cour.groupe.nom }}
+          </div>
+          <div class="card-body">
+            <div class="card-content">
+              <h1 @click="toggleDescription(cour)" class="titles"  >{{ cour.titre }}</h1>
+              <transition name="fade">
+                <div v-if="cour.showDescription"  class="content">
+                  <strong>Contenu :</strong> {{ cour.contenu }}
+                  <br>
+                  <strong>Fichier :</strong> <a :href="telechargerUrl(cour.id, cour.fichier)" download>Télécharger le fichier</a>
+                </div>
+              </transition>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </MainLayoutProf> 
 </template>
-
 <style>
 .note-card {
   background-color: #fff;
@@ -57,6 +63,10 @@
   display: grid;
   
   
+}
+.titles {
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .note-card:hover {
@@ -101,9 +111,9 @@ textarea {
   min-height: 100px;
 }
 
-input[type="file"] {
+/* input[type="file"] {
   display: none;
-}
+} */
 
 input[type="file"] + label {
   background-color: #007bff;
@@ -161,6 +171,9 @@ export default {
    
     },
   methods: {
+    toggleDescription(cour) {
+    cour.showDescription = !cour.showDescription;
+  },
     toggleForm() {
       this.showForm = !this.showForm;
     },

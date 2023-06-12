@@ -9,7 +9,7 @@
               <div>
                 <button class="button" @click="toggleForm('niveauScolaire')">
                   <i :class="showNiveauForm ? 'fa fa-minus-circle' : 'fa fa-plus-circle'"></i>
-                  {{ showNiveauForm ? 'Cancel' : 'Add NiveauScolaire' }}
+                  {{ showNiveauForm ? 'Cancel' : ' NiveauScolaire' }}
                 </button>
                 <form v-if="showNiveauForm" @submit.prevent="addNiveauScolaire">
                       <div class="form-group">
@@ -61,7 +61,7 @@
                         <tr>
                         <th>nom</th>
                         <th>salle</th>
-                        <th>capacity</th>
+                        <th>capacité</th>
                       </tr>
                       <tr>
                         <td> <ul>
@@ -85,7 +85,7 @@
                             <i class="fas fa-solid fa-trash fa-beat fa-xl"></i>
                           </button>
                           <button class="button-primary" @click="toggleGroupeForm(niveau_scolaire.id)">
-                              {{ niveau_scolaire.id === activeNiveauId && showForm2 ? 'Cancel' : 'Add Groupe' }}
+                              {{ niveau_scolaire.id === activeNiveauId && showForm2 ? 'Cancel' : '+Groupe' }}
                               </button>
 
                         </div>

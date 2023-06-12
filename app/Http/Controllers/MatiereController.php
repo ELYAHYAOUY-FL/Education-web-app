@@ -30,7 +30,7 @@ class MatiereController extends Controller{
             'titre' => 'required',
             'description' => 'required',
             'coefficient' => 'required',
-            'pdf' => 'required|mimes:pdf|max:2048',
+            'pdf' => 'required|mimes:pdf|max:4096',
         ]);
 
         // Enregistrement du fichier PDF

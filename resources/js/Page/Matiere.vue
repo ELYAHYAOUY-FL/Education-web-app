@@ -1,17 +1,21 @@
 <template>
   <MainLayout> 
   <div>
-    <div class="buttonContainer">
-        <button class="acceptButton" @click="toggleForm(matiere)"> + Ajouter</button>
+    <div class="buttonContaine">
+        <button class="acceptButto" @click="toggleForm(matiere)"> + Ajouter</button>
         <transition name="fade">
         <div v-if="matiere.showForm">
           <form @submit.prevent="saveMatiere(matiere)" >
             <input type="text" v-model="matiere.titre" placeholder="Titre" required>
             <textarea v-model="matiere.description" placeholder="Description" required></textarea>
             <input type="number" v-model="matiere.coefficient" placeholder="Coefficient" required> 
-            <input type="file" @change="onFileChange">
+            <label> Fichier: </label>
+              <input type="file" @change="onFileChange"> 
+              
             <button type="submit">Enregistrer</button>
+           
           </form>
+        
         </div>
       </transition>
       </div>

@@ -14,7 +14,7 @@
       <div class="col-md-6">
         <div class="about_detail-box">
           <h3>
-            À propos de notre école  </h3>
+            À propos de notre école </h3>
           <p>
             Chez <b>EduSage</b>, nous sommes passionnés par l'éducation et nous croyons fermement au pouvoir de la technologie pour améliorer l'apprentissage. Notre plateforme a été conçue dans le but de simplifier et d'enrichir l'expérience éducative pour les élèves, les enseignants et les parents.
 

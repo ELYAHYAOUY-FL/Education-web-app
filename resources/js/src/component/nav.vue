@@ -13,25 +13,25 @@
 
 <!-- NAVIGATION MENUS -->
 <div class="menu">
-<li><a href="/">Accueille</a></li>
-<li><a href="/">à propos de nous</a></li>
+<li><a href="/">Accueil</a></li>
+<li><a href="/">À propos de nous</a></li>
 
 <li class="services">
 <a href="/">Services</a>
 
 <!-- DROPDOWN MENU -->
 <ul class="dropdown">
-<li><a href="/">Eleve </a></li>
+<li><a href="/">Élève </a></li>
 <li><a href="/">Parent </a></li>
-<li><a href="/">Aministration</a></li>
-<li><a href="/">Ensegnent </a></li>
+<li><a href="/">Administration</a></li>
+<li><a href="/">Enseignant </a></li>
 
 </ul>
 
 </li>
 
 <li><a href="/">Paiement</a></li>
-<li><a href="/">Contact nous </a></li>
+<li><a href="/">Contactez-nous </a></li>
 </div>
 </ul>
 </nav>

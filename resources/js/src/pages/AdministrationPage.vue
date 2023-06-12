@@ -2,20 +2,12 @@
  
   <MainLayout>
     <router-view>
-<div class="content-header">
-<div class="container-fluid">
-<div class="row mb-2">
-<div class="col-sm-6">
-<h1 class="m-0">Page home</h1>
-</div>
-
-</div>
-</div>
-</div>
-
 
 <div class="container">
-    <h2></h2>
+  <div>
+    <h1 class="m-0">Page home</h1>
+  </div>
+ 
 <div class="row">
   <div class="col-md-4">
     
