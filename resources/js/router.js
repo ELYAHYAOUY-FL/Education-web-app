@@ -52,6 +52,20 @@ import store  from '@/store';
 import HomeELEVE from './PageEleve/home.vue'
 import NoteELEVE from './PageEleve/note.vue'
 
+//paiement 
+import paiementparent from './Page/Paiement/payementParent.vue'
+import paiementprofesseur from './Page/Paiement/payementProfesseur.vue'
+//  import Matiere from './Page/Matiere.vue'
+ //matiere
+import Matiere from './Page/Matiere.vue'
+import ParenteleveDEtails from './PageParent/EleveDetails.vue'
+import ParentElevenote from './PageParent/note.vue'
+import ParentElevecantine from './PageParent/cantine.vue'
+import ParentEleveactivities from './PageParent/actyvitypara.vue'
+import ParentElevecalendrier from './PageParent/calendrier.vue'
+
+//parent eleves
+import MenulayoutEleve from './Layouts/MenuLayoutEleve.vue'
 const routes =[ 
 
     {
@@ -116,7 +130,23 @@ const routes =[
   meta: {requiresAuth:true , administration:true}
 
   },
+//matier
+{
+  path : '/Administration/Matiere',
+  name : 'MatiereAdmin',
+  component : Matiere,
+  meta: {requiresAuth:true , administration:true}
+  
+  },
 
+//   //matier
+// {
+//   path : '/Administration/Matiere',
+//   name : 'MatiereAdmin',
+//   component : Matiere,
+//   meta: {requiresAuth:true , administration:true}
+
+//   },
 
   // niveau Scolaire Path 
 {
@@ -126,6 +156,24 @@ component : NiveauListAdmin,
 meta: {requiresAuth:true , administration:true}
 
 },
+
+//Paiement
+{
+  path : '/Administration/paiementparent',
+  name :'paiementparent',
+  component :paiementparent ,
+  meta: {requiresAuth:true , administration:true}
+
+
+},
+{
+  path : '/Administration/paiementprofesseur',
+  name :'paiementprofesseur',
+  component :paiementprofesseur ,
+  meta: {requiresAuth:true , administration:true}
+
+},
+
 {
 path : '/Administration/gestionDesNote',
 name : 'NotestAdmin',
@@ -150,6 +198,7 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , administration:true}
 
 },
+
 
 // ParentAdmin
 {
@@ -288,6 +337,44 @@ meta: {requiresAuth:true , administration:true}
   meta: {requiresAuth:true , eleve:true}
 
 },
+
+// *************************************** parent routing ***************/ 
+{
+  path : '/parentEleveDetails/:eleveId',
+  name :'parenteleveDEtails',
+  component :ParenteleveDEtails ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevenote/:eleveId',
+  name :'parentElevenote',
+  component :ParentElevenote ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevecantine/:eleveId',
+  name :'parentElevecantine',
+  component :ParentElevecantine ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentEleveactivities/:eleveId',
+  name :'parentEleveactivities',
+  component :ParentEleveactivities ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+{
+  path : '/parentElevecalendrier/:eleveId',
+  name :'parentElevecalendrier',
+  component :ParentElevecalendrier ,
+  meta: {requiresAuth:true , parent:true}
+
+},
+
 
 ];
 

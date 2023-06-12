@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Models\Bankinformation_Parent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -40,10 +41,13 @@ class Payementsdemoi extends Model
 
     public function bankInformationParent()
     {
-        return $this->belongsTo(Bankinformation_Parent::class);
+        return $this->belongsTo(Bankinformation_Parent::class, 'bankinformation_parent_id');
     }
 	// public function parents()
 	// {
 	// 	return $this->hasMany(Parente::class, 'payement_id');
 	// }
+
+	 
+	 
 }

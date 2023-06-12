@@ -9,17 +9,25 @@ class GroupeController extends Controller
 {
    
     
+    // public function index()
+    // {
+    //     $groupes = Groupe::with('matieres.professeur','professeurs.matiere')->get();
+    //     return response()->json($groupes);
+    // }
     public function index()
     {
         $groupes = Groupe::with('niveau_scolaire','eleves' ,'eleves.user')->get();
         return response()->json($groupes);
     }
+
     public function getGroupStudents($groupId)
     {
         $group = Groupe::findOrFail($groupId);
         $students = $group->eleves()->with('user')->get();
         return response()->json($students);
     }
+    
+
     
     public function addGroupe(Request $request, $niveauScolaireId)
     {

@@ -8,7 +8,7 @@
 </li>
 </ul>
 </nav>
-      <Menu/>
+      <MenuLayoutEle/>
 <div class="content-wrapper"> 
 <!-- le contenu de la page  -->
 <slot/> 
@@ -17,9 +17,9 @@
 <Footer/>
 </div>
   </template>
+
   <script setup>
 import Footer from './Partials/Footer.vue';
-import Menu from './Partials/MenuElev.vue';
+import MenuLayoutEle from './Partials/MenuElev.vue';
 </script>
-  
   

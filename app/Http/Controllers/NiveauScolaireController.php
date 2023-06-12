@@ -16,9 +16,10 @@ class NiveauScolaireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $niveauScolaires = NiveauScolaire::with('groupes','groupes.eleves.user')->get();
+        $niveauScolaires = NiveauScolaire::with('groupes.matieres.professeur','groupes.eleves.user')->get();
 
         return response()->json($niveauScolaires);
             

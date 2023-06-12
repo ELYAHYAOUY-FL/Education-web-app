@@ -26,5 +26,9 @@ class User extends Authenticatable
         'adresse',
         
     ];
+    public function parent()
+    {
+        return $this->hasOne(Parente::class, 'user_id');
+    }
     
 }

@@ -187,7 +187,7 @@ export default {
       reader.readAsDataURL(file);
     },
     supprimerActivity(activityId) {
-      axios.delete(`/api/activities/${activityId}`)
+      axios.delete(`/activities/${activityId}`)
         .then(response => {
           console.log(response.data.message);
           this.fetchActivities(); // Mettre à jour la liste des activités après la suppression
