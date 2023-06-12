@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="resources/css/dhtmlxscheduler_material.css">
+
+        <title>Laravel</title>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> -->
+
+
+        <!-- Fonts -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <script type="module" src="http://[::1]:5173/@vite/client"></script><script type="module" src="http://[::1]:5173/resources/js/app.js"></script><link rel="stylesheet" href="http://[::1]:5173/resources/css/app.css" /><link rel="stylesheet" href="http://[::1]:5173/resources/css/mediaquery.css" /><link rel="stylesheet" href="http://[::1]:5173/resources/css/globalStyle.css" />        </head>
+    <body class="antialiased">
+    <div id="app" data-page="{&quot;component&quot;:&quot;welcome&quot;,&quot;props&quot;:{&quot;errors&quot;:{}},&quot;url&quot;:&quot;\/api\/matieres\/public\/pdf\/WiSavHCl0hJvs5oYDc14nPBkSXeq35ln5S7cMgpB.pdf\/download&quot;,&quot;version&quot;:&quot;&quot;}"></div>        <div id="app"></div>    
+    </body>
+    
+</html>

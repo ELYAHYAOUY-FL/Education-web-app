@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Devoir;
 use App\Models\Professeur;
+use App\Models\Groupe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -89,6 +90,11 @@ class DevoirController extends Controller
         $devoir->groupe_id = $request->groupe_id;
         $devoir->save();
 
+        $groupe=Groupe::findOrFail($devoir->groupe_id);
+        $groupe->eleves()->each(function($eleve) use ($devoir){
+            $eleve->devoirs()->attach($devoir);
+
+        });
         // Retourner une réponse réussie
         return response()->json(['message' => 'Devoir créé avec succès'], 201);
     }

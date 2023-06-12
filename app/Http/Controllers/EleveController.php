@@ -134,9 +134,19 @@ public function getLastCarentByProf($userId)
     return response()->json($lastNotes);
 }
 
+public function getDevoir($eleveId){
+$eleve=Eleve::findOrFail($eleveId);
+$devoirs=$eleve->devoirs()->get();
+// dd($devoirs);
+return response()->json($devoirs);
+}
 
-
-
+public function updateValidationDevoir($eleveId,$devoireid){
+    $eleve=Eleve::findOrFail($eleveId);
+   
+  $eleve->devoirs()->updateExistingPivot($devoireid,['validation'=> true]);
+  return response()->json(['message'=>'update succes']);
+ }
 
 public function getContenuCahierNotes($userId)
 {

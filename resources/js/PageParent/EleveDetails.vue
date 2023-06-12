@@ -29,7 +29,7 @@
              :key="emploi.id"
              :style="{ 'animation-delay': getAnimationDelay(emploi.id) }">
              
-             <div @click="toggleDescription(emploi.id)" class="matiere">{{ emploi.matiere.titre }}</div>
+             <div @click="toggleDescription(emploi.id)" class="matieres">{{ emploi.matiere.titre }}</div>
        <div class="heure">
          {{ emploi.heure_debut ? emploi.heure_debut.slice(0, 5) : '' }} à {{ emploi.heure_fin ? emploi.heure_fin.slice(0, 5) : '' }}
 

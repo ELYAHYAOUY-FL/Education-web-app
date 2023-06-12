@@ -45,6 +45,9 @@ class Eleve extends Model
     }
 
  
+    public function devoirs(){
+        return $this->belongsToMany(Devoir::class,'eleve_devoire', 'eleve_id' , 'devoir_id')->withPivot('validation');
+    }
 
     public function eleve_exams()
     {

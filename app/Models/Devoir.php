@@ -57,4 +57,7 @@ class Devoir extends Model
     {
         return $this->belongsTo(Groupe::class, 'groupe_id');
     }
+	public function eleves(){
+        return $this->belongsToMany(Devoir::class,'eleve_devoire' , 'devoir_id' , 'eleve_id')->withPivot('validation');
+    }
 }

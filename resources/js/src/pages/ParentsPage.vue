@@ -136,7 +136,7 @@ ul {
   gap:1rem;
 }
 
-li {
+.card-container li {
   margin-bottom: 10px;
   color: #fff;
   cursor: pointer;

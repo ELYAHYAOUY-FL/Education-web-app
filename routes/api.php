@@ -66,6 +66,7 @@ Route::get('/eleves/user/carnetnotes/{userId}', [EleveController::class, 'getLas
 //Eleve
 Route::post('/eleves', [EleveController::class, 'store']);
 Route::get('/eleves', [EleveController::class, 'index']);
+Route::get('/eleves/devoir/{eleveid}', [EleveController::class, 'getDevoir']);
 Route::delete('/eleves/{id}', [EleveController::class, 'destroy']);
 Route::get('/eleves/{id}', [EleveController::class, 'show']);
 Route::get('/eleves/carnet/{id}/{groupeId}', [EleveController::class, 'getLastCarnetDeNoteByEleveAndGroupe']);
@@ -73,6 +74,7 @@ Route::put('/eleves/{id}', [EleveController::class, 'update']);
 Route::get('/eleves/user/{userId}', [EleveController::class, 'getById']);
 Route::get('/eleves/user/note/{userId}', [EleveController::class, 'getByIdlastNoteBYmatire']);
 Route::get('/eleves/user/notes/{userId}', [EleveController::class, 'getByIdlastNote']);
+Route::put('/eleves/devoirs/{eleveId}/{devoirId}', [EleveController::class, 'updateValidationDevoir']);
 
 
 //parent 
