@@ -24,10 +24,10 @@ export default {
     return {
       name: "CardUser",
       items: [
-        { name: 'espace eleve', url: '/Student', image: studentImag },
-        { name: 'espace parent', url: '/parent', image: parentImg },
-        { name: 'espace ensegnent', url: '/professeur', image: profImg },
-        { name: 'espace administration', url: '/Administration', image: administrationImg },
+        { name: 'Espace élève', url: '/Student', image: studentImag },
+        { name: 'Espace parent', url: '/parent', image: parentImg },
+        { name: 'Espace enseignant', url: '/professeur', image: profImg },
+        { name: 'Espace administration', url: '/Administration', image: administrationImg },
       ],
     }
   },

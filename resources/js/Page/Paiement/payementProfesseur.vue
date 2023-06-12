@@ -3,13 +3,13 @@
     <div class="container">
       <h2 class="title">Liste des paiements</h2>
       <div class="month-selector">
-        <select v-model="selectedMonth" @change="fetchPaymentDetails">
+        <select v-model="selectedMonth" @change="fetchPaymentDetails" >
           <option v-for="month in months" :value="month">{{ month }}</option>
         </select>
       </div>
       <div class="payment-table">
         <div class="payment-row">
-          <div class="payment-cell">Nom du parent</div>
+          <div class="payment-cell">Nom du professeur</div>
           <div class="payment-cell">Numéro de compte</div>
           <div class="payment-cell">Type de banque</div>
           <div class="payment-cell">Montant</div>
@@ -18,9 +18,9 @@
           <div class="payment-cell">Statut</div>
         </div>
         <div v-for="payment in selectedPayments" :key="payment.id" class="payment-row">
-          <div class="payment-cell">{{ payment.bank_information_parent.parent.user.prenom_arabe }}</div>
-          <div class="payment-cell">{{ payment.bank_information_parent.numero_compte }}</div>
-          <div class="payment-cell">{{ payment.bank_information_parent.type_bank }}</div>
+          <div class="payment-cell">{{ payment.bank_information_prof.professeur.user.prenom_arabe }}</div>
+          <div class="payment-cell">{{ payment.bank_information_prof.numero_compte }}</div>
+          <div class="payment-cell">{{ payment.bank_information_prof.type_bank }}</div>
           <div class="payment-cell">{{ payment.montant }}</div>
           <div class="payment-cell">{{ payment.mois }}</div>
           <div class="payment-cell">{{ payment.date }}</div>
@@ -40,7 +40,7 @@
         <div class="form-row">
           <label for="parent">Nom du parent:</label>
           <select id="parent" v-model="selectedParent" >
-            <option v-for="parent in parents" :value="parent.id">{{ parent.user.nom_francais }} {{ parent.user.prenom_francais }}</option>
+            <option v-for="professeur in professeurs" :value="professeur.id">{{ professeur.user.nom_francais }} {{ professeur.user.prenom_francais }}</option>
           </select>
         </div>
 
@@ -91,14 +91,14 @@ export default {
       payments: [],
       selectedMonth: '',
       months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-      parents: [],
+      professeurs: [],
       selectedParent: '',
       selectedParentDetails: {
         numero_compte: '',
         type_bank: ''
       },
       newPayment: {
-        parent_id: '',
+        professeur_id: '',
         montant: '',
         mois: '',
         date: '',
@@ -130,7 +130,7 @@ export default {
       this.showForm = !this.showForm; // Toggle the value of showForm
     },
     fetchPaymentDetails() {
-      axios.get(`/payment/details?month=${this.selectedMonth}`)
+      axios.get(`/salaire/details?month=${this.selectedMonth}`)
         .then(response => {
           this.payments = response.data;
         })
@@ -140,9 +140,9 @@ export default {
     },
  
     fetchParents() {
-      axios.get('/parents')
+      axios.get('/professeurs')
         .then(response => {
-          this.parents = response.data;
+          this.professeurs = response.data;
         })
         .catch(error => {
           console.error(error);
@@ -150,9 +150,9 @@ export default {
     },
   
     
-    async getBankInfoParentId(parentId) {
+    async getBankInfoParentId(professeurId) {
   try {
-    const response = await axios.get(`/parents/${parentId}/bankinfo_parent`);
+    const response = await axios.get(`/professeurs/${professeurId}/bankinfo_prof`);
     const banckId= response.data;
     // console.log(banckId) 
     return banckId
@@ -183,14 +183,14 @@ async submitPayment() {
 
 
     const paymentData = {
-      bankinfo_parent_id: bankInfoParentId, // Modifier le nom de la propriété
+      bankinfo_prof_id: bankInfoParentId, // Modifier le nom de la propriété
       montant: this.newPayment.montant,
       mois: this.newPayment.mois,
       date: this.newPayment.date,
       est_paye: this.newPayment.est_paye
     };
 
-    const response = await axios.post('/payments', paymentData);
+    const response = await axios.post('/salaires', paymentData);
 
     this.newPayment = {
       montant: '',

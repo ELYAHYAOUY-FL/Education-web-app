@@ -44,7 +44,7 @@
                         </a>
                        
                         <div class="footer-social-link">
-                            <h3>Follow nous</h3>
+                            <h3>Suivez-nous</h3>
                             <ul>
                                 <li>
                                     <a href="#">
@@ -104,7 +104,7 @@
                                 <!-- End contact Icon -->
                                 <div class="contact-info">
                                     <h3> 06 63 54 67 89</h3>
-                                    <p>Contact nous</p>
+                                    <p>Contactez-nous</p>
                                 </div>
                                 <!-- End Contact Info -->
                             </div>
@@ -117,15 +117,15 @@
                         <div class="col-md-12 col-lg-6">
                             <div class="footer-widget footer-left-widget">
                                 <div class="section-heading">
-                                    <h3>Useful Links</h3>
+                                    <h3>Liens utiles</h3>
                                     <span class="animate-border border-black"></span>
                                 </div>
                                 <ul>
                                     <li>
-                                        <a href="#">Accueille</a>
+                                        <a href="#">Accueil</a>
                                     </li>
                                     <li>
-                                        <a href="#"> à propos de nous</a>
+                                        <a href="#"> À propos de nous</a>
                                     </li>
                                     <li>
                                         <a href="#">Services</a>
@@ -134,10 +134,10 @@
                                 </ul>
                                 <ul>
                                     <li>
-                                        <a href="#">Contact nous</a>
+                                        <a href="#">Contactez-nous</a>
                                     </li>
                                     <li>
-                                        <a href="#">Our Team</a>
+                                        <a href="#"> Notre équipe</a>
                                     </li>
                                     
                                 </ul>

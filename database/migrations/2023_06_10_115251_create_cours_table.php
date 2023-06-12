@@ -8,18 +8,14 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('devoirs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('cours', function (Blueprint $table) {
+            $table->id();
             $table->string('titre');
-            $table->text('description');
-            $table->binary('fichier');
-            $table->date('date_limite');
-            $table->boolean('valide')->default(false);
+            $table->text('contenu');
+            $table->string('fichier')->nullable();
             $table->unsignedBigInteger('professeur_id');
             $table->unsignedBigInteger('groupe_id');
             $table->timestamps();
@@ -32,11 +28,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('devoirs');
+        Schema::dropIfExists('cours');
     }
 };

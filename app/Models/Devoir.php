@@ -28,20 +28,33 @@ class Devoir extends Model
 {
 	protected $table = 'devoirs';
 
-	protected $casts = [
-		'date_limite' => 'datetime',
-		'matiere_id' => 'int'
-	];
+	// protected $casts = [
+	// 	'date_limite' => 'datetime',
+		 
+	// ];
 
 	protected $fillable = [
-		'date_limite',
+		'titre',
 		'description',
 		'fichier',
-		'matiere_id'
+		'date_limite',
+		'valide',
+		 'groupe_id',
+		 'professeur_id'
 	];
 
 	public function matiere()
 	{
 		return $this->belongsTo(Matiere::class);
 	}
+	
+    public function professeur()
+    {
+        return $this->belongsTo(Professeur::class, 'professeur_id');
+    }
+
+    public function groupe()
+    {
+        return $this->belongsTo(Groupe::class, 'groupe_id');
+    }
 }

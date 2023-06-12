@@ -26,13 +26,7 @@ class CarnetNoteController extends Controller
         return response()->json($note);
        
     }
-//     public function getCarnetNotes()
-// {
-//     $professeurId = auth()->user()->id;
-//     $carnetNotes = CarnetNote::where('professeur_id', $professeurId)->get();
-
-//     return response()->json($carnetNotes);
-// }
+ 
 
     public function create($professeurId)
     {

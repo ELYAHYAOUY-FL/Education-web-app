@@ -17,6 +17,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+       
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     @vite(['resources/js/app.js','resources/css/app.css','resources/css/mediaquery.css','resources/css/globalStyle.css'])

@@ -97,4 +97,13 @@ class Groupe extends Model
         return $this->hasMany(EmploiTemp::class, 'groupe_id');
     }
 	
+	public function cours()
+    {
+        return $this->hasMany(Cours::class);
+    }
+
+    public function devoirs()
+    {
+        return $this->hasMany(Devoir::class);
+    }
 }

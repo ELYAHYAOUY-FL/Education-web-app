@@ -1,32 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Bankinformation_Prof;
 
 use Illuminate\Http\Request;
 
-class Bankinformation_ProfController extends Controller
+class Bankinformation_ProfController extends Controller     
 {
     //i
     public function index()
-{
-    $bankinformation_prof = Bankinformation_Prof::with('professeur')->get();
+    {
+        $bankinfoProfesseur = Bankinformation_Prof::with('professeur')->get();
+        return response()->json($bankinfoProfesseur);
+    }
+    public function getBankInfoByProfesseurId($ProfesseurId)
+    {
+        $bankinfoProfesseur = Bankinformation_Prof::where('professeur_id', $ProfesseurId)->first();
 
-    return response()->json($bankinformation_prof);
-}
-
-public function store(Request $request)
-{
-  $validatedData = $request->validate([
-    'professeur_id' => 'required',
-    'rib' => 'required',
-    'numero_compte' => 'required',
-        'type_bank' => 'required',
-    ]);
-
-    $bankinfo = Bankinformation_Prof::create($validatedData);
-
-    return response()->json(['bankinfo_id' => $bankinfo->id]);
-  }
+        if ($bankinfoProfesseur) {
+            return response()->json($bankinfoProfesseur->id);
+        } else {
+            return response()->json(['message' => 'Bank information not found'], 404);
+        }
+    }
 
 
 }

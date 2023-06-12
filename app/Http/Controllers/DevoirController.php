@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Devoir;
+use App\Models\Professeur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class DevoirController
@@ -16,25 +18,40 @@ class DevoirController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $devoirs = Devoir::paginate();
+    // public function index()
+    // {
+    //     $devoirs = Devoir::paginate();
 
-        return view('devoir.index', compact('devoirs'))
-            ->with('i', (request()->input('page', 1) - 1) * $devoirs->perPage());
+    //     return view('devoir.index', compact('devoirs'))
+    //         ->with('i', (request()->input('page', 1) - 1) * $devoirs->perPage());
+    // }
+    public function create($PorfId)
+    {
+        $PorfId = Professeur::with('groupes.eleves')->findOrFail($PorfId);
+
+        return view('devoirs.create', compact('professeur'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getcoursbyidprof($PorfId)
     {
-        $devoir = new Devoir();
-        return view('devoir.create', compact('devoir'));
-    }
 
+        $cour =Devoir::with('professeur', 'groupe')->where('professeur_id', $PorfId)->get();
+        
+        return response()->json($cour);
+       
+    }
+    public function telechargerFichier($id, $nomFichier)
+    {
+        // Récupérer le chemin complet du fichier
+        $cheminVersFichier = 'public/' . $nomFichier;
+
+    if (Storage::exists($cheminVersFichier)) {
+        return response()->download(Storage::path($cheminVersFichier));
+    } else {
+        return response()->json(['message' => 'Le fichier demandé n\'existe pas.'], 404);
+    }
+    }
+     
     /**
      * Store a newly created resource in storage.
      *
@@ -43,67 +60,47 @@ class DevoirController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Devoir::$rules);
+        // Valider les données du formulaire
+        $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            'fichier' => 'required|file',
+            'date_limite' => 'required|date',
+            'professeur_id' => 'required|exists:professeurs,id',
+            'groupe_id' => 'required|exists:groupes,id',
+        ]);
 
-        $devoir = Devoir::create($request->all());
+        // Récupérer le fichier uploadé
+        $fichier = $request->file('fichier');
 
-        return redirect()->route('devoirs.index')
-            ->with('success', 'Devoir created successfully.');
+        // Générer un nom unique pour le fichier
+        $fichierNom = uniqid() . '.' . $fichier->getClientOriginalExtension();
+
+        // Déplacer le fichier vers le dossier de destination
+        $fichier->move(public_path('uploads'), $fichierNom);
+
+        // Créer le devoir dans la base de données
+        $devoir = new Devoir;
+        $devoir->titre = $request->titre;
+        $devoir->description = $request->description;
+        $devoir->fichier = $fichierNom;
+        $devoir->date_limite = $request->date_limite;
+        $devoir->professeur_id = $request->professeur_id;
+        $devoir->groupe_id = $request->groupe_id;
+        $devoir->save();
+
+        // Retourner une réponse réussie
+        return response()->json(['message' => 'Devoir créé avec succès'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function validerDevoir($id)
     {
-        $devoir = Devoir::find($id);
+        $devoir = Devoir::findOrFail($id);
+        $devoir->valide = true;
+        $devoir->save();
 
-        return view('devoir.show', compact('devoir'));
+        return response()->json(['message' => 'Devoir validé avec succès'], 200);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $devoir = Devoir::find($id);
-
-        return view('devoir.edit', compact('devoir'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Devoir $devoir
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Devoir $devoir)
-    {
-        request()->validate(Devoir::$rules);
-
-        $devoir->update($request->all());
-
-        return redirect()->route('devoirs.index')
-            ->with('success', 'Devoir updated successfully');
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $devoir = Devoir::find($id)->delete();
-
-        return redirect()->route('devoirs.index')
-            ->with('success', 'Devoir deleted successfully');
-    }
+   
+     
 }

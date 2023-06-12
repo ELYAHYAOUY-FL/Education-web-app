@@ -1,46 +1,80 @@
-<template>
+ <template>
   <MainLayout>
     <div class="container">
       <h2 class="title">Liste des paiements</h2>
-      <div v-if="payments">
-        <div v-for="payment in payments" :key="payment.id" class="card mb-3">
-          <div class="card-body">
-            <div class="payment-info">
-              <div class="payment-status" :class="{ 'paid': payment.est_paye }">
-                {{ payment.est_paye ? 'Payé' : 'Non payé' }}
-              </div>
-              <div class="payment-details">
-                <p class="payment-date">{{ payment.date }}</p>
-                <p class="payment-month">{{ payment.mois }}</p>
-              </div>
-            </div>
-            <div class="payment-parent">
-              <div class="payment-checkbox">
-                <input type="checkbox" v-model="payment.est_paye" :disabled="payment.showDetails" />
-              </div>
-              <p class="parent-name">
-                <span class="clickable" @click="showDetails(payment)">
-                  {{ payment.bank_information_parent.parent.user.nom_arabe }}
-                </span>
-              </p>
-            </div>
-            <transition name="fade">
-              <div v-if="payment.showDetails" class="payment-details-expanded">
-                <div class="payment-extra-details">
-                  <p class="parent-firstname">Prénom: {{ payment.bank_information_parent.parent.user.prenom_arabe }}</p>
-                  <p class="parent-email">Email: {{ payment.bank_information_parent.parent.user.email }}</p>
-                  <p class="payment-amount">Montant: {{ payment.montant }}</p>
-                  <p class="payment-year">Année: {{ payment.anne }}</p>
-                  <div class="bank-info">
-                    <p class="bank-account">Numéro de compte: {{ payment.bank_information_parent.numero_compte }}</p>
-                    <p class="bank-type">Type de banque: {{ payment.bank_information_parent.type_bank }}</p>
-                  </div>
-                </div>
-              </div>
-            </transition>
+      <div class="month-selector">
+        <select v-model="selectedMonth" @change="fetchPaymentDetails" >
+          <option v-for="month in months" :value="month">{{ month }}</option>
+        </select>
+      </div>
+      <div class="payment-table">
+        <div class="payment-row">
+          <div class="payment-cell">Nom du parent</div>
+          <div class="payment-cell">Numéro de compte</div>
+          <div class="payment-cell">Type de banque</div>
+          <div class="payment-cell">Montant</div>
+          <div class="payment-cell">Mois</div>
+          <div class="payment-cell">Date</div>
+          <div class="payment-cell">Statut</div>
+        </div>
+        <div v-for="payment in selectedPayments" :key="payment.id" class="payment-row">
+          <div class="payment-cell">{{ payment.bank_information_parent.parent.user.nom_arabe }}</div>
+          <div class="payment-cell">{{ payment.bank_information_parent.numero_compte }}</div>
+          <div class="payment-cell">{{ payment.bank_information_parent.type_bank }}</div>
+          <div class="payment-cell">{{ payment.montant }}</div>
+          <div class="payment-cell">{{ payment.mois }}</div>
+          <div class="payment-cell">{{ payment.date }}</div>
+          <div class="payment-cell">
+            <input type="checkbox" v-model="payment.est_paye" :disabled="isPaymentDisabled(payment)" />
+            <span v-if="payment.est_paye" class="paid">Payé</span>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="form-container">
+      <h2 class="title">Formulaire de paiement</h2>
+      <button @click="toggleForm">{{ showForm ? 'Cacher le formulaire' : 'Afficher le formulaire' }}</button>
+
+<form v-if="showForm" @submit.prevent="submitPayment">
+        <div class="form-row">
+          <label for="parent">Nom du parent:</label>
+          <select id="parent" v-model="selectedParent" >
+            <option v-for="parent in parents" :value="parent.id">{{ parent.user.nom_francais }} {{ parent.user.prenom_francais }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="montant">Montant:</label>
+          <input type="number" v-model="newPayment.montant" id="montant" required>
+        </div>
+        <div>
+          <label for="mois">Mois:</label>
+          <select v-model="newPayment.mois" id="mois">
+            <option v-for="month in months" :value="month">{{ month }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="date">Date:</label>
+          <input type="date" v-model="newPayment.date" id="date" required>
+        </div>
+        <!-- <div class="form-row">
+          <label for="est_paye">Est payé:</label>
+          <input type="checkbox" v-model="newPayment.est_paye" id="est_paye">
+        </div> -->
+        <div  class="flexCHEK">
+  <label for="est_paye">Est payé:</label>
+  <input type="radio" v-model="newPayment.est_paye" value="1" id="est_paye">
+  <label for="est_paye">Oui</label>
+  <input type="radio" v-model="newPayment.est_paye" value="0" id="non_paye">
+  <label for="non_paye">Non</label>
+</div>
+
+
+        <div class="form-row">
+          <button type="submit">Valider</button>
+        </div>
+      </form>
     </div>
   </MainLayout>
 </template>
@@ -53,20 +87,50 @@ export default {
   components: { MainLayout },
   data() {
     return {
+      showForm: false, 
       payments: [],
-      parents:[],
-      users:[],
+      selectedMonth: '',
+      months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+      parents: [],
+      selectedParent: '',
+      selectedParentDetails: {
+        numero_compte: '',
+        type_bank: ''
+      },
+      newPayment: {
+        parent_id: '',
+        montant: '',
+        mois: '',
+        date: '',
+          est_paye: 0,
+      }
     };
   },
   mounted() {
+    const now = new Date();
+    const currentMonth = now.toLocaleString('default', { month: 'long' });
+    this.selectedMonth = currentMonth;
     this.fetchPaymentDetails();
     this.fetchParents();
-      this.fetchUsers();
-      this.fetchBankInfoParents();
   },
+  watch: {
+  'newPayment.est_paye': function (value) {
+    this.newPayment.est_paye = value; // No need to convert to 1 or 0, as the radio buttons will provide the correct value
+  }
+},
+  computed: {
+    selectedPayments() {
+      return this.payments.filter(payment => payment.mois === this.selectedMonth);
+    },
+   
+  },
+
   methods: {
+    toggleForm() {
+      this.showForm = !this.showForm; // Toggle the value of showForm
+    },
     fetchPaymentDetails() {
-      axios.get('/payment/details')
+      axios.get(`/payment/details?month=${this.selectedMonth}`)
         .then(response => {
           this.payments = response.data;
         })
@@ -74,44 +138,94 @@ export default {
           console.error(error);
         });
     },
-    showDetails(payment) {
-      payment.showDetails = !payment.showDetails;
+ 
+    fetchParents() {
+      axios.get('/parents')
+        .then(response => {
+          this.parents = response.data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    fetchBankInfoParents() {
-        // Faites une requête HTTP pour obtenir la liste des parents depuis votre backend
-        // Remplacez la logique de cette méthode par votre propre logique de récupération des parents
-        axios.get('/payment/bank_information_parent')
-          .then(response => {
-            this.bank_information_parents = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      fetchParents() {
-        // Faites une requête HTTP pour obtenir la liste des parents depuis votre backend
-        // Remplacez la logique de cette méthode par votre propre logique de récupération des parents
-        axios.get('/payment/parent')
-          .then(response => {
-            this.parents = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      fetchUsers() {
-        // Faites une requête HTTP pour obtenir la liste des parents depuis votre backend
-        // Remplacez la logique de cette méthode par votre propre logique de récupération des parents
-        axios.get('/payment/user')
-          .then(response => {
-            this.users = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
+  
+    
+    async getBankInfoParentId(parentId) {
+  try {
+    const response = await axios.get(`/parents/${parentId}/bankinfo_parent`);
+    const banckId= response.data;
+    // console.log(banckId) 
+    return banckId
+    
+    // Supposons que l'ID de bankinfo_parent est renvoyé dans la propriété 'id'
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+},
+
+async submitPayment() {
+  try {
+    if (!this.selectedParent) {
+      return   console.log("hii");
+    }
+    else {
+      console.log(this.selectedParent)
+    }
+
+    const bankInfoParentId = await this.getBankInfoParentId(this.selectedParent);
+    if  (!bankInfoParentId) {
+      return console.log("hi");
+    }
+    else {
+      console.log(bankInfoParentId)
+    }
+
+
+    const paymentData = {
+      bankinfo_parent_id: bankInfoParentId, // Modifier le nom de la propriété
+      montant: this.newPayment.montant,
+      mois: this.newPayment.mois,
+      date: this.newPayment.date,
+      est_paye: this.newPayment.est_paye
+    };
+
+    const response = await axios.post('/payments', paymentData);
+
+    this.newPayment = {
+      montant: '',
+      mois: '',
+      date: '',
+      est_paye: false
+    };
+
+    this.fetchPaymentDetails();
+    console.log('hey');
+    this.showForm = false;
+    if (response.data.hasOwnProperty('error')) {
+      console.error(response.data.error);
+    } else {
+      console.log('Paiement créé avec succès');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+},
+
+// fillBankDetails() {
+//     // Récupérez les détails bancaires du parent sélectionné
+//     const selectedParent = this.parents.find(parent => parent.id === this.selectedParent);
+//     this.newPayment.id_bankinformation = selectedParent.bankInformation.bankinformation_parent_id;
+//   },
+
+    isPaymentDisabled(payment) {
+      const now = new Date();
+      const paymentDate = new Date(payment.date);
+      return paymentDate > now;
+    },
   },
-};
+}
+;
 </script>
 
 <style>
@@ -120,102 +234,44 @@ export default {
   font-weight: bold;
   margin-bottom: 20px;
 }
-
-.card {
-  background-color: #9ea7a6;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  width: 70%;
-}
-
-.card-body {
-  padding: 20px;
+.flexCHEK{
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  gap: 2%;
+}
+.month-selector {
+  margin-bottom: 10px;
 }
 
-.payment-info {
-  display: flex;
-  align-items: center;
+.payment-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.payment-status {
+.payment-row {
+  display: table-row;
+}
+
+.payment-cell {
+  display: table-cell;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.payment-cell:first-child {
   font-weight: bold;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 4px;
-  color: #c7c3c3;
 }
 
-.paid {
-  background-color: #19726e;
-}
-
-.payment-details {
-  flex: 1;
-  padding-left: 10px;
-}
-
-.payment-date,
-.payment-month {
-  margin: 0;
-  color: #333;
-}
-
-.payment-checkbox {
-  margin-left: 5px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.payment-details-expanded {
-  margin-top: 10px;
-}
-
-.parent-name {
-  font-weight: bold;
+.payment-cell input[type="checkbox"] {
   cursor: pointer;
-  margin-bottom: 5px;
-  color: #333;
-  text-decoration: underline;
 }
 
-.payment-extra-details {
-  margin-top: 10px;
+.payment-cell .paid {
+  text-decoration: line-through;
+  color: #999;
 }
 
-.parent-firstname,
-.parent-email,
-.payment-amount,
-.payment-year,
-.bank-info {
-  margin-bottom: 5px;
-  color: #575656;
-}
-
-.bank-info {
-  margin-top: 10px;
-}
-
-.bank-account,
-.bank-type {
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #555;
-}
-
-.clickable {
-  cursor: pointer;
-  text-decoration: underline;
+.form-container {
+  margin-top: 30px;
 }
 </style>

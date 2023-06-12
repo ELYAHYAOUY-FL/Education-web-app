@@ -9,10 +9,12 @@ class PayementsdemoiController extends Controller
 {
     public function index()
     {
-        $paiements = Payementsdemoi::with( 'bankInformationParent.parent.user')->get();
+        $paiements = Payementsdemoi::with('bankInformationParent.parent.user')->get();
     
         return response()->json($paiements);
     }
+    
+    
     public function store(Request $request)
     {
         $paymentData = [
@@ -32,5 +34,21 @@ class PayementsdemoiController extends Controller
     }
     
     
+    public function fetchPaymentRates()
+    {
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin']; // Liste des mois à utiliser
 
+        $paymentRates = [];
+
+        foreach ($months as $month) {
+            $paidParentsCount = Payementsdemoi::where('mois', $month)
+                ->where('est_paye', true)
+                ->distinct('bankinformation_parent_id')
+                ->count('bankinformation_parent_id');
+
+            $paymentRates[$month] = $paidParentsCount;
+        }
+
+        return response()->json(['paymentRates' => $paymentRates]);
+    }
 }

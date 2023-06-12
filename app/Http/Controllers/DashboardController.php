@@ -15,7 +15,7 @@ class DashboardController extends Controller
             $totalStudents = Eleve::count();
             $totalTeachers = Professeur::count();
             $totalSchoolLevels = NiveauScolaire::count();
-            // Autres statistiques...
+            
     
             $dashboardData = [
                 'totalStudents' => $totalStudents,
