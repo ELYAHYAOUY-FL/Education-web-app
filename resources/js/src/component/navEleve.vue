@@ -29,6 +29,9 @@
           <li>
             <router-link :to="`/parentEleveactivities/${eleveId}`">les activities parascolaire </router-link>
           </li>
+          <li>
+            <router-link :to="`/parentEleveactivities/${eleveId}`">les activities parascolaire </router-link>
+          </li>
         </div>
       </ul>
     </nav>
