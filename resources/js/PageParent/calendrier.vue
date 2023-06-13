@@ -3,7 +3,7 @@
 
     <div>
         <NavBar :eleveId="eleve.id" />
-      <div class="calendar-container">
+      <div class="calendar-container" >
   
         <h1><i class="fas fa-calendar"></i> Calendrier</h1>
         <br>
@@ -13,7 +13,7 @@
             <div>{{ selectedEvent.description }}</div>
           </div>
         </transition>
-        <FullCalendar :options="calendarOptions" class="calendrier" @click="scrollToEvent" />
+        <FullCalendar :options="calendarOptions" class="calendrier" @click="scrollToEvent" style="background-color: aliceblue;" />
       </div>
     </div>
   </template>

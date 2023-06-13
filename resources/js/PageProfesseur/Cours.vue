@@ -14,14 +14,15 @@
             </option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="contenu">Contenu du carnet de notes :</label>
-          <textarea v-model="form.contenu" rows="5" cols="40" placeholder="Contenu du carnet de notes" required class="form-control" name="form[contenu]"></textarea>
-        </div>
         <div>
           <label for="titre">Titre :</label>
           <input type="text" id="titre" v-model="form.titre" name="form[titre]">
         </div>
+        <div class="form-group">
+          <label for="contenu">Description :</label>
+          <textarea v-model="form.contenu" rows="5" cols="40" placeholder="Contenu du carnet de notes" required class="form-control" name="form[contenu]"></textarea>
+        </div>
+       
         <div>
           <label for="fichier">Fichier :</label>
           <input type="file" id="fichier" name="fichier" @change="onFileChange">
@@ -243,6 +244,7 @@ export default {
             this.form.contenu = '';
             this.form.titre = '';
             this.form.fichier = null;
+            this.getCoursbook();
         })
         .catch(error => {
             // Traiter les erreurs de la requête

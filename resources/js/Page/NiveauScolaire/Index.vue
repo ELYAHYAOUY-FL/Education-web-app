@@ -208,9 +208,24 @@ export default {
       },
   }},
   mounted() {
-this.affichera();
+    this.affichera();
   },
   methods: {
+    toggleForm() {
+    this.showNiveauForm = !this.showNiveauForm;
+  },
+    toggleGroupeForm(niveauId) {
+    // Ajoutez ici la logique pour afficher ou masquer le formulaire du groupe en fonction du niveauId
+    this.activeNiveauId = niveauId; // Définit l'id du niveau actif pour lequel le formulaire du groupe est affiché
+    this.showForm2 = !this.showForm2; // Inverse la valeur de showForm2 pour afficher ou masquer le formulaire
+    this.groupe = { // Réinitialise les valeurs du formulaire du groupe
+      nom: '',
+      capacite: '',
+      niveau_scolaire_id: niveauId
+    };
+  },
+  // ... autres méthodes du composant
+
     affichera(){
       try {
       console.log('on mounted');
@@ -284,6 +299,6 @@ this.affichera();
     console.log(error.response.data.message);
   }
     }
-  }
-};
+  }}
+
 </script>
