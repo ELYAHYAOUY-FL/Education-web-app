@@ -3,7 +3,7 @@
     <NavBar :eleveId="eleve.id" />
 
     <div class="container">
-      <div class="row">
+      <div class="row gridds">
         <div class="col-md">
           <div class="emploi-temps">
             <h2>
@@ -40,8 +40,8 @@
             </div>
           </div>
         </div>
-
-        <div class="col-md">
+<div>
+  <div class="col-md">
           <div class="notes">
             <h2>Notes</h2>
             <!-- Contenu de la partie notes -->
@@ -60,6 +60,52 @@
             </div>
           </div>
         </div>
+        <div class="">
+      <h2>Les devoirs à faire</h2>
+      <ul>
+        <li v-for="devoir in devoirs" :key="devoir.id" class="devoir-card">
+          <div class="card-front">
+            <strong>{{ devoir.titre }}</strong><br>
+            <strong>Contenu :</strong> {{ devoir.description }}
+            <strong>Professeur :</strong> {{ devoir.professeur.user.nom_francais }} - {{ devoir.professeur.matiere.titre }}
+           
+          </div>
+          <div class="card-back">
+            <p>{{ devoir.titre }}</p>
+            <strong>Statut :</strong>
+            <div v-if="devoir.pivot.validation === 0">
+              <p>Non fait</p>
+                   </div>
+            <div v-else>
+              <p>Fait</p>
+            </div>
+            
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="">
+      <h2>cahier de notes</h2>
+      <ul>
+        <li v-for="devoir in carnets" :key="devoir.id" class="devoir-card">
+          <div class="card-front">
+            <strong>{{ devoir.titre }}</strong><br>
+            <strong>Contenu :</strong> {{ devoir.contenu }}
+           
+          </div>
+          <div class="card-back">
+            <p>{{ devoir.titre }}</p>
+            <strong>déposer par Pr. {{ devoir.professeur.user.nom_francais }} {{ devoir.professeur.user.nom_arabe }}</strong>
+            
+            
+          </div>
+        </li>
+      </ul>
+    </div>
+    </div>
+</div>
+        
       </div>
     </div>
   </div>
@@ -86,7 +132,9 @@
       return {
         lastNote:'',
         userId:'',
-      
+        devoirs: [],
+        devoirId: '',
+
         emploiTemps: [], // Initialize as an empty array
       groupes: [],
       groupId: '',
@@ -115,8 +163,10 @@
             this.eleve.user = response.data.user;
              this.userId = this.eleve.user.id;
              this.fetchlastNote(this.userId);
+             this.fetchdevoir( this.$route.params.eleveId);
       console.log(this.groupeId);
              this.fetchEmploiTemps(this.groupeId);
+             this.fetchlastGroupe(this.groupeId);
 
             console.log('eleve:', this.eleve);
             console.log('groupe:', this.eleve.groupe);
@@ -127,6 +177,32 @@
             console.error(error);
           });
       },
+      fetchlastGroupe(groupeId) {
+      axios
+        .get('/carnetnotes/getbygroupe/'+ groupeId)
+        .then(response => {
+
+          console.log(this.groupeId);
+          this.carnets = response.data;
+          console.log('cours:', this.cours);
+
+        
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+      fetchdevoir(eleveid){
+    axios.get('/eleves/devoir/' + eleveid)
+      .then(response => {
+       this.devoirs=response.data;
+        console.log("hello");
+       
+      })
+      .catch(error => {
+        console.error(error);
+      });
+   },
       fetchlastNote(userid) {
   axios
     .get('/eleves/user/notes/' +userid )
@@ -313,6 +389,7 @@ h2{
 }
 .notes {
     margin-top: 20px;
+    width: 100rem;
   }
 
   .notes h2 {
@@ -348,5 +425,11 @@ h2{
   .notes .card-body p {
     margin: 5px 0;
     font-weight: bold;
+  }
+  .gridds{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12rem;
+   /* // coll:1fr 1fr 1fr ; */
   }
   </style>

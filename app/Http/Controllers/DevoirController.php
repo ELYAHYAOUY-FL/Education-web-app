@@ -41,6 +41,8 @@ class DevoirController extends Controller
         return response()->json($cour);
        
     }
+
+    
     public function telechargerFichier($id, $nomFichier)
     {
         // Récupérer le chemin complet du fichier

@@ -105,10 +105,6 @@ background-color: #0069d9;
 </style>
 
 
-
-
-
-
 <script>
 import { mapGetters } from 'vuex';
 import MenuLayoutEleve from "../Layouts/MenuLayoutEleve.vue";
