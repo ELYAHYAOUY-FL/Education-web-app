@@ -37,33 +37,60 @@
 
 
    <!-- ******************************* Affichage **************************************** -->
-      <!-- <div>
-    <h2>Liste des devoirs</h2>
-    <ul>
-      <li v-for="devoir in devoirs" :key="devoir.id">
-        <strong>{{ devoir.titre }}</strong>
-        <p>{{ devoir.description }}</p>
-        <p>Date limite : {{ devoir.date_limite }}</p>
-        <p v-if="!devoir.valide">
-          <button @click="validerDevoir(devoir.id)">Valider le devoir</button>
-        </p>
-        <p v-else>Déjà validé</p>
-      </li>
-    </ul>
-  </div> -->
-  <h2>Liste des devoirs</h2>
-    <ul>
-      <li v-for="devoir in devoirs" :key="devoir.id">
-        <strong>{{ devoir.titre }}</strong>
-        <p>{{ devoir.description }}</p>
-        <p>Date limite : {{ devoir.date_limite }}</p>
-        <strong>fichier : </strong>  <a :href="telechargerUrl(devoir.id, devoir.fichier)" download >Télécharger le fichier</a>
+   <h2>Liste des devoirs</h2>
+<div class="devoirs">
+  <div v-for="devoir in devoirs" :key="devoir.id" class="devoir-card">
+    <h2>Titre :  {{ devoir.titre }}  </h2>
+    <p>Description :{{ devoir.description }}</p>
+    <p>Date limite : {{ devoir.date_limite }}</p>
+    <p>fichier : <a :href="telechargerUrl(devoir.id, devoir.fichier)" download>Télécharger le fichier</a></p>  
+  </div>
+</div>
 
-      </li>
-    </ul>
 </MainLayoutProfDev> 
   </template>
-  
+<style>
+.devoirs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.devoirs .devoir-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.devoirs .devoir-card:hover {
+  transform: translateY(-5px);
+}
+
+.devoirs .devoir-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.devoirs .devoir-card p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.devoirs .devoir-card a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.devoirs .devoir-card a:hover {
+  text-decoration: underline;
+}
+</style>
+
+
+
  
   
 
@@ -191,6 +218,7 @@ fetchProfesseure() {
             this.form.description  = '';
             this.form.titre = '';
             this.form.fichier = null;
+            this.getDevoirs();
         })
         .catch(error => {
             // Traiter les erreurs de la requête

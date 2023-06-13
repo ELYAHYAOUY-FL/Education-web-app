@@ -124,9 +124,7 @@
                                     <li>
                                         <a href="#">Accueil</a>
                                     </li>
-                                    <li>
-                                        <a href="#"> À propos de nous</a>
-                                    </li>
+                                
                                     <li>
                                         <a href="#">Services</a>
                                     </li>
@@ -134,11 +132,15 @@
                                 </ul>
                                 <ul>
                                     <li>
+                                        <a href="#"> À propos de nous</a>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
                                         <a href="#">Contactez-nous</a>
                                     </li>
-                                    <li>
-                                        <a href="#"> Notre équipe</a>
-                                    </li>
+                                     
+                                     
                                     
                                 </ul>
                             </div>

@@ -18,7 +18,7 @@
           <div class="payment-cell">Statut</div>
         </div>
         <div v-for="payment in selectedPayments" :key="payment.id" class="payment-row">
-          <div class="payment-cell">{{ payment.bank_information_prof.professeur.user.prenom_arabe }}</div>
+          <div class="payment-cell">{{ payment.bank_information_prof.professeur.user.prenom_francais }}</div>
           <div class="payment-cell">{{ payment.bank_information_prof.numero_compte }}</div>
           <div class="payment-cell">{{ payment.bank_information_prof.type_bank }}</div>
           <div class="payment-cell">{{ payment.montant }}</div>

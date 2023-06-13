@@ -137,7 +137,7 @@ export default {
   
 <style scoped>
   .icon{
-    color: rgb(21, 168, 212);
+    color: rgb(7, 138, 161);
   }
   .icongap{
     display: flex;
@@ -167,14 +167,14 @@ export default {
   .column {
     flex: 2;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #f8fafa;
   }
   .jour {
     text-align: center;
     margin-bottom: 20px;
     width: 200px;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #cff3e5;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;

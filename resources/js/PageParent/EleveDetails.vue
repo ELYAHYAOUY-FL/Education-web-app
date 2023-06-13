@@ -1,53 +1,70 @@
 <template>
-    <div>
-        <NavBar :eleveId="eleve.id" />
-        <div>
-            <div v-if="lastNote">
-      <h2>la dernier note déposé</h2>
-      <p>Matiere: {{ lastNote.matiere.titre }}</p>
-      <p>Note: {{ lastNote.note.valeur }}</p>
-      <!-- <router-link to="/eleve/note">details</router-link> -->
-    </div>
-    
-    <!-- <div v-else>
-      <p>No last note available.</p>
-    </div> -->
-        </div>
-        <div class="containe"><h2> <i class="fas fa-sharp fa-solid fa-clock" style="color: #6e7b7c;"></i>Emploi Temps </h2> </div>
-   
-   <div class="centereziation">
-   
-   <div class="emploi-temps" v-if="emploiTemps.length > 0">
-     <div v-for="(emplois, jour) in groupedEmploiTemps" :key="jour">
-       <div class="jour-container">
-         <div class="jour-header">
-           <strong>{{ jour }}</strong>
-         </div>
-         <div class="emplois-container"> 
-            <div  class="emploi"
-             v-for="emploi in emplois"
-             :key="emploi.id"
-             :style="{ 'animation-delay': getAnimationDelay(emploi.id) }">
-             
-             <div @click="toggleDescription(emploi.id)" class="matieres">{{ emploi.matiere.titre }}</div>
-       <div class="heure">
-         {{ emploi.heure_debut ? emploi.heure_debut.slice(0, 5) : '' }} à {{ emploi.heure_fin ? emploi.heure_fin.slice(0, 5) : '' }}
+  <div>
+    <NavBar :eleveId="eleve.id" />
 
-       </div>
-       <div v-if="emploi.showDescription" class="description">
-         {{ emploi.description }}
-       </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
-     <div>
-      
-     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <div class="emploi-temps">
+            <h2>
+              <i class="fas fa-sharp fa-solid fa-clock" style="color: #6e7b7c;"></i>Emploi Temps
+            </h2>
+            <!-- Contenu de la partie emploi du temps -->
+            <div class="centereziation">
+              <div v-if="emploiTemps.length > 0">
+                <div v-for="(emplois, jour) in groupedEmploiTemps" :key="jour">
+                  <div class="jour-container">
+                    <div class="jour-header">
+                      <strong>{{ jour }}</strong>
+                    </div>
+                    <div class="emplois-container">
+                      <div
+                        class="emploi"
+                        v-for="emploi in emplois"
+                        :key="emploi.id"
+                        :style="{ 'animation-delay': getAnimationDelay(emploi.id) }"
+                      >
+                        <div @click="toggleDescription(emploi.id)" class="matieres">{{ emploi.matiere.titre }}</div>
+                        <div class="heure">
+                          {{ emploi.heure_debut ? emploi.heure_debut.slice(0, 5) : '' }} à
+                          {{ emploi.heure_fin ? emploi.heure_fin.slice(0, 5) : '' }}
+                        </div>
+                        <div v-if="emploi.showDescription" class="description">
+                          {{ emploi.description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md">
+          <div class="notes">
+            <h2>Notes</h2>
+            <!-- Contenu de la partie notes -->
+            <div v-if="lastNote" class="card">
+              <div class="card-header">
+                Dernière note déposée
+              </div>
+              <div class="card-body">
+                <p><span>Matière :</span>  Français</p>
+                <p><span>Note :</span>  12</p>
+                <div class="moyenne">
+            <strong>Moyenne :</strong> 14.19
+        </div>
+                <!-- <router-link to="/eleve/note">Détails</router-link> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script>
   import { mapGetters } from 'vuex';
@@ -195,6 +212,11 @@ toggleDescription(emploiId) {
   };
   </script>
   <style>
+  body {
+    background-color: #b2f3c0;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Ccircle fill="%23ffffff" cx="30" cy="30" r="4"/%3E%3Ccircle fill="%23ffffff" cx="70" cy="70" r="4"/%3E%3Ccircle fill="%23ffffff" cx="50" cy="50" r="3"/%3E%3C/svg%3E');
+    background-repeat: repeat;
+  }
    
 h2{ 
   padding-top: 20px;
@@ -268,7 +290,7 @@ h2{
   color: #777;
 }
 
-/* Animation */
+ 
 
 @keyframes fade-in {
   0% {
@@ -289,5 +311,42 @@ h2{
     transform: translateX(0);
   }
 }
-  
+.notes {
+    margin-top: 20px;
+  }
+
+  .notes h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .notes .card {
+    border: none;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .notes .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .notes .card-header {
+    background-color:#3d5a5c;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .notes .card-body {
+    padding: 10px;
+  }
+
+  .notes .card-body p {
+    margin: 5px 0;
+    font-weight: bold;
+  }
   </style>

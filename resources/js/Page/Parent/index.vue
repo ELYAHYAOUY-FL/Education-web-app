@@ -1,6 +1,6 @@
 <template>
   <MainLayout>
-    <h1 class="text-center">Liste des professeur</h1>
+    <h1 class="text-center">Liste des parents</h1>
     <div class="container row">
       <div  v-for="(professuer, index) in professuers" :key="index" class="col-md-4 mb-4 fade-in">
         <div class="card-header">
