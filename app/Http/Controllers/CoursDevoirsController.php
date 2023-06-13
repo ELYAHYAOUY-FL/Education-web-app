@@ -32,6 +32,15 @@ class CoursDevoirsController extends Controller
         return response()->json($cour);
        
     }
+    public function getcoursbyidgroupe($groupeId)
+    {
+
+        $cour =Cours::with('professeur.user')->where('groupe_id', $groupeId)->get();
+        
+        return response()->json($cour);
+       
+    }
+
     public function telechargerFichier($id, $nomFichier)
     {
         $cours = Cours::find($id);

@@ -209,6 +209,7 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::put('/activities/{id}', [ActivityController::class, 'update']);
 //cours
 Route::get('/cours/getbyProf/{ProfId}', [CoursDevoirsController::class, 'getcoursbyidprof']) ;
+Route::get('/cours/getbyGroupe/{groupeId}', [CoursDevoirsController::class, 'getcoursbyidgroupe']) ;
 Route::post('/coursEE', [CoursDevoirsController::class, 'store']) ;
 Route::get('/carnetnotes/create/{professeurId}', [CoursDevoirsController::class, 'create']);
 Route::get('/telecharger-fichier//{id}/{nomFichier}', [CoursDevoirsController::class, 'telechargerFichier']) ;
