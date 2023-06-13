@@ -27,6 +27,15 @@ class CarnetNoteController extends Controller
        
     }
  
+    public function getcarnetnotebyidgroupe($groupeId)
+    {
+
+        $note = CarnetNote::with('professeur.user')->where('groupe_id', $groupeId)->get();
+        
+        return response()->json($note);
+       
+    }
+ 
 
     public function create($professeurId)
     {
@@ -36,22 +45,6 @@ class CarnetNoteController extends Controller
     }
 
 
-    // Méthode pour enregistrer une note dans le carnet
-//    public function store(Request $request, $professeurId)
-//     {
-//         $professeur = Professeur::findOrFail($professeurId);
-
-//         $carnetNote = new CarnetNote();
-//         $carnetNote->date = $request->input('date');
-//         $carnetNote->contenu = $request->input('contenu');
-
-//         $professeur->carnetNotes()->save($carnetNote);
-
-//         return response()->json([
-//             'message' => 'Carnet de notes créé avec succès',
-//             'carnetNote' => $carnetNote
-//         ], 201);
-//     }
 public function store(Request $request)
 {
     $validatedData = $request->validate([

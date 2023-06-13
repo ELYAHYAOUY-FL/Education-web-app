@@ -234,6 +234,7 @@ Route::post('/relation-exam-eleve', [EleveExamController::class, 'store']);
 // carnet 
  Route::get('/carnetnotes/create/{professeurId}', [CarnetNoteController::class, 'create']) ;
  Route::get('/carnetnotes/getbyProf/{ProfId}', [CarnetNoteController::class, 'getcarnetnotebyidprof']) ;
+ Route::get('/carnetnotes/getbygroupe/{groupeId}', [CarnetNoteController::class, 'getcarnetnotebyidgroupe']) ;
 Route::post('/carnetnotes', [CarnetNoteController::class, 'store']) ;
 Route::post('/payements', [PayementsdemoiController::class, 'store']);
 
