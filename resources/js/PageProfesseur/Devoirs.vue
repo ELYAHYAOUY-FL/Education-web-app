@@ -218,3 +218,51 @@ this.form = {
  
   </script>
   
+  <style>
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  width: 30%;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #888888;
+  margin-bottom: 10px;
+}
+
+.card-date {
+  font-size: 12px;
+  color: #aaaaaa;
+}
+
+.card-link {
+  font-size: 14px;
+  color: #4c9e9e;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+</style>

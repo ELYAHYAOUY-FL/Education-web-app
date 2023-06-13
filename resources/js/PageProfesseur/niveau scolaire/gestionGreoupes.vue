@@ -18,7 +18,7 @@
             <tbody>
               <tr v-for="(eleve, eleveIndex) in groupe.eleves" :key="eleve.id" class="student-row" >
                 <td class="student-name">
-                  {{ eleve.user.nom_francais }} {{ eleve.user.prenom_francais }}
+                  {{ eleve.CNE }} 
                 </td>
 
                 <td class="exam-cell" @click="handleExamClick(groupeIndex, eleveIndex, eleve.id, 0 , exam)">

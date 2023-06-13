@@ -56,6 +56,7 @@ import store  from '@/store';
 //eleve
 import HomeELEVE from './PageEleve/home.vue'
 import NoteELEVE from './PageEleve/note.vue'
+import DevoirELEVE from './PageEleve/devoire.vue'
 
 //paiement 
 import paiementparent from './Page/Paiement/payementParent.vue'
@@ -354,6 +355,13 @@ meta: {requiresAuth:true , administration:true}
   path : '/eleve/note',
   name :'noteEleve',
   component :NoteELEVE ,
+  meta: {requiresAuth:true , eleve:true}
+
+},
+{
+  path : '/eleve/devoir',
+  name :'devoieEleve',
+  component :DevoirELEVE ,
   meta: {requiresAuth:true , eleve:true}
 
 },
