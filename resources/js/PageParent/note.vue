@@ -166,10 +166,9 @@ export default {
     };
   },
  
-  methods: {
 
-     
-    fetchEleve() {
+  methods: {
+      fetchEleve() {
         axios
           .get('/eleves/' + this.$route.params.eleveId)
           .then(response => {
